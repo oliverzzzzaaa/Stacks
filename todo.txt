@@ -1,0 +1,1 @@
+Make sure no dead links on splash page (navbar)

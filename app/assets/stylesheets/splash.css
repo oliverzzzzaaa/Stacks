@@ -22,7 +22,7 @@
 }
 
 .splash-header {
-    background-color: lightgray;
+    background-color: white;
     position: absolute;
     height: 50px;
     width: 100%;
@@ -68,4 +68,12 @@
     background-color: white;
     display: flex;
     width: 20%;
+}
+
+
+body {
+    height: 100%;
+    width: 100%;
+    background-image: url('pagoda-tower.jpg');
+    background-size: 100%, 100%;
 }

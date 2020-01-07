@@ -20,11 +20,11 @@ class SignInForm extends React.Component {
     render() {
         return(
             <div className="signInPage">
-                <div className="slack-logo-div">
-                    <NavLink to='/' className="splash-nav-dropdowns">
-                        <img src="/assets/icon_slack.svg" className="slack-logo"/>
-                    </NavLink>
-                </div>
+                    <div className="slack-logo-div">
+                        <NavLink to='/' className="splash-nav-dropdowns">
+                            <img src="/assets/icon_slack.svg" className="slack-logo"/>
+                        </NavLink>
+                    </div>
                 <form onSubmit={this.handleSubmit} className="signInForm">
                     <h2 className="signInWelcome">Sign In to SampleWorkspace</h2>
                     <h4 className="signInWelcome">Enter your email address and password</h4>
