@@ -15,7 +15,7 @@ class SplashPage extends React.Component {
                     <section className="header-left">
                         <div className="slack-logo-div">
                             <NavLink to='/' className="splash-nav-dropdowns">
-                                <img src={window.pagoda-tower} className="slack-logo"/>
+                                <img src={window.pagodatower} className="slack-logo"/>
                             </NavLink>
                         </div>
                         <NavLink to='/users/new' className="splash-nav-dropdowns">Why Slack?</NavLink>
