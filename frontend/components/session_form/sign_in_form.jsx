@@ -22,7 +22,7 @@ class SignInForm extends React.Component {
             <div className="signInPage">
                     <div className="slack-logo-div">
                         <NavLink to='/' className="splash-nav-dropdowns">
-                            <img src="/assets/icon_slack.svg" className="slack-logo"/>
+                            <img src={window.iconSlack} className="slack-logo"/>
                         </NavLink>
                     </div>
                 <form onSubmit={this.handleSubmit} className="signInForm">
