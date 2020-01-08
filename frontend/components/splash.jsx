@@ -56,6 +56,11 @@ class SplashPage extends React.Component {
                         
                     </section> */}
                     <section className="splash-item" id="splash-second">
+                        <section id="marble-text">
+                            <h1>Slack replaces email inside your company</h1>
+                            <h4 id="marble-text-secondary">Keep conversations organized in Slack, the smart alternative to email</h4>
+                            <NavLink to="/users/new" className="marble-button">Try Slack</NavLink>
+                        </section>
                     </section>
                     <section className="splash-item" id="splash-third">
                         

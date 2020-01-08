@@ -794,7 +794,14 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
         className: "splash-item",
         id: "splash-second"
-      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
+        id: "marble-text"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", null, "Slack replaces email inside your company"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", {
+        id: "marble-text-secondary"
+      }, "Keep conversations organized in Slack, the smart alternative to email"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_0__["NavLink"], {
+        to: "/users/new",
+        className: "marble-button"
+      }, "Try Slack"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
         className: "splash-item",
         id: "splash-third"
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {

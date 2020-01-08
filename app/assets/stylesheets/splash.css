@@ -46,7 +46,8 @@
     margin-right: 30px;
     font-size: 20px;
     color: black;
-
+    cursor: pointer;
+    
 }
 
 .splash-nav-dropdowns {
@@ -57,12 +58,13 @@
     color: black;
     align-self: center;
     justify-content: flex-start;
+    cursor: pointer;
 }
 
 .slack-logo {
     height: 30%;
     width: 80%;
-
+    
 }
 
 .slack-logo-div {
@@ -79,6 +81,7 @@ body {
     background-size: 100%, 100%;
     background-color: pink;
     margin: 0;
+    font-family: Slack-Larsseit,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
 }
 
 /* background-image: url('pagoda-tower.jpg'); */
@@ -86,7 +89,7 @@ body {
     height: 100%;
     width: 60%;
     display: flex;
-
+    
 }
 
 .signout-button {
@@ -102,6 +105,7 @@ body {
     text-decoration: none;
     /* padding: 6px; */
     margin-right: 20px;
+    cursor: pointer;
 }
 
 .splash-main {
@@ -135,3 +139,63 @@ body {
     margin-top: 50px;
     border-radius: 0;
 }
+.splash-button-link {
+    background-color: purple;
+    border-radius: 20px;
+    height: 40px;
+    width: 100px;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    text-decoration: none;
+    padding: 2px;
+    margin-right: 20px;
+}
+
+#marble-text {
+    font-family: Slack-Larsseit,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -1.5px;
+    max-width: 40rem;
+    display: block;
+    width: 50%;
+    height: 350px;
+    left: 5%;
+    align-self: center;
+    text-decoration: none;
+    position: relative;
+}
+
+#marble-text h1 {
+    font-size: 3.5rem;
+    text-decoration: none;
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+.marble-button {
+    text-decoration: none;
+    background-color: purple;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 20px;
+    cursor: pointer;
+    position: relative;
+    color: white;
+}
+
+#marble-text-secondary {
+    font-weight: 400;
+    line-height: 1.333;
+    width: 70%; 
+    letter-spacing: -.2px;
+    margin-top: 0;
+    font-family: Slack-Circular-Pro,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+    font-size: calc(1.125rem + (2 * (100vw - 400px)/ 624));
+    margin-bottom: 50px;
+}
+
