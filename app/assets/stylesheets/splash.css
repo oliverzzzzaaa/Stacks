@@ -16,15 +16,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    align-self: center;
     text-decoration: none;
-    padding: 6px;
+    padding: 2px;
     margin-right: 20px;
 }
 
 .splash-header {
     background-color: white;
     position: absolute;
-    height: 50px;
+    height: 60px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -75,10 +76,12 @@
 body {
     height: 100%;
     width: 100%;
-    background-image: url('pagoda-tower.jpg');
     background-size: 100%, 100%;
+    background-color: pink;
+    margin: 0;
 }
 
+/* background-image: url('pagoda-tower.jpg'); */
 .slack-logo-div-signin {
     height: 100%;
     width: 60%;
@@ -99,4 +102,36 @@ body {
     text-decoration: none;
     /* padding: 6px; */
     margin-right: 20px;
+}
+
+.splash-main {
+    display: flex;
+    flex-direction: column;
+    height: 3000px;
+}
+
+.splash-first {
+    height: 40px;
+    background-color: lightgray;
+    border-radius: 40px;
+    align-self: center;
+    visibility: hidden;
+}
+/* background-color: lightgray; */
+
+.splash-item {
+    border-radius: 40px;
+    align-self: center;
+    margin: 100px;
+    height: 500px;
+    width: 100%;
+}
+#splash-second {
+    background-image: url('slack_marbles.jpg');
+    background-size: contain;
+    height: 500px;
+    align-self: center;
+    margin: 100px;
+    margin-top: 50px;
+    border-radius: 0;
 }

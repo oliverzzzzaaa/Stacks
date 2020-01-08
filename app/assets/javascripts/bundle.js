@@ -789,7 +789,21 @@ function (_React$Component) {
       }, "Enterprise"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_0__["NavLink"], {
         to: "/users/new",
         className: "splash-nav-dropdowns"
-      }, "Pricing")), loginout));
+      }, "Pricing")), loginout), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "splash-main"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
+        className: "splash-item",
+        id: "splash-second"
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
+        className: "splash-item",
+        id: "splash-third"
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
+        className: "splash-item",
+        id: "splash-fourth"
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
+        className: "splash-item",
+        id: "splash-fifth"
+      })));
     }
   }]);
 

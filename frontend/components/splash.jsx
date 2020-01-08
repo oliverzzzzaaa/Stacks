@@ -51,6 +51,22 @@ class SplashPage extends React.Component {
                     </section>
                     {loginout}
                 </section>
+                <div className="splash-main">
+                    {/* <section className="splash-first">
+                        
+                    </section> */}
+                    <section className="splash-item" id="splash-second">
+                    </section>
+                    <section className="splash-item" id="splash-third">
+                        
+                    </section>
+                    <section className="splash-item" id="splash-fourth">
+                        
+                    </section>
+                    <section className="splash-item" id="splash-fifth">
+                        
+                    </section>
+                </div>
             </div>
         )
     }

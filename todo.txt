@@ -2,7 +2,6 @@ Make sure no dead links on splash page (navbar)
 
 Think of idea for splash page
 
-Sign out button CSS
 
 
 Do workspaces!
