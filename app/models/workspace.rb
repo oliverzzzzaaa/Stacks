@@ -4,7 +4,7 @@ class Workspace < ApplicationRecord
 
     belongs_to :host,
     foreign_key: :host_id,
-    class: :User
+    class_name: :User
 
     def self.find_by_name(name)
         workspace = Workspace.find_by(name: name)
