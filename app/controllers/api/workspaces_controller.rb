@@ -5,6 +5,7 @@ class Api::WorkspacesController < ApplicationController
             render '/api/workspaces/show'
         else
             render json: ["Sorry, workspace not found"], status: 401
+        end
     end
 
     private
