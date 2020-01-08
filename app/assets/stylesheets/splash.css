@@ -74,6 +74,6 @@
 body {
     height: 100%;
     width: 100%;
-    background-image: url('pagoda-tower.jpg');
+    background-image: url("/assets/images/pagoda-tower.jpg");
     background-size: 100%, 100%;
 }
