@@ -28,7 +28,7 @@ class SplashPage extends React.Component {
         if (Object.keys(this.props.currentUser).length > 0) {
             loginout = (
                 <section className="header-right">
-                    <button onClick={this.logoutUser} className="splash-button-link">Sign Out</button>
+                    <button onClick={this.logoutUser} className="signout-button">Sign Out</button>
                 </section>
             )
         }

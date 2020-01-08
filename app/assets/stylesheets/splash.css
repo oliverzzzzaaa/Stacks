@@ -8,9 +8,9 @@
 }
 .splash-button-link {
     background-color: purple;
-    border-radius: 10px;
+    border-radius: 20px;
     height: 40px;
-    width: 80px;
+    width: 100px;
     color: white;
     font-size: 20px;
     display: flex;
@@ -84,4 +84,19 @@ body {
     width: 60%;
     display: flex;
 
+}
+
+.signout-button {
+    background-color: purple;
+    border-radius: 15px;
+    height: 100%;
+    width: 100px;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    /* padding: 6px; */
+    margin-right: 20px;
 }

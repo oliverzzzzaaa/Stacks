@@ -437,14 +437,16 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "signInPage"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "slack-logo-div"
+        className: "signin-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "slack-logo-div-signin"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
         to: "/",
         className: "splash-nav-dropdowns"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.iconSlack,
         className: "slack-logo"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit,
         className: "signInForm"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
@@ -756,7 +758,7 @@ function (_React$Component) {
           className: "header-right"
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
           onClick: this.logoutUser,
-          className: "splash-button-link"
+          className: "signout-button"
         }, "Sign Out"));
       }
 
