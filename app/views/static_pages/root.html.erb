@@ -2,6 +2,13 @@
     window.iconSlack = "<%= image_url('icon_slack.svg') %>";
     window.pagodatower = "<%= image_url('pagoda-tower.jpg') %>";
 </script>
+<% if logged_in? %>
+  <script id="bootstrap-current-user" type="text/javascript">
+    console.log("LOGGED IN")
+  	window.currentUser = <%= render("api/users/user.json.jbuilder",
+  		user: current_user).html_safe %>
+  </script>
+<% end %>
 
 <main id="root">Static Page</main>
 

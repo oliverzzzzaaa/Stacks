@@ -68,6 +68,7 @@
     background-color: white;
     display: flex;
     width: 20%;
+    height: 100%
 }
 
 
@@ -76,4 +77,11 @@ body {
     width: 100%;
     background-image: url('pagoda-tower.jpg');
     background-size: 100%, 100%;
+}
+
+.slack-logo-div-signin {
+    height: 100%;
+    width: 60%;
+    display: flex;
+
 }

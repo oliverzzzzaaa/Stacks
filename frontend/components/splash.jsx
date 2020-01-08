@@ -4,9 +4,34 @@ import React from 'react'
 class SplashPage extends React.Component {
     constructor(props) {
         super(props)
+        this.logoutUser = this.logoutUser.bind(this)
+        this.state = this.props.currentUser;
     }
-    
+
+    componentDidMount() {
+        console.log(this.state)
+    }
+
+    logoutUser(e) {
+        e.preventDefault();
+        this.props.action().then(
+            () => this.props.history.push("/session/new") 
+        )
+    }
     render() {
+        let loginout = (
+        <section className="header-right">
+            <NavLink to='/session/new' className="splash-new-session-link">Sign In</NavLink>
+            <NavLink to="/users/new" className="splash-button-link">SignUp</NavLink>
+        </section>
+        )
+        if (Object.keys(this.props.currentUser).length > 0) {
+            loginout = (
+                <section className="header-right">
+                    <button onClick={this.logoutUser} className="splash-button-link">Sign Out</button>
+                </section>
+            )
+        }
         return(
             <div>
                 <section className="splash-header">
@@ -24,10 +49,7 @@ class SplashPage extends React.Component {
                         <NavLink to='/users/new' className="splash-nav-dropdowns">Enterprise</NavLink>
                         <NavLink to='/users/new' className="splash-nav-dropdowns">Pricing</NavLink>
                     </section>
-                    <section className="header-right">
-                        <NavLink to='/session/new' className="splash-new-session-link">Sign In</NavLink>
-                        <NavLink to="/users/new" className="splash-button-link">SignUp</NavLink>
-                    </section>
+                    {loginout}
                 </section>
             </div>
         )

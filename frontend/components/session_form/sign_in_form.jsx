@@ -6,6 +6,7 @@ class SignInForm extends React.Component {
         super(props)
         this.state = this.props.userform
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleDefaultUser = this.handleDefaultUser.bind(this)
     }
 
     updateField(field) {
@@ -17,12 +18,22 @@ class SignInForm extends React.Component {
         this.props.action(this.state)
     }
 
+    handleDefaultUser(e) {
+        e.preventDefault();
+        this.setState({
+            email: "DemoUser1@aa.io",
+            password: "DemoUser1",
+        }, () => {
+            document.getElementById("sign-in-button").click()
+        })
+    }
+
     render() {
         return(
             <div className="signInPage">  
-                <div className="splash-header">
+                <div className="signin-header">
                     <div>
-                        <div className="slack-logo-div">
+                        <div className="slack-logo-div-signin">
                             <NavLink to='/' className="splash-nav-dropdowns">
                                 <img src={window.iconSlack} className="slack-logo"/>
                             </NavLink>
@@ -38,7 +49,8 @@ class SignInForm extends React.Component {
                     <label>Password
                         <input type="password" value={this.state.password} onChange={this.updateField('password')}/>
                     </label>
-                    <button className="signInButton" type="submit">Sign In</button>
+                    <button className="signInButton" id="sign-in-button" type="submit">Sign In</button>
+                    <button className="signInButton" id="demo-user-button" onClick={this.handleDefaultUser}>Demo User</button>
                 </form>
             </div>
         )
