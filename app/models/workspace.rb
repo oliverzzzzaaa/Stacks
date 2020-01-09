@@ -6,7 +6,7 @@ class Workspace < ApplicationRecord
     foreign_key: :host_id,
     class_name: :User
 
-    has_many :workspace_assignments
+    has_many :workspace_assignments,
     foreign_key: :workspace_id,
     class_name: :WorkspaceAssignment
 
