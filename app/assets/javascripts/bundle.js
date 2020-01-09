@@ -885,13 +885,21 @@ function (_React$Component) {
         id: "Break-out-inbox"
       }, "Break out of the Inbox"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", {
         id: "third-subtext"
-      }, "Working in channels gives everyone on your team a shared view of progress and purpose"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
-        className: "splash-item",
-        id: "splash-fourth"
-      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
-        className: "splash-item",
-        id: "splash-fifth"
-      })));
+      }, "Working in channels gives everyone on your team a shared view of progress and purpose"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        "class": "three-marble-images"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+        src: window.slackMarble1,
+        id: "slack-marble-1",
+        className: "slack-marble-gif"
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+        src: window.slackMarble2,
+        id: "slack-marble-2",
+        className: "slack-marble-gif"
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+        src: window.slackMarble3,
+        id: "slack-marble-3",
+        className: "slack-marble-gif"
+      }))))));
     }
   }]);
 
