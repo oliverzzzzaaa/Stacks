@@ -31,15 +31,26 @@ class SignInForm extends React.Component {
     render() {
         return(
             <div className="signInPage">  
-                <div className="signin-header">
-                    <div>
-                        <div className="slack-logo-div-signin">
+                <section className="splash-header">
+                    {/* <button className="splash-button">Sign In</button>
+                    <button className="splash-button">Sign Up</button> */}
+                    <section className="header-left">
+                        <div className="slack-logo-div">
                             <NavLink to='/' className="splash-nav-dropdowns">
                                 <img src={window.iconSlack} className="slack-logo"/>
                             </NavLink>
                         </div>
-                    </div>
-                </div>
+                        <NavLink to='/users/new' className="splash-nav-dropdowns">Why Slack?</NavLink>
+                        <NavLink to='/users/new' className="splash-nav-dropdowns">Solutions</NavLink>
+                        <NavLink to='/users/new' className="splash-nav-dropdowns">Resources</NavLink>
+                        <NavLink to='/users/new' className="splash-nav-dropdowns">Enterprise</NavLink>
+                        <NavLink to='/users/new' className="splash-nav-dropdowns">Pricing</NavLink>
+                    </section>
+                    <section className="header-right">
+                        <NavLink to='/session/new' className="splash-new-session-link">Sign In</NavLink>
+                        <NavLink to="/users/new" className="splash-button-link">SignUp</NavLink>
+                    </section>
+                </section>
                 <form onSubmit={this.handleSubmit} className="signInForm">
                     <h2 className="signInWelcome">Sign In to SampleWorkspace</h2>
                     <h4 className="signInWelcome">Enter your email address and password</h4>

@@ -63,7 +63,10 @@ class SplashPage extends React.Component {
                         </section>
                     </section>
                     <section className="splash-item" id="splash-third">
-                        
+                        <section id="splash-third-text">
+                            <h1 id="Break-out-inbox">Break out of the Inbox</h1>
+                            <h4 id="third-subtext">Working in channels gives everyone on your team a shared view of progress and purpose</h4>
+                        </section>
                     </section>
                     <section className="splash-item" id="splash-fourth">
                         

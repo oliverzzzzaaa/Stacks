@@ -321,17 +321,42 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "signInPage"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "splash-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "header-left"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "signin-header"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "slack-logo-div-signin"
+        className: "slack-logo-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
         to: "/",
         className: "splash-nav-dropdowns"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.iconSlack,
         className: "slack-logo"
-      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-nav-dropdowns"
+      }, "Why Slack?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-nav-dropdowns"
+      }, "Solutions"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-nav-dropdowns"
+      }, "Resources"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-nav-dropdowns"
+      }, "Enterprise"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-nav-dropdowns"
+      }, "Pricing")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "header-right"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/session/new",
+        className: "splash-new-session-link"
+      }, "Sign In"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-button-link"
+      }, "SignUp"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit,
         className: "signInForm"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
@@ -436,17 +461,42 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "signInPage"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "splash-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "header-left"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "signin-header"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "slack-logo-div-signin"
+        className: "slack-logo-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
         to: "/",
         className: "splash-nav-dropdowns"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.iconSlack,
         className: "slack-logo"
-      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-nav-dropdowns"
+      }, "Why Slack?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-nav-dropdowns"
+      }, "Solutions"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-nav-dropdowns"
+      }, "Resources"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-nav-dropdowns"
+      }, "Enterprise"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-nav-dropdowns"
+      }, "Pricing")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "header-right"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/session/new",
+        className: "splash-new-session-link"
+      }, "Sign In"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-button-link"
+      }, "SignUp"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit,
         className: "signInForm"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
@@ -607,17 +657,42 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "signInPage"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "splash-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "header-left"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "signin-header"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "slack-logo-div-signin"
+        className: "slack-logo-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
         to: "/",
         className: "splash-nav-dropdowns"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.iconSlack,
         className: "slack-logo"
-      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-nav-dropdowns"
+      }, "Why Slack?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-nav-dropdowns"
+      }, "Solutions"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-nav-dropdowns"
+      }, "Resources"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-nav-dropdowns"
+      }, "Enterprise"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-nav-dropdowns"
+      }, "Pricing")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "header-right"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/session/new",
+        className: "splash-new-session-link"
+      }, "Sign In"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        to: "/users/new",
+        className: "splash-button-link"
+      }, "SignUp"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit,
         className: "signInForm"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
@@ -804,7 +879,13 @@ function (_React$Component) {
       }, "Try Slack"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
         className: "splash-item",
         id: "splash-third"
-      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
+        id: "splash-third-text"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
+        id: "Break-out-inbox"
+      }, "Break out of the Inbox"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", {
+        id: "third-subtext"
+      }, "Working in channels gives everyone on your team a shared view of progress and purpose"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
         className: "splash-item",
         id: "splash-fourth"
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
