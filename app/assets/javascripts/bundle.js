@@ -886,7 +886,7 @@ function (_React$Component) {
       }, "Break out of the Inbox"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", {
         id: "third-subtext"
       }, "Working in channels gives everyone on your team a shared view of progress and purpose"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        "class": "three-marble-images"
+        className: "three-marble-images"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
         src: window.slackMarble1,
         id: "slack-marble-1",

@@ -1,4 +1,5 @@
 class Api::WorkspacesController < ApplicationController
+
     def show
         @workspace = Workspace.find_by_name(params[:workspace][:name])
         if @workspace

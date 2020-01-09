@@ -66,7 +66,7 @@ class SplashPage extends React.Component {
                         <section id="splash-third-text">
                             <h1 id="Break-out-inbox">Break out of the Inbox</h1>
                             <h4 id="third-subtext">Working in channels gives everyone on your team a shared view of progress and purpose</h4>
-                            <div class="three-marble-images">
+                            <div className="three-marble-images">
                                 <img src={window.slackMarble1} id="slack-marble-1" className="slack-marble-gif"/>
                                 <img src={window.slackMarble2} id="slack-marble-2" className="slack-marble-gif"/>
                                 <img src={window.slackMarble3} id="slack-marble-3" className="slack-marble-gif"/>

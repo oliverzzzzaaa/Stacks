@@ -1,7 +1,12 @@
-Make sure no dead links on splash page (navbar)
 
-Think of idea for splash page
+login
+joins table to find matching user_id
+workspaces [1,2,3]
+workspaces.each do |workspace|
+    find name
+end
 
+workspaces ["Aa", "HR", "GA"]
 
 
 Do workspaces!

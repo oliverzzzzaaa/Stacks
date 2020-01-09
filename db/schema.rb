@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_07_230555) do
+ActiveRecord::Schema.define(version: 2020_01_09_010349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 2020_01_07_230555) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  create_table "workspace_assignments", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "workspace_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_workspace_assignments_on_user_id"
+    t.index ["workspace_id"], name: "index_workspace_assignments_on_workspace_id"
+  end
+
   create_table "workspaces", force: :cascade do |t|
     t.integer "host_id", null: false
     t.string "workspace_name", null: false
@@ -36,4 +45,6 @@ ActiveRecord::Schema.define(version: 2020_01_07_230555) do
     t.index ["workspace_name"], name: "index_workspaces_on_workspace_name", unique: true
   end
 
+  add_foreign_key "workspace_assignments", "users"
+  add_foreign_key "workspace_assignments", "workspaces"
 end
