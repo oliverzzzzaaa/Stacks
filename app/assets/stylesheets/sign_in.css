@@ -62,3 +62,19 @@ input {
     display: flex;
     justify-content: space-between;
 }
+
+.errors-ul {
+    display: flex;
+    justify-content: center;
+}
+
+.error-message {
+    color: red;
+    list-style: none;
+    font-size: 12px;
+    align-self: center;
+}
+
+#demo-user-button {
+    margin-top: 5px;
+}

@@ -6,10 +6,24 @@ class SignUpForm extends React.Component {
         super(props)
         this.state = this.props.user
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.renderErrors = this.renderErrors.bind(this)
     }
     updateField(field) {
         return e => this.setState({[field]: e.currentTarget.value})
     }
+
+    renderErrors() {
+        return(
+          <ul className="errors-ul">
+            {this.props.errors.map((error, i) => (
+              <li key={`error-${i}`} className="error-message">
+                {error}
+              </li>
+            ))}
+          </ul>
+        );
+      }
+
 
     handleSubmit(e) {
         e.preventDefault();
@@ -41,6 +55,7 @@ class SignUpForm extends React.Component {
                 </section>
                 <form onSubmit={this.handleSubmit} className="signInForm">
                     <h2 className="signInWelcome">Choose your login details</h2>
+                    {this.renderErrors()}
                     <label>Username 
                         <input type="text" value={this.state.username} onChange={this.updateField('username')}/>
                     </label>

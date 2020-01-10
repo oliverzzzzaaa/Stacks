@@ -1,0 +1,1 @@
+json.extract! workspace_assignment, :user_id, :workspace_id

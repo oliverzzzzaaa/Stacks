@@ -8,10 +8,23 @@ class WorkspaceForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.state = this.props.workspaceform
         this.handleDefaultUser = this.handleDefaultUser.bind(this)
+        this.renderErrors = this.renderErrors.bind(this)
     }
     updateField(field) {
         return e => this.setState({[field]: e.currentTarget.value})
     }
+    renderErrors() {
+        return(
+          <ul className="errors-ul">
+            {this.props.errors.map((error, i) => (
+              <li key={`error-${i}`} className="error-message">
+                {error}
+              </li>
+            ))}
+          </ul>
+        );
+      }
+
 
     handleSubmit(e) {
         e.preventDefault();
@@ -58,6 +71,7 @@ class WorkspaceForm extends React.Component {
                 <form onSubmit={this.handleSubmit} className="signInForm">
                     <h2 className="signInWelcome">Sign in to your workspace</h2>
                     <h4 className="signInWelcome">Enter your workspace's Slack Url</h4>
+                    {this.renderErrors()}
                     <label>Slack-url:
                         <input type="text" value={this.state.workspace} onChange={this.updateField('workspace')}/>
                     </label>

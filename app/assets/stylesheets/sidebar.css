@@ -1,0 +1,49 @@
+.sidebar-container-purple {
+    background-color: #3F0E40;
+    color: rgb(207,195,207);;
+    display: flex;
+    flex-direction: column;
+    height: 1000px;
+    width: 24%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.sidebar-container-purple div {
+    padding-left: 20px;
+}
+
+#sidebar-workspace-name {
+    font-size: 18px;
+    line-height: 1.33334;
+    font-weight: 900;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #FFFFFF;
+    font-family: Slack-Lato,appleLogo,sans-serif;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: 700;
+}
+.sidebar-link:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.sidebar-white-lock {
+    width: 8%;
+    height: 10%;
+    margin-right: 5px;
+    padding: 0;
+}
+
+.sidebar-channel-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-left: 0;
+}

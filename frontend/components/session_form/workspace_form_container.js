@@ -1,7 +1,8 @@
 import {connect} from 'react-redux'
 import WorkSpaceForm from './workspace_form'
 
-const mapStateToProps = state => ({
+const mapStateToProps = ({errors}) => ({
+    errors: errors.session,
     workspaceform: {workspace: ''}
 })
 

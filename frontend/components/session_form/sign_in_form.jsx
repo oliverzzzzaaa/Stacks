@@ -7,6 +7,7 @@ class SignInForm extends React.Component {
         this.state = this.props.userform
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleDefaultUser = this.handleDefaultUser.bind(this)
+        this.renderErrors = this.renderErrors.bind(this)
     }
 
     updateField(field) {
@@ -15,8 +16,22 @@ class SignInForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.action(this.state)
+        // debugger; 
+        this.props.action(this.state).then(
+            () => this.props.fetchMessages())
     }
+
+    renderErrors() {
+        return(
+          <ul className="errors-ul">
+            {this.props.errors.map((error, i) => (
+              <li key={`error-${i}`} className="error-message">
+                {error}
+              </li>
+            ))}
+          </ul>
+        );
+      }
 
     handleDefaultUser(e) {
         e.preventDefault();
@@ -54,6 +69,7 @@ class SignInForm extends React.Component {
                 <form onSubmit={this.handleSubmit} className="signInForm">
                     <h2 className="signInWelcome">Sign In to SampleWorkspace</h2>
                     <h4 className="signInWelcome">Enter your email address and password</h4>
+                    {this.renderErrors()}
                     <label>Email
                         <input type="text" value={this.state.email} onChange={this.updateField('email')}/>
                     </label>

@@ -1,14 +1,12 @@
 
 login
-joins table to find matching user_id
-workspaces [1,2,3]
-workspaces.each do |workspace|
-    find name
-end
 
-workspaces ["Aa", "HR", "GA"]
+Fix Jbuilder for workspace and workspace associations
 
+Make static messages page
+    Make sure messages is a prop passed into the component
+Incorporate ActionCable
+CSS the main page incl navbar (sample channels and workspaces)
 
-Do workspaces!
-    users jbuilder retrieve relevant workspaces
-    look through pokedex
+make channels
+Link messages and channels workspaces

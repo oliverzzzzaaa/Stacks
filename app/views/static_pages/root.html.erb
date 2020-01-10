@@ -5,10 +5,10 @@
     window.slackMarble1 = "<%= image_url('slackmarble1.gif') %>";
     window.slackMarble2 = "<%= image_url('slackmarble4.gif') %>";
     window.slackMarble3 = "<%= image_url('slackmarble3.gif') %>";
+    window.sidebarWhiteLock = "<%= image_url('sidebar-white-lock.png') %>";
 </script>
 <% if logged_in? %>
   <script id="bootstrap-current-user" type="text/javascript">
-    console.log("LOGGED IN")
   	window.currentUser = <%= render("api/users/user.json.jbuilder",
   		user: current_user).html_safe %>
   </script>

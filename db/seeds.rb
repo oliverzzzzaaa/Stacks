@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 User.delete_all
+Workspace.delete_all
+WorkspaceAssignment.delete_all
 
 user = User.create!({
     username: "DemoUser1",
@@ -13,3 +15,31 @@ user = User.create!({
     email: "DemoUser1@aa.io",
     name: "Danny Demo"
 })
+user2 = User.create!({
+    username: "DemoUser2",
+    password: "DemoUser2",
+    email: "DemoUser2@aa.io",
+    name: "Danny Demo 2"
+})
+
+workspace = Workspace.create!({
+    host_id: 1,
+    workspace_name: "App-Academy"
+})
+workspace2 = Workspace.create!({
+    host_id: 2,
+    workspace_name: "HR"
+})
+
+message1 = Message.create! ({
+    body: "First!",
+    user_id: 1,
+    workspace_id: 1
+})
+message2 = Message.create! ({
+    body: "Second!",
+    user_id: 2,
+    workspace_id: 1
+})
+
+workspace_assignments = WorkspaceAssignment.create!([{ user_id: 1, workspace_id: 1 }, { user_id: 2, workspace_id: 2 }])
