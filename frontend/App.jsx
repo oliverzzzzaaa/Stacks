@@ -16,12 +16,16 @@ import {
 } from 'react-router-dom';
 const App = () => (
   <div>
-    <Route exact path="/" component={SplashPageContainer}/>
-    <AuthRoute exact path="/session/new" component={WorkSpaceFormContainer}/>
-    <AuthRoute exact path="/session/workspace/new" component={SignInFormContainer}/>
-    <AuthRoute exact path="/users/new" component={SignUpFormContainer}/>
-    <Route path="/test" component={SideBarContainer} />
-    <ProtectedRoute path="/messages" component={MainContainer} />
+    <Switch>
+      {/* <Route exact path="/" component={SplashPageContainer}/> */}
+      <AuthRoute exact path="/session/new" component={WorkSpaceFormContainer}/>
+      <AuthRoute exact path="/session/workspace/new" component={SignInFormContainer}/>
+      <AuthRoute exact path="/users/new" component={SignUpFormContainer}/>
+      <Route path="/test" component={SideBarContainer} />
+      <ProtectedRoute path="/messages" component={MainContainer} />
+      <Route path="/" component={SplashPageContainer}/>
+    </Switch>
+
   </div>
 );
 

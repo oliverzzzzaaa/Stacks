@@ -7,7 +7,7 @@
     justify-content: center;
 }
 .splash-button-link {
-    background-color: purple;
+    background-color: #611f69;
     border-radius: 20px;
     height: 40px;
     width: 100px;
@@ -18,9 +18,13 @@
     justify-content: center;
     align-self: center;
     text-decoration: none;
-    padding: 2px;
+    padding: 10px;
     margin-right: 20px;
+    border: 2px solid #611f69;
+    font-family: Slack-Circular-Pro,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+
 }
+
 
 .splash-header {
     background-color: white;
@@ -33,6 +37,7 @@
 
 .header-right {
     display: flex;
+    overflow: visible;
 }
 
 .header-left {
@@ -79,7 +84,7 @@ body {
     height: 100%;
     width: 100%;
     background-size: 100%, 100%;
-    background-color: lightcyan;
+    background-color: #fff;
     margin: 0;
     font-family: Slack-Larsseit,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
 }
@@ -92,20 +97,40 @@ body {
     
 }
 
-.signout-button {
-    background-color: purple;
-    border-radius: 15px;
-    height: 100%;
-    width: 100px;
-    color: white;
-    font-size: 20px;
+#signout-dropdown-nav {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    /* padding: 6px; */
-    margin-right: 20px;
+    flex-direction: column;
+    position: absolute;
+    text-align: left;
+    background-color: #fff;
+    font-weight: 400;
+    line-height: 1.2857;
+    letter-spacing: normal;
+    font-family: Slack-Circular-Pro,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+    list-style: none;
+    border-top: 1px solid #ebeaeb;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: rgb(235, 234, 235);
+    top: 70px;
+    border-radius: 4px;
+    padding: .5rem 1rem 1rem;
+    right: 1rem;
+    width: 18rem;
+    right: 60px;
+}
+
+.signout-button {
+    color: #454545;
     cursor: pointer;
+    word-break: break-word;
+    font-size: 1.125rem;
+    font-family: Slack-Circular-Pro,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+    font-weight: 400;
+    line-height: 1.44444444;
+    letter-spacing: normal;
+    background-color: #fff;
+
 }
 
 .splash-main {
@@ -116,12 +141,11 @@ body {
 
 .splash-first {
     height: 40px;
-    background-color: lightgray;
     border-radius: 40px;
     align-self: center;
     visibility: hidden;
 }
-/* background-color: lightgray; */
+
 
 .splash-item {
     border-radius: 40px;
@@ -137,7 +161,7 @@ body {
     align-self: center;
     margin-top: 50px;
     border-radius: 0;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 .splash-button-link {
     background-color: purple;
@@ -179,7 +203,7 @@ body {
 
 .marble-button {
     text-decoration: none;
-    background-color: purple;
+    background-color: #611f69;
     border-radius: 10px;
     font-size: 20px;
     padding: 20px;
@@ -211,6 +235,7 @@ body {
 #splash-third {
     font-family: Slack-Larsseit,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
     margin: 0;
+
 }
 
 #Break-out-inbox {
@@ -238,4 +263,76 @@ body {
     margin: 5px;
 }
 
+.display-none {
+    display: none
+}
+
+.display-show {
+    display: flex;
+}
+
+#splash-dropdown-button {
+    background-color: #611f69;
+    height: 60%;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 10px;
+    margin-right: 100px;
+    align-self: center;
+    cursor: pointer;
+}
+
+#dropdown-signout-button {
+    text-align: start;
+    padding: .5rem;
+    font-weight: 400;
+    font-size: 16px;
+    background-color: #fff;
+    margin-top: 20px;
+    border: 0;
+}
+
+#dropdown-signout-button:hover {
+    color: #1264a3;
+    /* border-color: #1264a3; */
+}
+
+#your-workspace-button {
+    border: 0;
+    padding: 10px;
+    text-align: start;
+    background: inherit;
+}
+
+#your-workspace-nav:hover {
+    background: #f5f5f5;
+}
+
+#your-workspace-nav {
+    display: flex;
+    border-bottom: 1px solid lightgray;
+}
+
+#splash-aa-logo {
+    width: 10%;
+    height: 10%;
+    align-self: center;
+    border-radius: 4px;
+    overflow-y: hidden;
+}
+
+#splash-footer {
+    border: 1px solid black;
+    display: flex;
+    align-items: flex-end;
+    align-self: center;
+    width: 100%;
+
+}
 

@@ -13,3 +13,17 @@ const configureStore = (preloadedState = {}) => (
 );
 
 export default configureStore;
+
+// REMOVE LOGGER FOR PRODUCTION
+// const configureStore = (preloadedState = {}) => {
+//   let middleware = [thunk];
+//   if (process.env.NODE_ENV !== 'production') {
+//     middleware = [...middleware, logger];
+//   }
+//   return createStore(
+//     rootReducer,
+//     preloadedState,
+//     applyMiddleware(...middleware)
+//   );
+// };
+// export default configureStore;

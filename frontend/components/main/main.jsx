@@ -10,7 +10,7 @@ class Main extends React.Component {
     render() {
         return(
             <div className="main-div">
-                <SideBarContainer currentUser={this.props.currentUser} fetchMessages={this.props.fetchMessages}/>
+                <SideBarContainer currentUser={this.props.currentUser} fetchMessages={this.props.fetchMessages} fetchWorkspaces={this.props.fetchWorkspaces}/>
                 <ChatContainer currentUser={this.props.currentUser} fetchMessages={this.props.fetchMessages}/>
             </div>
         )

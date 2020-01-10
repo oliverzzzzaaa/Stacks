@@ -1,0 +1,64 @@
+.sidebar-container-purple {
+    background-color: #3F0E40;
+    color: rgb(207,195,207);;
+    display: flex;
+    flex-direction: column;
+    height: 1000px;
+    width: 23%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: normal;
+}
+
+.sidebar-container-purple div {
+    padding-left: 20px;
+}
+
+#sidebar-workspace-name {
+    font-size: 18px;
+    line-height: 1.33334;
+    font-weight: 900;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #FFFFFF;
+    font-family: Slack-Lato,appleLogo,sans-serif;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.sidebar-link:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.sidebar-white-lock {
+    width: 6%;
+    height: 6%;
+    margin-right: 5px;
+    padding-left: 0;
+}
+
+
+.sidebar-link {
+    padding: 0;
+}
+
+h4 {
+    font-weight: normal;
+}
+
+#sidebar-workspace-dropdown-hover:hover {
+    background: #350d36;
+}
+
+.green-dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: green;
+    display: inline-block;
+    margin-right: 10px;
+}

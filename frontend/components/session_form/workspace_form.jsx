@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 
+
 class WorkspaceForm extends React.Component {
     constructor(props) {
         super(props)
@@ -29,6 +30,10 @@ class WorkspaceForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         this.props.history.push('/session/workspace/new')
+    }
+
+    componentDidMount() {
+        // this.props.fetchWorkspaces();
     }
 
     handleDefaultUser(e) {
@@ -77,7 +82,7 @@ class WorkspaceForm extends React.Component {
                     </label>
                     {/* <NavLink to="/users/new" className="signInButton">Continue</NavLink> */}
                     <button className="signInButton" type="submit" id="workspace-button">Continue</button>
-                    <button className="signInButton" onClick={this.handleDefaultUser}>Demo User</button>
+                    <button className="signInButton" id="workspace-demo-user"onClick={this.handleDefaultUser}>Demo User</button>
                 </form>
             </div>
         )

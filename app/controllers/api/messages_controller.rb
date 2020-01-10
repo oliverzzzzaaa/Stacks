@@ -2,6 +2,7 @@ class Api::MessagesController < ApplicationController
 
     def index
         @messages = Message.all
+        return @messages
     end
 
     def show

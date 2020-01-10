@@ -11,23 +11,35 @@ class SideBar extends React.Component {
         this.props.history.push("/")
     }
 
+    componentDidMount() {
+        this.props.fetchWorkspaces()
+    }
+
     render() {
-        console.log(this.props)
+        const workspaceList = this.props.workspaces.map( workspace => {
+            return (
+                <li className="sidebar-link locked-channel" key={workspace.id}>
+                    <img src={window.sidebarWhiteLock} className="sidebar-white-lock"/>
+                    {workspace.workspace_name}
+                </li>
+            )
+        })
+        let currentUserId = this.props.currentUserId
         return(
             <div className="sidebar-container-purple">
                 <div className="sidebar-link" id="sidebar-workspace-dropdown-hover">
                     <h4 id="sidebar-workspace-name" className="sidebar-link">Workspace Name</h4>
-                    <h4 className="sidebar-link"><span className="green-dot"></span>User's Name</h4>
-                    
+                    <h4 className="sidebar-link"><span className="green-dot"></span>{this.props.currentUser[currentUserId].name}</h4>
                 </div>
                 <div id="channel-div">
                     <h4 className="sidebar-link">Channels</h4>
-                    <section>
-                        <h4 className="sidebar-link locked-channel">
+                    <ul>
+                        {workspaceList}
+                        {/* <h4 className="sidebar-link locked-channel">
                             <img src={window.sidebarWhiteLock} className="sidebar-white-lock"/>
                             Sample Channel
-                        </h4>
-                    </section>
+                        </h4> */}
+                    </ul>
                 </div>
                 <div id="dm-div">
                     <h4 className="sidebar-link">

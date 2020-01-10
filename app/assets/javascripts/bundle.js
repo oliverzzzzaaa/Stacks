@@ -118,11 +118,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__["Route"], {
-    exact: true,
-    path: "/",
-    component: _components_splash_container__WEBPACK_IMPORTED_MODULE_4__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["AuthRoute"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["AuthRoute"], {
     exact: true,
     path: "/session/new",
     component: _components_session_form_workspace_form_container__WEBPACK_IMPORTED_MODULE_5__["default"]
@@ -140,7 +136,10 @@ var App = function App() {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
     path: "/messages",
     component: _components_main_main_container__WEBPACK_IMPORTED_MODULE_7__["default"]
-  }));
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__["Route"], {
+    path: "/",
+    component: _components_splash_container__WEBPACK_IMPORTED_MODULE_4__["default"]
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -295,6 +294,38 @@ var signup = function signup(user) {
 
 /***/ }),
 
+/***/ "./frontend/actions/workspace_actions.js":
+/*!***********************************************!*\
+  !*** ./frontend/actions/workspace_actions.js ***!
+  \***********************************************/
+/*! exports provided: RECEIVE_WORKSPACES, fetchWorkspaces */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_WORKSPACES", function() { return RECEIVE_WORKSPACES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchWorkspaces", function() { return fetchWorkspaces; });
+/* harmony import */ var _util_workspace_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/workspace_api_util */ "./frontend/util/workspace_api_util.js");
+
+var RECEIVE_WORKSPACES = "RECEIVE_WORKSPACES";
+
+var receiveWorkspaces = function receiveWorkspaces(workspaces) {
+  return {
+    type: RECEIVE_WORKSPACES,
+    workspaces: workspaces
+  };
+};
+
+var fetchWorkspaces = function fetchWorkspaces() {
+  return function (dispatch) {
+    return _util_workspace_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchWorkspaces"]().then(function (workspaces) {
+      return dispatch(receiveWorkspaces(workspaces));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/components/main/chat.jsx":
 /*!*******************************************!*\
   !*** ./frontend/components/main/chat.jsx ***!
@@ -368,7 +399,9 @@ function (_React$Component) {
           className: "message-li"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.defaultPicture
-        }), message.body);
+        }), message.body, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, message.author.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "message-timestamp"
+        }, new Date(message.created_at).toLocaleTimeString()));
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chat-container"
@@ -466,7 +499,8 @@ function (_React$Component) {
         className: "main-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_side_bar_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
         currentUser: this.props.currentUser,
-        fetchMessages: this.props.fetchMessages
+        fetchMessages: this.props.fetchMessages,
+        fetchWorkspaces: this.props.fetchWorkspaces
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chat_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
         currentUser: this.props.currentUser,
         fetchMessages: this.props.fetchMessages
@@ -494,7 +528,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main */ "./frontend/components/main/main.jsx");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _actions_workspace_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/workspace_actions */ "./frontend/actions/workspace_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 
 
 
@@ -518,11 +554,14 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchMessages: function fetchMessages(messages) {
       return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["fetchMessages"])(messages));
+    },
+    fetchWorkspaces: function fetchWorkspaces(workspaces) {
+      return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_4__["fetchWorkspaces"])(workspaces));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_main__WEBPACK_IMPORTED_MODULE_1__["default"])));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_main__WEBPACK_IMPORTED_MODULE_1__["default"])));
 
 /***/ }),
 
@@ -579,9 +618,23 @@ function (_React$Component) {
       this.props.history.push("/");
     }
   }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchWorkspaces();
+    }
+  }, {
     key: "render",
     value: function render() {
-      console.log(this.props);
+      var workspaceList = this.props.workspaces.map(function (workspace) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "sidebar-link locked-channel",
+          key: workspace.id
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.sidebarWhiteLock,
+          className: "sidebar-white-lock"
+        }), workspace.workspace_name);
+      });
+      var currentUserId = this.props.currentUserId;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sidebar-container-purple"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -594,16 +647,11 @@ function (_React$Component) {
         className: "sidebar-link"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "green-dot"
-      }), "User's Name")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), this.props.currentUser[currentUserId].name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "channel-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "sidebar-link"
-      }, "Channels"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-        className: "sidebar-link locked-channel"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: window.sidebarWhiteLock,
-        className: "sidebar-white-lock"
-      }), "Sample Channel"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Channels"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, workspaceList)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "dm-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "sidebar-link"
@@ -638,6 +686,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _side_bar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./side_bar */ "./frontend/components/main/side_bar.jsx");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _actions_workspace_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/workspace_actions */ "./frontend/actions/workspace_actions.js");
+
 
 
 
@@ -645,7 +695,8 @@ __webpack_require__.r(__webpack_exports__);
 var mapStateToProps = function mapStateToProps(state) {
   return {
     currentUser: state.entities.users,
-    currentUserId: state.session.id
+    currentUserId: state.session.id,
+    workspaces: Object.values(state.entities.workspaces)
   };
 };
 
@@ -689,7 +740,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return fetchMessages;
     }(function (messages) {
       return dispatch(fetchMessages(messages));
-    })
+    }),
+    fetchWorkspaces: function fetchWorkspaces(workspaces) {
+      return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_3__["fetchWorkspaces"])(workspaces));
+    }
   };
 };
 
@@ -808,8 +862,7 @@ function (_React$Component) {
     value: function handleSubmit(e) {
       var _this3 = this;
 
-      e.preventDefault(); // debugger; 
-
+      e.preventDefault();
       this.props.action(this.state).then(function () {
         return _this3.props.fetchMessages();
       });
@@ -1187,6 +1240,10 @@ function (_React$Component) {
       this.props.history.push('/session/workspace/new');
     }
   }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {// this.props.fetchWorkspaces();
+    }
+  }, {
     key: "handleDefaultUser",
     value: function handleDefaultUser(e) {
       e.preventDefault();
@@ -1258,6 +1315,7 @@ function (_React$Component) {
         id: "workspace-button"
       }, "Continue"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "signInButton",
+        id: "workspace-demo-user",
         onClick: this.handleDefaultUser
       }, "Demo User")));
     }
@@ -1281,6 +1339,8 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _workspace_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./workspace_form */ "./frontend/components/session_form/workspace_form.jsx");
+/* harmony import */ var _actions_workspace_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/workspace_actions */ "./frontend/actions/workspace_actions.js");
+
 
 
 
@@ -1295,7 +1355,12 @@ var mapStateToProps = function mapStateToProps(_ref) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    fetchWorkspaces: function fetchWorkspaces() {
+      return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_2__["fetchWorkspaces"])());
+    } // action: (workspace) => dispatch(signin(workspace))
+
+  };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_workspace_form__WEBPACK_IMPORTED_MODULE_1__["default"]));
@@ -1348,16 +1413,11 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SplashPage).call(this, props));
     _this.logoutUser = _this.logoutUser.bind(_assertThisInitialized(_this));
     _this.state = _this.props.currentUser;
+    _this.redirect = _this.redirect.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(SplashPage, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      console.log(this.props);
-      console.log(this.state);
-    }
-  }, {
     key: "logoutUser",
     value: function logoutUser(e) {
       var _this2 = this;
@@ -1368,8 +1428,15 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "redirect",
+    value: function redirect(url) {
+      this.props.history.push(url);
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       var loginout = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
         className: "header-right"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_0__["NavLink"], {
@@ -1384,9 +1451,29 @@ function (_React$Component) {
         loginout = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
           className: "header-right"
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+          onClick: function onClick() {
+            return _this3.redirect("/messages");
+          },
+          className: "signout",
+          id: "splash-dropdown-button"
+        }, "Your Workspace"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("nav", {
+          id: "signout-dropdown-nav"
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("nav", {
+          id: "your-workspace-nav"
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+          src: window.aalogo,
+          id: "splash-aa-logo"
+        }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+          onClick: function onClick() {
+            return _this3.redirect("/messages");
+          },
+          className: "signout-button",
+          id: "your-workspace-button"
+        }, "Workspace Name")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
           onClick: this.logoutUser,
-          className: "signout-button"
-        }, "Sign Out"));
+          className: "signout-button",
+          id: "dropdown-signout-button"
+        }, "Sign Out")));
       }
 
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
@@ -1451,7 +1538,9 @@ function (_React$Component) {
         src: window.slackMarble3,
         id: "slack-marble-3",
         className: "slack-marble-gif"
-      }))))));
+      })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("footer", {
+        id: "splash-footer"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", null, "I am the footer"))));
     }
   }]);
 
@@ -1513,12 +1602,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _users_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users_reducer */ "./frontend/reducers/users_reducer.js");
 /* harmony import */ var _messages_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./messages_reducer */ "./frontend/reducers/messages_reducer.js");
+/* harmony import */ var _workspaces_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./workspaces_reducer */ "./frontend/reducers/workspaces_reducer.js");
+
 
 
 
 var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-  messages: _messages_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+  messages: _messages_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  workspaces: _workspaces_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -1713,6 +1805,41 @@ var usersReducer = function usersReducer() {
 
 /***/ }),
 
+/***/ "./frontend/reducers/workspaces_reducer.js":
+/*!*************************************************!*\
+  !*** ./frontend/reducers/workspaces_reducer.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_workspace_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/workspace_actions */ "./frontend/actions/workspace_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+
+
+
+var workspacesReducer = function workspacesReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_workspace_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_WORKSPACES"]:
+      return action.workspaces;
+
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["LOGOUT_CURRENT_USER"]:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (workspacesReducer);
+
+/***/ }),
+
 /***/ "./frontend/root.jsx":
 /*!***************************!*\
   !*** ./frontend/root.jsx ***!
@@ -1817,7 +1944,19 @@ var configureStore = function configureStore() {
   return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"], redux_logger__WEBPACK_IMPORTED_MODULE_2___default.a));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (configureStore);
+/* harmony default export */ __webpack_exports__["default"] = (configureStore); // REMOVE LOGGER FOR PRODUCTION
+// const configureStore = (preloadedState = {}) => {
+//   let middleware = [thunk];
+//   if (process.env.NODE_ENV !== 'production') {
+//     middleware = [...middleware, logger];
+//   }
+//   return createStore(
+//     rootReducer,
+//     preloadedState,
+//     applyMiddleware(...middleware)
+//   );
+// };
+// export default configureStore;
 
 /***/ }),
 
@@ -1912,7 +2051,7 @@ var Protected = function Protected(_ref2) {
     exact: exact,
     render: function render(props) {
       return loggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, props) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], {
-        to: "/login"
+        to: "/session/new"
       });
     }
   });
@@ -1963,6 +2102,42 @@ var logout = function logout() {
   return $.ajax({
     method: "DELETE",
     url: '/api/session'
+  });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/workspace_api_util.js":
+/*!*********************************************!*\
+  !*** ./frontend/util/workspace_api_util.js ***!
+  \*********************************************/
+/*! exports provided: newWorkspace, fetchWorkspace, fetchWorkspaces */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "newWorkspace", function() { return newWorkspace; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchWorkspace", function() { return fetchWorkspace; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchWorkspaces", function() { return fetchWorkspaces; });
+var newWorkspace = function newWorkspace(workspace) {
+  return $.ajax({
+    method: "POST",
+    url: '/api/workspaces',
+    data: {
+      workspace: workspace
+    }
+  });
+};
+var fetchWorkspace = function fetchWorkspace(workspaceId) {
+  return $.ajax({
+    method: "GET",
+    url: "/api/workspaces/".concat(workspaceId)
+  });
+};
+var fetchWorkspaces = function fetchWorkspaces() {
+  return $.ajax({
+    method: "GET",
+    url: '/api/workspaces'
   });
 };
 

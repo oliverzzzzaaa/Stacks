@@ -5,9 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-User.delete_all
-Workspace.delete_all
-WorkspaceAssignment.delete_all
+Message.destroy_all
+WorkspaceAssignment.destroy_all
+Workspace.destroy_all
+User.destroy_all
 
 user = User.create!({
     username: "DemoUser1",
@@ -23,23 +24,31 @@ user2 = User.create!({
 })
 
 workspace = Workspace.create!({
-    host_id: 1,
+    host_id: User.find_by(username: "DemoUser1").id,
     workspace_name: "App-Academy"
 })
 workspace2 = Workspace.create!({
-    host_id: 2,
+    host_id: User.find_by(username: "DemoUser2").id,
     workspace_name: "HR"
 })
 
-message1 = Message.create! ({
+message1 = Message.create!({
     body: "First!",
-    user_id: 1,
-    workspace_id: 1
+    user_id: User.find_by(username: "DemoUser2").id,
+    workspace_id: Workspace.find_by(workspace_name: "App-Academy").id
 })
 message2 = Message.create! ({
     body: "Second!",
-    user_id: 2,
-    workspace_id: 1
+    user_id: User.find_by(username: "DemoUser1").id,
+    workspace_id: Workspace.find_by(workspace_name: "HR").id
 })
 
-workspace_assignments = WorkspaceAssignment.create!([{ user_id: 1, workspace_id: 1 }, { user_id: 2, workspace_id: 2 }])
+workspace_assignment1 = WorkspaceAssignment.create!({ 
+    user_id: User.find_by(username: "DemoUser1").id, 
+    workspace_id: Workspace.find_by(workspace_name: "App-Academy").id})
+workspace_assignment1 = WorkspaceAssignment.create!({ 
+    user_id: User.find_by(username: "DemoUser2").id, 
+    workspace_id: Workspace.find_by(workspace_name: "HR").id})
+
+# workspace_assignment2 = WorkspaceAssignment.create!(
+#     {User.find_by(username: "DemoUser2").id, Workspace.find_by(workspace_name: "HR")})

@@ -1,5 +1,14 @@
 class Api::WorkspacesController < ApplicationController
 
+    def index
+        @workspace_assignments = WorkspaceAssignment.where(user_id: current_user.id)
+        @workspaces = [];
+        @workspace_assignments.each do |workspace_assignment|
+            @workspaces << Workspace.find(workspace_assignment.workspace_id)
+        end
+        render :index
+    end 
+
     def create
         @workspace = Workspace.new(workspace_params)
         if @workspace.save

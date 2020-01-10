@@ -1,5 +1,5 @@
 class Workspace < ApplicationRecord
-    validates :host_id, presence: true
+    # validates :host_id, presence: true
     validates :workspace_name, presence: true, uniqueness: true
 
     belongs_to :host,

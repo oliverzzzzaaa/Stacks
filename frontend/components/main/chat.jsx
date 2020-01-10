@@ -35,6 +35,12 @@ class Chat extends React.Component {
                 <li key={message.id} className="message-li">
                     <img src={window.defaultPicture}/>
                     {message.body} 
+                    <div>
+                        {message.author.name}
+                    </div>
+                    <section className="message-timestamp">
+                        {(new Date(message.created_at).toLocaleTimeString())}
+                    </section>
                     {/* <div ref={this.bottom} /> */}
                 </li>
             )

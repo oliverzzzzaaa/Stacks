@@ -1,3 +1,19 @@
+LOGGER REMOVE FOR PRODUCTION
+
+Full-stack
+    workspaces on sidebar
+    profile images in Chat
+
+
+CSS:
+    onclick hide and show "Your Workspaces"
+    grayed input instead of label
+    footer in splash page with github and linkedIn
+    Chat container
+    channels in sidebar
+    dropdown in sidebar to go back to splash    
+
+
 Make static messages page
     Make sure messages is a prop passed into the component
 Incorporate ActionCable

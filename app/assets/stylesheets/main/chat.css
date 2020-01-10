@@ -6,7 +6,8 @@
 .chat-container {
     width: 76%;
     display: flex;
-    
+    background: #fff;
+    box-sizing: content-box;
 }
 
 .message-list {
@@ -18,4 +19,6 @@
 
 .message-li {
     display: inline-block;
+    margin-bottom: 50px;
 }
+

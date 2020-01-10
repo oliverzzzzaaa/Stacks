@@ -7,7 +7,7 @@
     end
 end
 
-json.partial! "api/workspaces/workspace", workspace: @workspace
+# json.partial! "api/workspaces/workspace", workspace: @workspace
 
 json.workspace do 
     json.partial! '/api/workspaces/workspace', workspace: @workspace

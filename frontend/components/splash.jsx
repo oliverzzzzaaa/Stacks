@@ -6,11 +6,7 @@ class SplashPage extends React.Component {
         super(props)
         this.logoutUser = this.logoutUser.bind(this)
         this.state = this.props.currentUser;
-    }
-
-    componentDidMount() {
-        console.log(this.props)
-        console.log(this.state)
+        this.redirect = this.redirect.bind(this)
     }
 
     logoutUser(e) {
@@ -18,6 +14,10 @@ class SplashPage extends React.Component {
         this.props.action().then(
             () => this.props.history.push("/session/new") 
         )
+    }
+
+    redirect(url) {
+        this.props.history.push(url)
     }
     render() {
         let loginout = (
@@ -29,7 +29,14 @@ class SplashPage extends React.Component {
         if (Object.keys(this.props.currentUser).length > 0) {
             loginout = (
                 <section className="header-right">
-                    <button onClick={this.logoutUser} className="signout-button">Sign Out</button>
+                    <button onClick={() => this.redirect("/messages")} className="signout" id="splash-dropdown-button">Your Workspace</button>
+                    <nav id="signout-dropdown-nav">
+                        <nav id="your-workspace-nav">
+                            <img src={window.aalogo} id="splash-aa-logo"/>
+                            <button onClick={() => this.redirect("/messages")} className="signout-button" id="your-workspace-button">Workspace Name</button>
+                        </nav>
+                        <button onClick={this.logoutUser} className="signout-button" id="dropdown-signout-button">Sign Out</button>
+                    </nav>
                 </section>
             )
         }
@@ -74,12 +81,9 @@ class SplashPage extends React.Component {
                             </div>
                         </section>
                     </section>
-                    {/* <section className="splash-item" id="splash-fourth">
-                        
-                    </section>
-                    <section className="splash-item" id="splash-fifth">
-                        
-                    </section> */}
+                    <footer id="splash-footer">
+                        <h2>I am the footer</h2>
+                    </footer>
                 </div>
             </div>
         )
