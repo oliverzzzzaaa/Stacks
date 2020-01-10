@@ -332,51 +332,43 @@ function (_React$Component) {
   _inherits(Chat, _React$Component);
 
   function Chat(props) {
-    var _this;
-
     _classCallCheck(this, Chat);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Chat).call(this, props));
-    _this.state = _this.props.messages || {};
-    _this.bottom = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(Chat).call(this, props)); // this.state = this.props.messages
+    // this.bottom = React.createRef();
   }
 
   _createClass(Chat, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this2 = this;
+      this.props.fetchMessages(); // App.cable.subscriptions.create(
+      //     { channel: "ChatChannel" },
+      //     {
+      //         received: data => {
+      //             this.setState({messages: this.state.messages.concat(data.message)});
+      //         },
+      //         speak: function(data) {
+      //             return this.perform("speak", data);
+      //         }
+      //     }
+      // )
+    } // componentDidUpdate() {
+    //     this.bottom.current.scrollIntoView();
+    // }
 
-      this.props.fetchMessages();
-      App.cable.subscriptions.create({
-        channel: "ChatChannel"
-      }, {
-        received: function received(data) {
-          _this2.setState({
-            messages: _this2.state.messages.concat(data.message)
-          });
-        },
-        speak: function speak(data) {
-          return this.perform("speak", data);
-        }
-      });
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      this.bottom.current.scrollIntoView();
-    }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
-
+      // const messageList = (
+      //     <div>MessageList</div>
+      // );
       var messageList = this.props.messages.map(function (message) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-          key: message.id
-        }, message, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          ref: _this3.bottom
-        }));
+          key: message.id,
+          className: "message-li"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.defaultPicture
+        }), message.body);
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chat-container"
@@ -393,6 +385,34 @@ function (_React$Component) {
 
 /***/ }),
 
+/***/ "./frontend/components/main/chat_container.js":
+/*!****************************************************!*\
+  !*** ./frontend/components/main/chat_container.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _chat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chat */ "./frontend/components/main/chat.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    messages: Object.values(state.entities.messages)
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {};
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_chat__WEBPACK_IMPORTED_MODULE_0__["default"]));
+
+/***/ }),
+
 /***/ "./frontend/components/main/main.jsx":
 /*!*******************************************!*\
   !*** ./frontend/components/main/main.jsx ***!
@@ -404,8 +424,8 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _chat__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chat */ "./frontend/components/main/chat.jsx");
-/* harmony import */ var _side_bar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./side_bar */ "./frontend/components/main/side_bar.jsx");
+/* harmony import */ var _chat_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chat_container */ "./frontend/components/main/chat_container.js");
+/* harmony import */ var _side_bar_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./side_bar_container */ "./frontend/components/main/side_bar_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -442,10 +462,12 @@ function (_React$Component) {
   _createClass(Main, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_side_bar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "main-div"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_side_bar_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
         currentUser: this.props.currentUser,
         fetchMessages: this.props.fetchMessages
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chat__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chat_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
         currentUser: this.props.currentUser,
         fetchMessages: this.props.fetchMessages
       }));
@@ -472,6 +494,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main */ "./frontend/components/main/main.jsx");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 
 
 
@@ -498,7 +522,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_main__WEBPACK_IMPORTED_MODULE_1__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_main__WEBPACK_IMPORTED_MODULE_1__["default"])));
 
 /***/ }),
 
@@ -523,9 +547,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -539,37 +563,59 @@ function (_React$Component) {
   _inherits(SideBar, _React$Component);
 
   function SideBar(props) {
+    var _this;
+
     _classCallCheck(this, SideBar);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(SideBar).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SideBar).call(this, props));
+    _this.backToSplash = _this.backToSplash.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(SideBar, [{
+    key: "backToSplash",
+    value: function backToSplash(e) {
+      e.preventDefault();
+      this.props.history.push("/");
+    }
+  }, {
     key: "render",
     value: function render() {
+      console.log(this.props);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sidebar-container-purple"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sidebar-link",
+        id: "sidebar-workspace-dropdown-hover"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         id: "sidebar-workspace-name",
         className: "sidebar-link"
       }, "Workspace Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "sidebar-link"
-      }, "User's Name")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "green-dot"
+      }), "User's Name")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "channel-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "sidebar-link"
-      }, "Channels"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "sidebar-link"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+      }, "Channels"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "sidebar-link locked-channel"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.sidebarWhiteLock,
         className: "sidebar-white-lock"
       }), "Sample Channel"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "dm-div"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "sidebar-link"
-      }, "Direct Messages")));
+      }, "Direct Messages"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+        className: "sidebar-link"
+      }, "\u25CB Demo User 2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+        className: "sidebar-link"
+      }, "\u25CB Demo User 3"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "back-to-splash"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.backToSplash
+      }, "Back to Splash")));
     }
   }]);
 
@@ -591,23 +637,63 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _side_bar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./side_bar */ "./frontend/components/main/side_bar.jsx");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  return {// currentUser: state.entities.users,
-    // currentUserId: state.session.id
+  return {
+    currentUser: state.entities.users,
+    currentUserId: state.session.id
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {// receiveCurrentUser: (user) => dispatch(receiveCurrentUser(user)),
-    // logout: () => dispatch(logout()),
-    // fetchMessages: (messages) => dispatch(fetchMessages(messages))
+  return {
+    receiveCurrentUser: function (_receiveCurrentUser) {
+      function receiveCurrentUser(_x) {
+        return _receiveCurrentUser.apply(this, arguments);
+      }
+
+      receiveCurrentUser.toString = function () {
+        return _receiveCurrentUser.toString();
+      };
+
+      return receiveCurrentUser;
+    }(function (user) {
+      return dispatch(receiveCurrentUser(user));
+    }),
+    logout: function (_logout) {
+      function logout() {
+        return _logout.apply(this, arguments);
+      }
+
+      logout.toString = function () {
+        return _logout.toString();
+      };
+
+      return logout;
+    }(function () {
+      return dispatch(logout());
+    }),
+    fetchMessages: function (_fetchMessages) {
+      function fetchMessages(_x2) {
+        return _fetchMessages.apply(this, arguments);
+      }
+
+      fetchMessages.toString = function () {
+        return _fetchMessages.toString();
+      };
+
+      return fetchMessages;
+    }(function (messages) {
+      return dispatch(fetchMessages(messages));
+    })
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_side_bar__WEBPACK_IMPORTED_MODULE_0__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_side_bar__WEBPACK_IMPORTED_MODULE_0__["default"])));
 
 /***/ }),
 
@@ -1268,6 +1354,7 @@ function (_React$Component) {
   _createClass(SplashPage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      console.log(this.props);
       console.log(this.state);
     }
   }, {

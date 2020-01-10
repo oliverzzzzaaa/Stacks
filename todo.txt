@@ -1,8 +1,3 @@
-
-login
-
-Fix Jbuilder for workspace and workspace associations
-
 Make static messages page
     Make sure messages is a prop passed into the component
 Incorporate ActionCable

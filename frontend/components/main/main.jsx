@@ -1,6 +1,6 @@
 import React from 'react'
-import Chat from './chat';
-import SideBar from './side_bar'
+import ChatContainer from './chat_container';
+import SideBarContainer from './side_bar_container'
 
 class Main extends React.Component {
     constructor(props) {
@@ -9,9 +9,9 @@ class Main extends React.Component {
 
     render() {
         return(
-            <div>
-                <SideBar currentUser={this.props.currentUser} fetchMessages={this.props.fetchMessages}/>
-                <Chat currentUser={this.props.currentUser} fetchMessages={this.props.fetchMessages}/>
+            <div className="main-div">
+                <SideBarContainer currentUser={this.props.currentUser} fetchMessages={this.props.fetchMessages}/>
+                <ChatContainer currentUser={this.props.currentUser} fetchMessages={this.props.fetchMessages}/>
             </div>
         )
     }

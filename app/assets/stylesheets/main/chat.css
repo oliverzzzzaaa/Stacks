@@ -1,0 +1,21 @@
+.main-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.chat-container {
+    width: 76%;
+    display: flex;
+    
+}
+
+.message-list {
+    margin: 15px;
+    list-style: none;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.message-li {
+    display: inline-block;
+}

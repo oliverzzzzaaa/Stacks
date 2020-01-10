@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import Main from './main'
 import {receiveCurrentUser, logout} from '../../actions/session_actions';   
 import {fetchMessages} from '../../actions/message_actions'
+import {withRouter} from 'react-router-dom'
 
 const mapStateToProps = state => ({
     currentUser: state.entities.users,
@@ -14,4 +15,4 @@ const mapDispatchToProps = dispatch => ({
     fetchMessages: (messages) => dispatch(fetchMessages(messages))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main))
