@@ -14,6 +14,10 @@ class User < ApplicationRecord
 
     has_many :messages
 
+    has_many :channels,
+    foreign_key: :host_id,
+    class_name: :Channel
+
     after_initialize :ensure_session_token
 
     def self.find_by_credentials(email, password) 

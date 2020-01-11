@@ -14,7 +14,8 @@ const mapDispatchToProps = dispatch => ({
     receiveCurrentUser: (user) => dispatch(receiveCurrentUser(user)),
     logout: () => dispatch(logout()),
     fetchMessages: (messages) => dispatch(fetchMessages(messages)),
-    fetchWorkspaces: (workspaces) => dispatch(fetchWorkspaces(workspaces))
+    fetchWorkspaces: (workspaces) => dispatch(fetchWorkspaces(workspaces)),
+    fetchChannels: (channels) => dispatch(fetchChannels(channels))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main))

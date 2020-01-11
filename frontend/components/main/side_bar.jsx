@@ -13,14 +13,15 @@ class SideBar extends React.Component {
 
     componentDidMount() {
         this.props.fetchWorkspaces()
+        this.props.fetchChannels();
     }
 
     render() {
-        const workspaceList = this.props.workspaces.map( workspace => {
+        const channelList = this.props.channels.map( channel => {
             return (
-                <li className="sidebar-link locked-channel" key={workspace.id}>
+                <li className="sidebar-link locked-channel" key={channel.id}>
                     <img src={window.sidebarWhiteLock} className="sidebar-white-lock"/>
-                    {workspace.workspace_name}
+                    {channel.channel_name}
                 </li>
             )
         })
@@ -34,7 +35,7 @@ class SideBar extends React.Component {
                 <div id="channel-div">
                     <h4 className="sidebar-link">Channels</h4>
                     <ul>
-                        {workspaceList}
+                        {channelList}
                         {/* <h4 className="sidebar-link locked-channel">
                             <img src={window.sidebarWhiteLock} className="sidebar-white-lock"/>
                             Sample Channel

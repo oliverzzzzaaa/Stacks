@@ -97,7 +97,7 @@ body {
     
 }
 
-#signout-dropdown-nav {
+.signout-dropdown-nav {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -263,11 +263,11 @@ body {
     margin: 5px;
 }
 
-.display-none {
+#display-none {
     display: none
 }
 
-.display-show {
+#display-show {
     display: flex;
 }
 

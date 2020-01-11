@@ -1,8 +1,10 @@
 LOGGER REMOVE FOR PRODUCTION
 
 Full-stack
+    channel memberships
     workspaces on sidebar
     profile images in Chat
+    move images to AWS
 
 
 CSS:

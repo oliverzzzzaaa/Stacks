@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :workspaces, only: [:index, :create, :show]
     resources :workspace_assignments, only: [:create, :destroy]
     resource :session, only: [:create, :destroy, :show]
+    resources :channels
     resources :messages
   end
   root "static_pages#root"

@@ -14,6 +14,8 @@ class Workspace < ApplicationRecord
     through: :workspace_assignments,
     source: :user
 
+    has_many :channels
+
 
     def self.find_by_name(name)
         workspace = Workspace.find_by(name: name)

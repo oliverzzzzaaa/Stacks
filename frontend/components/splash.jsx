@@ -7,6 +7,25 @@ class SplashPage extends React.Component {
         this.logoutUser = this.logoutUser.bind(this)
         this.state = this.props.currentUser;
         this.redirect = this.redirect.bind(this)
+        this.showDropdown = this.showDropdown.bind(this)
+        this.windowClick = this.windowClick.bind(this)
+    }
+
+    windowClick() {
+        let hidden = document.getElementById("display-show");
+        if (hidden) {
+            hidden.id = "display-none"
+        }
+    }
+
+    showDropdown(e) {
+        let dropdown = document.getElementById("display-none");
+        let hidden = document.getElementById("display-show");
+        if (hidden) {
+            hidden.id = "display-none"
+        } else {
+            dropdown.id = "display-show";
+        }
     }
 
     logoutUser(e) {
@@ -15,13 +34,13 @@ class SplashPage extends React.Component {
             () => this.props.history.push("/session/new") 
         )
     }
-
+    
     redirect(url) {
         this.props.history.push(url)
     }
     render() {
         let loginout = (
-        <section className="header-right">
+            <section className="header-right">
             <NavLink to='/session/new' className="splash-new-session-link">Sign In</NavLink>
             <NavLink to="/users/new" className="splash-button-link">SignUp</NavLink>
         </section>
@@ -29,8 +48,8 @@ class SplashPage extends React.Component {
         if (Object.keys(this.props.currentUser).length > 0) {
             loginout = (
                 <section className="header-right">
-                    <button onClick={() => this.redirect("/messages")} className="signout" id="splash-dropdown-button">Your Workspace</button>
-                    <nav id="signout-dropdown-nav">
+                    <button onClick={this.showDropdown} className="signout" id="splash-dropdown-button">Your Workspace</button>
+                    <nav className="signout-dropdown-nav" id="display-none">
                         <nav id="your-workspace-nav">
                             <img src={window.aalogo} id="splash-aa-logo"/>
                             <button onClick={() => this.redirect("/messages")} className="signout-button" id="your-workspace-button">Workspace Name</button>

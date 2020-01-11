@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_09_205011) do
+ActiveRecord::Schema.define(version: 2020_01_11_001730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "channel_memberships", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "channel_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "channels", force: :cascade do |t|
+    t.integer "host_id", null: false
+    t.string "channel_name", null: false
+    t.string "channel_topic"
+    t.integer "private_message", null: false
+    t.integer "workspace_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["channel_name"], name: "index_channels_on_channel_name", unique: true
+  end
 
   create_table "messages", force: :cascade do |t|
     t.string "body", null: false
@@ -21,6 +39,7 @@ ActiveRecord::Schema.define(version: 2020_01_09_205011) do
     t.integer "workspace_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "channel_id"
   end
 
   create_table "users", force: :cascade do |t|
