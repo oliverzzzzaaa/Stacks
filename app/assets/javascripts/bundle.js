@@ -463,11 +463,19 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: message.id,
           className: "message-li"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "chat-profile-pic"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.defaultPicture
-        }), message.body, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, message.author.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-          className: "message-timestamp"
-        }, new Date(message.created_at).toLocaleTimeString()));
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "chat-top-row"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "chat-author-name"
+        }, message.author.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+          className: "chat-timestamp"
+        }, new Date(message.created_at).toLocaleTimeString())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+          className: "chat-message-body"
+        }, message.body)));
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chat-container"
@@ -732,7 +740,9 @@ function (_React$Component) {
         id: "channel-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "sidebar-link"
-      }, "Channels"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, channelList)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Channels"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        id: "channel-list-ul"
+      }, channelList)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "dm-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "sidebar-link"

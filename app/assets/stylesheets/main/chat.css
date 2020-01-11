@@ -18,7 +18,34 @@
 }
 
 .message-li {
-    display: inline-block;
-    margin-bottom: 50px;
+    display: flex;
+    margin-bottom: 50px; 
 }
 
+.chat-author-name {
+    font-weight: bold;
+    font-size: 12px;
+    margin: 0;
+    margin-left: 10px;
+}
+
+.chat-timestamp {
+    margin: 0;
+    color: rgba(var(--sk_foreground_max_solid,97,96,97),1);
+    font-size: 12px;
+    line-height: 1;
+    font-family: Slack-Lato,appleLogo,sans-serif;
+    display: inline-block;
+    margin-left: 5px;
+    font-weight: 400;
+
+}
+
+.chat-message-body {
+    margin-top: 4px;
+    margin-left: 10px;
+}
+
+.chat-top-row {
+    display: inline-block;
+}

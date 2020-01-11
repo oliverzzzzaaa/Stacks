@@ -34,7 +34,7 @@ class SideBar extends React.Component {
                 </div>
                 <div id="channel-div">
                     <h4 className="sidebar-link">Channels</h4>
-                    <ul>
+                    <ul id="channel-list-ul">
                         {channelList}
                         {/* <h4 className="sidebar-link locked-channel">
                             <img src={window.sidebarWhiteLock} className="sidebar-white-lock"/>

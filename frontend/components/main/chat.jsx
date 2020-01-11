@@ -33,14 +33,22 @@ class Chat extends React.Component {
         const messageList = this.props.messages.map( message => {
             return (
                 <li key={message.id} className="message-li">
-                    <img src={window.defaultPicture}/>
-                    {message.body} 
-                    <div>
-                        {message.author.name}
+                    <div className="chat-profile-pic">
+                        <img src={window.defaultPicture}/>
                     </div>
-                    <section className="message-timestamp">
-                        {(new Date(message.created_at).toLocaleTimeString())}
-                    </section>
+                    <div>
+                        <div className="chat-top-row">
+                            <span className="chat-author-name">
+                                {message.author.name}
+                            </span>
+                            <h5 className="chat-timestamp">
+                                {(new Date(message.created_at).toLocaleTimeString())}
+                            </h5>
+                        </div>
+                        <h4 className="chat-message-body">
+                            {message.body} 
+                        </h4>
+                    </div>
                     {/* <div ref={this.bottom} /> */}
                 </li>
             )
