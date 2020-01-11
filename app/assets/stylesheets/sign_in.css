@@ -82,3 +82,12 @@ input {
 #workspace-demo-user {
     margin-bottom: 40px;
 }
+
+.signin-input {
+    width: 50%;
+    align-self: center;
+    position: relative;
+    top: -30px;
+    align-self: center;
+    margin: 10px;
+}

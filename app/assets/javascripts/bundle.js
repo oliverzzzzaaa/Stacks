@@ -438,7 +438,8 @@ function (_React$Component) {
   _createClass(Chat, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchMessages(); // App.cable.subscriptions.create(
+      this.props.fetchMessages();
+      this.props.fetchChannels(); // App.cable.subscriptions.create(
       //     { channel: "ChatChannel" },
       //     {
       //         received: data => {
@@ -480,8 +481,14 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chat-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "chat-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "chat-container-left"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-list"
-      }, messageList));
+      }, messageList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "create-message-div"
+      }));
     }
   }]);
 
@@ -503,6 +510,8 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chat */ "./frontend/components/main/chat.jsx");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+
 
 
 
@@ -513,7 +522,11 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    fetchChannels: function fetchChannels() {
+      return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["fetchChannels"])());
+    }
+  };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_chat__WEBPACK_IMPORTED_MODULE_0__["default"]));
@@ -567,6 +580,13 @@ function (_React$Component) {
   }
 
   _createClass(Main, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchChannels();
+      this.props.fetchMessages();
+      this.props.fetchWorkspaces();
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -578,7 +598,8 @@ function (_React$Component) {
         fetchChannels: this.props.fetchChannels
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chat_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
         currentUser: this.props.currentUser,
-        fetchMessages: this.props.fetchMessages
+        fetchMessages: this.props.fetchMessages,
+        fetchChannels: this.props.fetchChannels
       }));
     }
   }]);
@@ -604,7 +625,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
 /* harmony import */ var _actions_workspace_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/workspace_actions */ "./frontend/actions/workspace_actions.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 
 
 
@@ -633,23 +656,13 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     fetchWorkspaces: function fetchWorkspaces(workspaces) {
       return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_4__["fetchWorkspaces"])(workspaces));
     },
-    fetchChannels: function (_fetchChannels) {
-      function fetchChannels(_x) {
-        return _fetchChannels.apply(this, arguments);
-      }
-
-      fetchChannels.toString = function () {
-        return _fetchChannels.toString();
-      };
-
-      return fetchChannels;
-    }(function (channels) {
-      return dispatch(fetchChannels(channels));
-    })
+    fetchChannels: function fetchChannels(channels) {
+      return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_5__["fetchChannels"])(channels));
+    }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_main__WEBPACK_IMPORTED_MODULE_1__["default"])));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_main__WEBPACK_IMPORTED_MODULE_1__["default"])));
 
 /***/ }),
 
@@ -1034,15 +1047,19 @@ function (_React$Component) {
         className: "signInWelcome"
       }, "Sign In to SampleWorkspace"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "signInWelcome"
-      }, "Enter your email address and password"), this.renderErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Email", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, "Enter your email address and password"), this.renderErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: this.state.email,
-        onChange: this.updateField('email')
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        onChange: this.updateField('email'),
+        className: "signin-input",
+        placeholder: "Email:"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "password",
         value: this.state.password,
-        onChange: this.updateField('password')
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onChange: this.updateField('password'),
+        className: "signin-input",
+        placeholder: "Password:"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "signInButton",
         id: "sign-in-button",
         type: "submit"
@@ -1402,11 +1419,13 @@ function (_React$Component) {
         className: "signInWelcome"
       }, "Sign in to your workspace"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "signInWelcome"
-      }, "Enter your workspace's Slack Url"), this.renderErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Slack-url:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, "Enter your workspace's Slack Url"), this.renderErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: this.state.workspace,
-        onChange: this.updateField('workspace')
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onChange: this.updateField('workspace'),
+        className: "signin-input",
+        placeholder: "Ex. 'App-Academy'"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "signInButton",
         type: "submit",
         id: "workspace-button"
@@ -1657,7 +1676,21 @@ function (_React$Component) {
         src: window.slackMarble3,
         id: "slack-marble-3",
         className: "slack-marble-gif"
-      }))))));
+      })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("footer", {
+        id: "splash-footer"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+        href: "https://github.com/oliverzzzzaaa/Stacks",
+        target: "_blank"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+        src: window.githubLogo,
+        id: "splash-github-logo"
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+        href: "https://www.linkedin.com/in/oliver-chen-693a37132/",
+        target: "_blank"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+        src: window.linkedin,
+        id: "splash-linkedin-logo"
+      })))));
     }
   }]);
 

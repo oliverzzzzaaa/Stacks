@@ -69,12 +69,8 @@ class SignInForm extends React.Component {
                     <h2 className="signInWelcome">Sign In to SampleWorkspace</h2>
                     <h4 className="signInWelcome">Enter your email address and password</h4>
                     {this.renderErrors()}
-                    <label>Email
-                        <input type="text" value={this.state.email} onChange={this.updateField('email')}/>
-                    </label>
-                    <label>Password
-                        <input type="password" value={this.state.password} onChange={this.updateField('password')}/>
-                    </label>
+                    <input type="text" value={this.state.email} onChange={this.updateField('email')} className="signin-input" placeholder="Email:"/>
+                    <input type="password" value={this.state.password} onChange={this.updateField('password')} className="signin-input" placeholder="Password:"/>
                     <button className="signInButton" id="sign-in-button" type="submit">Sign In</button>
                     <button className="signInButton" id="demo-user-button" onClick={this.handleDefaultUser}>Demo User</button>
                 </form>

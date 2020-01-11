@@ -8,7 +8,8 @@ class Chat extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchMessages()
+        this.props.fetchMessages();
+        this.props.fetchChannels();
         // App.cable.subscriptions.create(
         //     { channel: "ChatChannel" },
         //     {
@@ -55,9 +56,16 @@ class Chat extends React.Component {
         })
         return (
             <div className="chat-container">
+                <div id="chat-header">
+                    <div id="chat-container-left">
+
+                    </div>
+                </div>
                 <div className="message-list">
                     {messageList}
                 </div> 
+                <div id="create-message-div">
+                </div>
             </div>
         )
     }

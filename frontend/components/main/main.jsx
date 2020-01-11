@@ -7,6 +7,12 @@ class Main extends React.Component {
         super(props)
     }
 
+    componentDidMount() {
+        this.props.fetchChannels();
+        this.props.fetchMessages();
+        this.props.fetchWorkspaces();
+    }
+
     render() {
         return(
             <div className="main-div">
@@ -15,7 +21,7 @@ class Main extends React.Component {
                     fetchMessages={this.props.fetchMessages} 
                     fetchWorkspaces={this.props.fetchWorkspaces}
                     fetchChannels={this.props.fetchChannels}/>
-                <ChatContainer currentUser={this.props.currentUser} fetchMessages={this.props.fetchMessages}/>
+                <ChatContainer currentUser={this.props.currentUser} fetchMessages={this.props.fetchMessages} fetchChannels={this.props.fetchChannels}/>
             </div>
         )
     }

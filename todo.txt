@@ -8,11 +8,9 @@ Full-stack
 
 
 CSS:
-    onclick hide and show "Your Workspaces"
     grayed input instead of label
     footer in splash page with github and linkedIn
     Chat container
-    channels in sidebar
     dropdown in sidebar to go back to splash    
 
 

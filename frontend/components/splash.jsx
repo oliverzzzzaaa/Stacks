@@ -100,9 +100,14 @@ class SplashPage extends React.Component {
                             </div>
                         </section>
                     </section>
-                    {/* <footer id="splash-footer">
-                        <h2>I am the footer</h2>
-                    </footer> */}
+                    <footer id="splash-footer">
+                        <a href="https://github.com/oliverzzzzaaa/Stacks" target="_blank">
+                            <img src={window.githubLogo} id="splash-github-logo"/>
+                        </a>
+                        <a href="https://www.linkedin.com/in/oliver-chen-693a37132/" target="_blank">
+                            <img src={window.linkedin} id="splash-linkedin-logo"/>
+                        </a>
+                    </footer>
                 </div>
             </div>
         )

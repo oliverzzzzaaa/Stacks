@@ -77,9 +77,9 @@ class WorkspaceForm extends React.Component {
                     <h2 className="signInWelcome">Sign in to your workspace</h2>
                     <h4 className="signInWelcome">Enter your workspace's Slack Url</h4>
                     {this.renderErrors()}
-                    <label>Slack-url:
-                        <input type="text" value={this.state.workspace} onChange={this.updateField('workspace')}/>
-                    </label>
+                        <input type="text" value={this.state.workspace} onChange={this.updateField('workspace')} className="signin-input"
+                            placeholder="Ex. 'App-Academy'"
+                        />
                     {/* <NavLink to="/users/new" className="signInButton">Continue</NavLink> */}
                     <button className="signInButton" type="submit" id="workspace-button">Continue</button>
                     <button className="signInButton" id="workspace-demo-user"onClick={this.handleDefaultUser}>Demo User</button>

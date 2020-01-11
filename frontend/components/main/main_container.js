@@ -3,6 +3,7 @@ import Main from './main'
 import {receiveCurrentUser, logout} from '../../actions/session_actions';   
 import {fetchMessages} from '../../actions/message_actions'
 import {fetchWorkspaces} from '../../actions/workspace_actions';
+import {fetchChannels} from '../../actions/channel_actions'
 import {withRouter} from 'react-router-dom'
 
 const mapStateToProps = state => ({
