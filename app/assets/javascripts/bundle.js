@@ -1647,9 +1647,7 @@ function (_React$Component) {
         src: window.slackMarble3,
         id: "slack-marble-3",
         className: "slack-marble-gif"
-      })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("footer", {
-        id: "splash-footer"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", null, "I am the footer"))));
+      }))))));
     }
   }]);
 

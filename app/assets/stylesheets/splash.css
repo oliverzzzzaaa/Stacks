@@ -136,7 +136,7 @@ body {
 .splash-main {
     display: flex;
     flex-direction: column;
-    height: 1300px;
+    height: 1100px;
 }
 
 .splash-first {
@@ -328,11 +328,11 @@ body {
 }
 
 #splash-footer {
-    border: 1px solid black;
+    /* border: 1px solid black;
     display: flex;
     align-items: flex-end;
     align-self: center;
-    width: 100%;
-
+    width: 100%; */
+    /* background-color: lightcyan; */
 }
 

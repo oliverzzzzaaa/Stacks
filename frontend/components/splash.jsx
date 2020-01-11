@@ -100,9 +100,9 @@ class SplashPage extends React.Component {
                             </div>
                         </section>
                     </section>
-                    <footer id="splash-footer">
+                    {/* <footer id="splash-footer">
                         <h2>I am the footer</h2>
-                    </footer>
+                    </footer> */}
                 </div>
             </div>
         )
