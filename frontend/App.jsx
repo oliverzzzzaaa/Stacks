@@ -15,7 +15,7 @@ import {
   HashRouter
 } from 'react-router-dom';
 const App = () => (
-  <div>
+  <div id="app-div">
     <Switch>
       {/* <Route exact path="/" component={SplashPageContainer}/> */}
       <AuthRoute exact path="/session/new" component={WorkSpaceFormContainer}/>
@@ -23,6 +23,7 @@ const App = () => (
       <AuthRoute exact path="/users/new" component={SignUpFormContainer}/>
       <Route path="/test" component={SideBarContainer} />
       <ProtectedRoute path="/messages" component={MainContainer} />
+      {/* <ProtectedRoute path="/messages/:id" component={MainContainer} /> */}
       <Route path="/" component={SplashPageContainer}/>
     </Switch>
 

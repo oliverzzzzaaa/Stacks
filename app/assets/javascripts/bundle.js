@@ -118,7 +118,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["AuthRoute"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "app-div"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["AuthRoute"], {
     exact: true,
     path: "/session/new",
     component: _components_session_form_workspace_form_container__WEBPACK_IMPORTED_MODULE_5__["default"]
@@ -448,15 +450,27 @@ function (_React$Component) {
     value: function componentDidMount() {
       this.props.fetchMessages();
       this.props.fetchChannels();
-      var quill = new quill__WEBPACK_IMPORTED_MODULE_1___default.a('#editor', {
+      var quill = new quill__WEBPACK_IMPORTED_MODULE_1___default.a('#editor-container', {
+        modules: {
+          toolbar: [['bold', 'italic'], ['link', 'blockquote', 'code-block'], [{
+            list: 'ordered'
+          }, {
+            list: 'bullet'
+          }]]
+        },
+        placeholder: 'Enter text',
         theme: 'snow'
       });
       var form = document.querySelector('form');
 
       form.onsubmit = function () {
-        var body = document.querySelector('input[name=body]');
-        body.value = JSON.stringify(quill.getContents());
-        console.log("Submitted", $(form).serialize(), $(form).serializeArray());
+        // Populate hidden form on submit
+        var about = document.querySelector('input[name=about]');
+        about.value = JSON.stringify(quill.getContents());
+        console.log("Submitted", $(form).serialize(), $(form).serializeArray()); // No back end to actually submit to!
+
+        alert('Open the console to see the submit data!');
+        return false;
       }; // App.cable.subscriptions.create(
       //     { channel: "ChatChannel" },
       //     {
@@ -509,14 +523,22 @@ function (_React$Component) {
         className: "message-list"
       }, messageList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "create-message-div"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        onSubmit: this.handleSubmit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "editor"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "submit",
-        hidden: true
-      }))));
+        id: "form-container",
+        className: "container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        name: "about",
+        type: "hidden"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "editor-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-primary",
+        type: "submit"
+      }))))));
     }
   }]);
 

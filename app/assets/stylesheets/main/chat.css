@@ -1,10 +1,11 @@
 .main-div {
     display: flex;
     justify-content: space-between;
+    height: 100%;
 }
 
 .chat-container {
-    width: 76%;
+    width: 85%;
     display: flex;
     background: #fff;
     box-sizing: content-box;
@@ -17,11 +18,14 @@
     list-style: none;
     display: flex;
     flex-direction: column-reverse;
+    overflow: scroll;
+    width: 100%;
+    height: 100%;
 }
 
 .message-li {
     display: flex;
-    margin-bottom: 50px; 
+    margin-top: 10px; 
 }
 
 .chat-author-name {
@@ -66,11 +70,43 @@
 
 /* Post Message CSS */
 
-#content-container {
-    margin: 25px auto;
-    width: 400px;
+#form-container {
+    width: 100%;
+    height: 100%;
   }
+  .row.form-group {
+    margin-left: 15px;
+    margin-right: 15px;
+    height: 100%;
+    border: 1px solid gray;
+    border-radius: 5px;
+  }
+  .btn {
+      visibility: hidden;
+  }
+  
+  .change-link {
+    background-color: #000;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    bottom: 0;
+    color: #fff;
+    opacity: 0.8;
+    padding: 4px;
+    position: absolute;
+    text-align: center;
+    width: 150px;
+  }
+  .change-link:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+  
   #editor-container {
-    height: 100px;
+    height: 50px;
   }
 
+  .ql-toolbar.ql-snow {
+      border: 0
+
+  }

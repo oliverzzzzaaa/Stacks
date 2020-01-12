@@ -12,15 +12,31 @@ class Chat extends React.Component {
     componentDidMount() {
         this.props.fetchMessages();
         this.props.fetchChannels();
-        var quill = new Quill('#editor', {
+        var quill = new Quill('#editor-container', {
+            modules: {
+              toolbar: [
+                ['bold', 'italic'],
+                ['link', 'blockquote', 'code-block'],
+                [{ list: 'ordered' }, { list: 'bullet' }]
+              ]
+            },
+            placeholder: 'Enter text',
             theme: 'snow'
           });
-        const form = document.querySelector('form');
-        form.onsubmit = function() {
-        var body = document.querySelector('input[name=body]');
-        body.value = JSON.stringify(quill.getContents());
-        console.log("Submitted", $(form).serialize(), $(form).serializeArray());
-        };
+          
+          var form = document.querySelector('form');
+          form.onsubmit = function() {
+            // Populate hidden form on submit
+            var about = document.querySelector('input[name=about]');
+            about.value = JSON.stringify(quill.getContents());
+            
+            console.log("Submitted", $(form).serialize(), $(form).serializeArray());
+            
+            // No back end to actually submit to!
+            alert('Open the console to see the submit data!')
+            return false;
+          };
+          
           
         // App.cable.subscriptions.create(
         //     { channel: "ChatChannel" },
@@ -82,14 +98,19 @@ class Chat extends React.Component {
                     {messageList}
                 </div> 
                 <div id="create-message-div">
-                    <form onSubmit={this.handleSubmit}>
-                        <div id="editor">
-                            <p></p>
-                            <p></p>
-                            <p><br/></p>
+                <div id="form-container" className="container">
+                    <form>
+                        <div className="row form-group">
+                            <input name="about" type="hidden"/>
+                            <div id="editor-container">
+                                <p></p>
+                            </div>
                         </div>
-                        <input type="submit" hidden={true}/>
+                        <div className="row">
+                        <button className="btn btn-primary" type="submit"></button>
+                        </div>
                     </form>
+                </div>
                 </div>
             </div>
         )

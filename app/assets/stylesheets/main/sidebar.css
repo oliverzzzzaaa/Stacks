@@ -3,8 +3,7 @@
     color: rgb(207,195,207);;
     display: flex;
     flex-direction: column;
-    height: 1000px;
-    width: 23%;
+    width: 15%;
     text-overflow: ellipsis;
     overflow: hidden;
     font-weight: normal;

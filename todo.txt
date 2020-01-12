@@ -8,9 +8,7 @@ Full-stack
 
 
 CSS:
-    grayed input instead of label
-    footer in splash page with github and linkedIn
-    Chat container
+    chat-container submit
     dropdown in sidebar to go back to splash    
 
 
