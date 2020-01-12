@@ -64,4 +64,13 @@
     width: 100%;
 }
 
+/* Post Message CSS */
+
+#content-container {
+    margin: 25px auto;
+    width: 400px;
+  }
+  #editor-container {
+    height: 100px;
+  }
 
