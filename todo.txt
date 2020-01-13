@@ -8,9 +8,12 @@ Full-stack
 
 
 CSS:
-    chat-container submit
     dropdown in sidebar to go back to splash    
 
 
 Incorporate ActionCable
 Link messages and channels workspaces
+
+Questions: 
+    Strong/italicize from quill
+    n+1 calls for receiveMessage on every message submit

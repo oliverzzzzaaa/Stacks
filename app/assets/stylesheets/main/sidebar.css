@@ -72,3 +72,32 @@ h4 {
     font-size: 14px;
     font-weight: 400;
 }
+
+.sidebar-workspace-ul {
+    list-style: none;
+}
+
+.sidebar-revealed{
+    background-color: lightgray;
+    border-radius: 5px;
+    color: black;
+    overflow: visible;
+    position: absolute;
+    width: 270px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-back-to-slash {
+    text-decoration: none;
+    color: black;
+
+}
+
+#hovered-sidebar-dropdown {
+    position: absolute
+}
+
+#hidden-sidebar-dropdown {
+    visibility: hidden;
+}

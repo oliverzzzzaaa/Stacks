@@ -48,12 +48,19 @@
 }
 
 .chat-message-body {
-    margin-top: 4px;
     margin-left: 10px;
+    margin-bottom: 5px;
 }
 
 .chat-top-row {
-    display: inline-block;
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.chat-content {
+    width: 100%;
 }
 
 #create-message-div {
@@ -68,6 +75,37 @@
     width: 100%;
     background-color: #fff;
     opacity: 10;
+}
+
+.message-li:hover {
+    background-color: rgba(var(--sk_foreground_min_solid,248,248,248),1);
+}
+
+.edit-message-popup {
+    justify-self: flex-end;
+    font-size: 12px;
+    right: 0;
+    visibility: hidden;
+}
+
+.message-li:hover .edit-message-popup {
+    visibility: visible;
+    justify-self: flex-end;
+    font-size: 25px;
+    width: 30px;
+    color: lightgray;
+}
+
+.edit-message-popup {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+}
+
+.message-ellipses {
+    display: flex;
+    justify-content: center;
+    width: 20px;
 }
 
 /* Post Message CSS */
@@ -107,13 +145,6 @@
   #editor-container {
     height: 50px;
   }
-
-  .ql-toolbar.ql-snow {
-      border: 0
-
-  }
-
-  .ql-link {
-      visibility: hidden;
-      display: none;
+  .ql-bold:hover, .ql-italic:hover, .ql-list:hover {
+      cursor: not-allowed;
   }

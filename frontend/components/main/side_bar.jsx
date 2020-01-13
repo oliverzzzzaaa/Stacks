@@ -26,11 +26,26 @@ class SideBar extends React.Component {
             )
         })
         let currentUserId = this.props.currentUserId
+
+        const workspaceList = this.props.workspaces.map( workspace => {
+            return (
+                <li className="sidebar-workspace" key={workspace.id}>
+                    {workspace.workspace_name}
+                </li>
+            )
+        })
         return(
             <div className="sidebar-container-purple">
                 <div className="sidebar-link" id="sidebar-workspace-dropdown-hover">
                     <h4 id="sidebar-workspace-name" className="sidebar-link">Workspace Name</h4>
                     <h4 className="sidebar-link"><span className="green-dot"></span>{this.props.currentUser[currentUserId].name}</h4>
+                    <div id="hidden-sidebar-dropdown" className="sidebar-revealed">
+                        <div id="profile-link">Profile Link</div>
+                        <ul className="sidebar-workspace-ul">
+                            {workspaceList}
+                        </ul>
+                        <a href="/" className="sidebar-back-to-slash">Back to Splash</a>
+                    </div>
                 </div>
                 <div id="channel-div">
                     <h4 className="sidebar-link">Channels</h4>

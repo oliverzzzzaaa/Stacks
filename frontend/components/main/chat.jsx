@@ -7,6 +7,7 @@ class Chat extends React.Component {
         // this.state = this.props.messages
         // this.bottom = React.createRef();
         this.handleSubmit = this.handleSubmit.bind(this)
+        // this.stringToHTML = this.stringToHTML.bind(this)
     }
 
     componentDidMount() {
@@ -19,6 +20,7 @@ class Chat extends React.Component {
             submit: {
                 key: "enter",
                 handler: (range, context) => {
+                    console.log(quill.getContents())
                     this.handleSubmit.bind(this)()
                 }
             }
@@ -88,27 +90,34 @@ class Chat extends React.Component {
         )
         
     }
+
         
 
     render() {
         const messageList = this.props.messages.map( message => {
+            // message.body = $(message.body)
             return (
                 <li key={message.id} className="message-li">
                     <div className="chat-profile-pic">
                         <img src={window.defaultPicture}/>
                     </div>
-                    <div>
+                    <div className="chat-content">
                         <div className="chat-top-row">
-                            <span className="chat-author-name">
-                                {message.author.name}
+                            <span className="message-left">
+                                <span className="chat-author-name">
+                                    {message.author.name}
+                                </span>
+                                <h5 className="chat-timestamp">
+                                    {(new Date(message.created_at).toLocaleTimeString())}
+                                </h5>
                             </span>
-                            <h5 className="chat-timestamp">
-                                {(new Date(message.created_at).toLocaleTimeString())}
-                            </h5>
+                            <span className="edit-message-popup">
+                                <i className="fa fa-ellipsis-v message-ellipses"></i>
+                            </span>
                         </div>
-                        <h4 className="chat-message-body">
+                        <span className="chat-message-body">
                             {message.body} 
-                        </h4>
+                        </span>
                     </div>
                 </li>
             )

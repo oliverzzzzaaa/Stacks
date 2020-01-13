@@ -441,7 +441,8 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Chat).call(this, props)); // this.state = this.props.messages
     // this.bottom = React.createRef();
 
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this)); // this.stringToHTML = this.stringToHTML.bind(this)
+
     return _this;
   }
 
@@ -460,6 +461,8 @@ function (_React$Component) {
         submit: {
           key: "enter",
           handler: function handler(range, context) {
+            console.log(quill.getContents());
+
             _this2.handleSubmit.bind(_this2)();
           }
         }
@@ -526,6 +529,7 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var messageList = this.props.messages.map(function (message) {
+        // message.body = $(message.body)
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: message.id,
           className: "message-li"
@@ -533,13 +537,21 @@ function (_React$Component) {
           className: "chat-profile-pic"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.defaultPicture
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "chat-content"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "chat-top-row"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "message-left"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           className: "chat-author-name"
         }, message.author.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
           className: "chat-timestamp"
-        }, new Date(message.created_at).toLocaleTimeString())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+        }, new Date(message.created_at).toLocaleTimeString())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "edit-message-popup"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fa fa-ellipsis-v message-ellipses"
+        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           className: "chat-message-body"
         }, message.body)));
       });
@@ -823,6 +835,12 @@ function (_React$Component) {
         }), channel.channel_name);
       });
       var currentUserId = this.props.currentUserId;
+      var workspaceList = this.props.workspaces.map(function (workspace) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "sidebar-workspace",
+          key: workspace.id
+        }, workspace.workspace_name);
+      });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sidebar-container-purple"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -835,7 +853,17 @@ function (_React$Component) {
         className: "sidebar-link"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "green-dot"
-      }), this.props.currentUser[currentUserId].name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), this.props.currentUser[currentUserId].name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "hidden-sidebar-dropdown",
+        className: "sidebar-revealed"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "profile-link"
+      }, "Profile Link"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "sidebar-workspace-ul"
+      }, workspaceList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "/",
+        className: "sidebar-back-to-slash"
+      }, "Back to Splash"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "channel-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "sidebar-link"
