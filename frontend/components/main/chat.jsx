@@ -7,8 +7,6 @@ class Chat extends React.Component {
         // this.state = this.props.messages
         // this.bottom = React.createRef();
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.newMessage = this.newMessage.bind(this)
-        this.handleKeyPress = this.handleKeyPress.bind(this)
     }
 
     componentDidMount() {
@@ -64,41 +62,28 @@ class Chat extends React.Component {
         //         }
         //     }
         // )
+        // document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({ behavior: "smooth" });
+        console.dir(document.getElementsByClassName("message-list")[0]);
+        console.dir(document.getElementsByClassName("message-list")[0].lastChild);
     }
 
     // componentDidUpdate() {
     //     this.bottom.current.scrollIntoView();
     // }
 
-        handleSubmit() {
-            let newMessagebody = document.getElementsByClassName('ql-editor')[0].children[0].innerHTML
-            let newMessage = {
-                body: newMessagebody
-            }
-            
-            this.props.postMessage(newMessage)
+    handleSubmit() {
+        let newMessagebody = document.getElementsByClassName('ql-editor')[0].children[0].innerHTML
+        let newMessage = {
+            body: newMessagebody
         }
         
-        newMessage() {
-            alert("great")
-        }
-
-        handleKeyPress(event) {
-            if (event.key == 'Enter') {
-              this.handleSubmit();
-            }
-          };
+        this.props.postMessage(newMessage)
+        this.forceUpdate()
+        
+    }
+        
 
     render() {
-
-        $("input").keypress(function(event) {
-            if (event.which == 13) {
-                event.preventDefault();
-                $("form").submit();
-                console.log("ay")
-            }
-        });
-          
         const messageList = this.props.messages.map( message => {
             return (
                 <li key={message.id} className="message-li">
@@ -118,7 +103,6 @@ class Chat extends React.Component {
                             {message.body} 
                         </h4>
                     </div>
-                    {/* <div ref={this.bottom} /> */}
                 </li>
             )
         })

@@ -442,8 +442,6 @@ function (_React$Component) {
     // this.bottom = React.createRef();
 
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
-    _this.newMessage = _this.newMessage.bind(_assertThisInitialized(_this));
-    _this.handleKeyPress = _this.handleKeyPress.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -497,6 +495,10 @@ function (_React$Component) {
       //         }
       //     }
       // )
+      // document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({ behavior: "smooth" });
+
+      console.dir(document.getElementsByClassName("message-list")[0]);
+      console.dir(document.getElementsByClassName("message-list")[0].lastChild);
     } // componentDidUpdate() {
     //     this.bottom.current.scrollIntoView();
     // }
@@ -509,29 +511,11 @@ function (_React$Component) {
         body: newMessagebody
       };
       this.props.postMessage(newMessage);
-    }
-  }, {
-    key: "newMessage",
-    value: function newMessage() {
-      alert("great");
-    }
-  }, {
-    key: "handleKeyPress",
-    value: function handleKeyPress(event) {
-      if (event.key == 'Enter') {
-        this.handleSubmit();
-      }
+      this.forceUpdate();
     }
   }, {
     key: "render",
     value: function render() {
-      $("input").keypress(function (event) {
-        if (event.which == 13) {
-          event.preventDefault();
-          $("form").submit();
-          console.log("ay");
-        }
-      });
       var messageList = this.props.messages.map(function (message) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: message.id,
