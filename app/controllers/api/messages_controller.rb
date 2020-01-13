@@ -35,7 +35,7 @@ class Api::MessagesController < ApplicationController
         @message.workspace_id = Workspace.find_by(workspace_name: "App-Academy").id
         # @message.workspace_id = params[:workspace_id]
         if @message.save
-            ActionCable.server.broadcast "chat_channel", message: @message
+            # ActionCable.server.broadcast "chat_channel", message: @message
             @messages = Message.all
             render :index
         else
