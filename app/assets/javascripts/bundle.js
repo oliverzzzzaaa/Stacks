@@ -450,7 +450,11 @@ function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      this.props.fetchMessages(); // this.props.fetchChannels();
+      this.props.fetchMessages().then(function () {
+        document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({
+          behavior: "smooth"
+        });
+      }); // this.props.fetchChannels();
 
       var bindings = {
         submit: {
@@ -495,14 +499,18 @@ function (_React$Component) {
       //         }
       //     }
       // )
-      // document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({ behavior: "smooth" });
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var lastMessage = document.getElementsByClassName("message-list")[0].lastChild;
 
-      console.dir(document.getElementsByClassName("message-list")[0]);
-      console.dir(document.getElementsByClassName("message-list")[0].lastChild);
-    } // componentDidUpdate() {
-    //     this.bottom.current.scrollIntoView();
-    // }
-
+      if (lastMessage !== null) {
+        lastMessage.scrollIntoView({
+          behavior: "smooth"
+        });
+      }
+    }
   }, {
     key: "handleSubmit",
     value: function handleSubmit() {
@@ -510,8 +518,9 @@ function (_React$Component) {
       var newMessage = {
         body: newMessagebody
       };
-      this.props.postMessage(newMessage);
-      this.forceUpdate();
+      this.props.postMessage(newMessage).then(function () {
+        return document.getElementsByClassName('ql-editor')[0].children[0].innerHTML = "";
+      });
     }
   }, {
     key: "render",

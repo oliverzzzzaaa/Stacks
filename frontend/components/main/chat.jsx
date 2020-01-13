@@ -10,7 +10,9 @@ class Chat extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchMessages();
+        this.props.fetchMessages().then(() => {
+            document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({ behavior: "smooth" });
+        })
         // this.props.fetchChannels();
 
         let bindings = {
@@ -62,14 +64,18 @@ class Chat extends React.Component {
         //         }
         //     }
         // )
-        // document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({ behavior: "smooth" });
-        console.dir(document.getElementsByClassName("message-list")[0]);
-        console.dir(document.getElementsByClassName("message-list")[0].lastChild);
-    }
 
-    // componentDidUpdate() {
-    //     this.bottom.current.scrollIntoView();
-    // }
+
+        
+        
+
+    }
+    componentDidUpdate() {
+        let lastMessage = document.getElementsByClassName("message-list")[0].lastChild
+        if (lastMessage !== null) {
+            lastMessage.scrollIntoView({ behavior: "smooth" });
+        }
+     }
 
     handleSubmit() {
         let newMessagebody = document.getElementsByClassName('ql-editor')[0].children[0].innerHTML
@@ -77,8 +83,9 @@ class Chat extends React.Component {
             body: newMessagebody
         }
         
-        this.props.postMessage(newMessage)
-        this.forceUpdate()
+        this.props.postMessage(newMessage).then(
+            () => document.getElementsByClassName('ql-editor')[0].children[0].innerHTML = ""
+        )
         
     }
         
