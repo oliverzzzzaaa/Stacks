@@ -31,9 +31,10 @@ class Api::MessagesController < ApplicationController
 
     def create
         @message = Message.new(message_params)
-        # @message.user_id = current_user.id
+        @message.user_id = current_user.id
+        @message.workspace_id = Workspace.find_by(workspace_name: "App-Academy").id
         # @message.workspace_id = params[:workspace_id]
-        if @message.save
+        if @message.save!
             @messages = Message.all
             render :index
         else
@@ -44,6 +45,6 @@ class Api::MessagesController < ApplicationController
     private
 
     def message_params
-        params.require(:message).permit(:body, :workspace_id, :user_id)
+        params.require(:message).permit(:body, :workspace_id)
     end
 end

@@ -442,17 +442,33 @@ function (_React$Component) {
     // this.bottom = React.createRef();
 
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.newMessage = _this.newMessage.bind(_assertThisInitialized(_this));
+    _this.handleKeyPress = _this.handleKeyPress.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Chat, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchMessages();
-      this.props.fetchChannels();
+      var _this2 = this;
+
+      this.props.fetchMessages(); // this.props.fetchChannels();
+
+      var bindings = {
+        submit: {
+          key: "enter",
+          handler: function handler(range, context) {
+            _this2.handleSubmit.bind(_this2)();
+          }
+        }
+      };
       var quill = new quill__WEBPACK_IMPORTED_MODULE_1___default.a('#editor-container', {
         modules: {
-          toolbar: [['bold', 'italic'], ['link', 'blockquote', 'code-block'], [{
+          keyboard: {
+            bindings: bindings
+          },
+          toolbar: [['bold', 'italic'], // ['link', 'blockquote', 'code-block'],
+          [{
             list: 'ordered'
           }, {
             list: 'bullet'
@@ -460,18 +476,17 @@ function (_React$Component) {
         },
         placeholder: 'Enter text',
         theme: 'snow'
-      });
-      var form = document.querySelector('form');
-
-      form.onsubmit = function () {
-        // Populate hidden form on submit
-        var about = document.querySelector('input[name=about]');
-        about.value = JSON.stringify(quill.getContents());
-        console.log("Submitted", $(form).serialize(), $(form).serializeArray()); // No back end to actually submit to!
-
-        alert('Open the console to see the submit data!');
-        return false;
-      }; // App.cable.subscriptions.create(
+      }); //   var form = document.querySelector('form');
+      //   form.onsubmit = function() {
+      //     // Populate hidden form on submit
+      //     var about = document.querySelector('input[name=about]');
+      //     about.value = JSON.stringify(quill.getContents());
+      //     console.log("Submitted", $(form).serialize(), $(form).serializeArray());
+      //     // No back end to actually submit to!
+      //     alert('Open the console to see the submit data!')
+      //     return false;
+      //   };
+      // App.cable.subscriptions.create(
       //     { channel: "ChatChannel" },
       //     {
       //         received: data => {
@@ -482,7 +497,6 @@ function (_React$Component) {
       //         }
       //     }
       // )
-
     } // componentDidUpdate() {
     //     this.bottom.current.scrollIntoView();
     // }
@@ -490,11 +504,34 @@ function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit() {
-      console.log("great!");
+      var newMessagebody = document.getElementsByClassName('ql-editor')[0].children[0].innerHTML;
+      var newMessage = {
+        body: newMessagebody
+      };
+      this.props.postMessage(newMessage);
+    }
+  }, {
+    key: "newMessage",
+    value: function newMessage() {
+      alert("great");
+    }
+  }, {
+    key: "handleKeyPress",
+    value: function handleKeyPress(event) {
+      if (event.key == 'Enter') {
+        this.handleSubmit();
+      }
     }
   }, {
     key: "render",
     value: function render() {
+      $("input").keypress(function (event) {
+        if (event.which == 13) {
+          event.preventDefault();
+          $("form").submit();
+          console.log("ay");
+        }
+      });
       var messageList = this.props.messages.map(function (message) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: message.id,
@@ -526,14 +563,18 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "form-container",
         className: "container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        id: "new-message-form"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         name: "about",
         type: "hidden"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "editor-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        id: "new-message-body"
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-primary",
@@ -561,6 +602,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chat */ "./frontend/components/main/chat.jsx");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+/* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
+
 
 
 
@@ -573,8 +616,9 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    fetchChannels: function fetchChannels() {
-      return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["fetchChannels"])());
+    // fetchChannels: () => dispatch(fetchChannels()),
+    postMessage: function postMessage(message) {
+      return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["postMessage"])(message));
     }
   };
 };
@@ -632,8 +676,8 @@ function (_React$Component) {
   _createClass(Main, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchChannels();
-      this.props.fetchMessages();
+      this.props.fetchChannels(); // this.props.fetchMessages();
+
       this.props.fetchWorkspaces();
     }
   }, {
@@ -643,13 +687,13 @@ function (_React$Component) {
         className: "main-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_side_bar_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
         currentUser: this.props.currentUser,
-        fetchMessages: this.props.fetchMessages,
-        fetchWorkspaces: this.props.fetchWorkspaces,
-        fetchChannels: this.props.fetchChannels
+        messages: this.props.messages,
+        workspaces: this.props.workspaces,
+        channels: this.props.channels
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chat_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
         currentUser: this.props.currentUser,
         fetchMessages: this.props.fetchMessages,
-        fetchChannels: this.props.fetchChannels
+        channels: this.props.channels
       }));
     }
   }]);
@@ -770,9 +814,8 @@ function (_React$Component) {
     }
   }, {
     key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.fetchWorkspaces();
-      this.props.fetchChannels();
+    value: function componentDidMount() {// this.props.fetchWorkspaces()
+      // this.props.fetchChannels();
     }
   }, {
     key: "render",
@@ -840,10 +883,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _side_bar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./side_bar */ "./frontend/components/main/side_bar.jsx");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _actions_workspace_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/workspace_actions */ "./frontend/actions/workspace_actions.js");
-/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
-
-
 
 
 
@@ -884,26 +923,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return logout;
     }(function () {
       return dispatch(logout());
-    }),
-    fetchMessages: function (_fetchMessages) {
-      function fetchMessages(_x2) {
-        return _fetchMessages.apply(this, arguments);
-      }
-
-      fetchMessages.toString = function () {
-        return _fetchMessages.toString();
-      };
-
-      return fetchMessages;
-    }(function (messages) {
-      return dispatch(fetchMessages(messages));
-    }),
-    fetchWorkspaces: function fetchWorkspaces(workspaces) {
-      return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_3__["fetchWorkspaces"])(workspaces));
-    },
-    fetchChannels: function fetchChannels(channels) {
-      return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_4__["fetchChannels"])(channels));
-    }
+    })
   };
 };
 

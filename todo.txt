@@ -12,10 +12,5 @@ CSS:
     dropdown in sidebar to go back to splash    
 
 
-Make static messages page
-    Make sure messages is a prop passed into the component
 Incorporate ActionCable
-CSS the main page incl navbar (sample channels and workspaces)
-
-make channels
 Link messages and channels workspaces

@@ -14,7 +14,7 @@
 }
 
 .message-list {
-    margin: 15px;
+    margin: 0px 0px 15px 15px;
     list-style: none;
     display: flex;
     flex-direction: column-reverse;
@@ -63,9 +63,11 @@
 #chat-header {
     position: fixed;
     border-bottom: 1px solid gray;
-    height: 100px;
+    height: 7.5%;
     top: 0;
     width: 100%;
+    background-color: #fff;
+    opacity: 10;
 }
 
 /* Post Message CSS */
@@ -109,4 +111,9 @@
   .ql-toolbar.ql-snow {
       border: 0
 
+  }
+
+  .ql-link {
+      visibility: hidden;
+      display: none;
   }

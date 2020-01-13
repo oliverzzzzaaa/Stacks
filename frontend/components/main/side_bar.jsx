@@ -12,8 +12,8 @@ class SideBar extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchWorkspaces()
-        this.props.fetchChannels();
+        // this.props.fetchWorkspaces()
+        // this.props.fetchChannels();
     }
 
     render() {

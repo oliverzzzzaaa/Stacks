@@ -9,7 +9,7 @@ class Main extends React.Component {
 
     componentDidMount() {
         this.props.fetchChannels();
-        this.props.fetchMessages();
+        // this.props.fetchMessages();
         this.props.fetchWorkspaces();
     }
 
@@ -18,10 +18,10 @@ class Main extends React.Component {
             <div className="main-div">
                 <SideBarContainer 
                     currentUser={this.props.currentUser}
-                    fetchMessages={this.props.fetchMessages} 
-                    fetchWorkspaces={this.props.fetchWorkspaces}
-                    fetchChannels={this.props.fetchChannels}/>
-                <ChatContainer currentUser={this.props.currentUser} fetchMessages={this.props.fetchMessages} fetchChannels={this.props.fetchChannels}/>
+                    messages = {this.props.messages}
+                    workspaces={this.props.workspaces}
+                    channels={this.props.channels}/>
+                <ChatContainer currentUser={this.props.currentUser} fetchMessages={this.props.fetchMessages} channels={this.props.channels}/>
             </div>
         )
     }
