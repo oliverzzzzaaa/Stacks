@@ -26,20 +26,28 @@ class WorkspaceForm extends React.Component {
         );
       }
 
-
     handleSubmit(e) {
         e.preventDefault();
-        this.props.history.push('/session/workspace/new')
+        console.log(this.props)
+        console.log(this.props.workspaces)
+        console.log(this.state.workspace)
+        if (this.props.workspaces[this.state.workspace] !== undefined) {
+            this.props.history.push('/session/workspace/new')
+        } else {
+                document.getElementById("workspace-error").innerHTML = "Sorry this workspace can not be found"
+            }
+        // this.props.history.push('/session/workspace/new')
     }
 
     componentDidMount() {
-        // this.props.fetchWorkspaces();
+        this.props.fetchWorkspaces();
     }
 
     handleDefaultUser(e) {
         e.preventDefault();
-        this.setState({workspace: 'App-Academy'})
-        document.getElementById("workspace-button").click()
+        this.setState({workspace: 'App-Academy'}, () => {
+            document.getElementById("workspace-button").click()
+        })
         
         // return e => this.setState({workspace: 'App-Academy'}, () => {
         //     console.log('ok')
@@ -76,6 +84,7 @@ class WorkspaceForm extends React.Component {
                 <form onSubmit={this.handleSubmit} className="signInForm">
                     <h2 className="signInWelcome">Sign in to your workspace</h2>
                     <h4 className="signInWelcome">Enter your workspace's Slack Url</h4>
+                    <h3 id="workspace-error"></h3>
                     {this.renderErrors()}
                         <input type="text" value={this.state.workspace} onChange={this.updateField('workspace')} className="signin-input"
                             placeholder="Ex. 'App-Academy'"

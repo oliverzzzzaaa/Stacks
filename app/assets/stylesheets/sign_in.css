@@ -91,3 +91,10 @@ input {
     align-self: center;
     margin: 10px;
 }
+
+#workspace-error {
+    font-size: 16px;
+    align-self: center;
+    justify-self: center;    
+    color: red;
+}

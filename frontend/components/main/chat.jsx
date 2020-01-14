@@ -111,12 +111,15 @@ class Chat extends React.Component {
                                     {(new Date(message.created_at).toLocaleTimeString())}
                                 </h5>
                             </span>
-                            <span className="edit-message-popup">
+                            {/* <span className="edit-message-popup">
                                 <i className="fa fa-ellipsis-v message-ellipses"></i>
-                            </span>
+                            </span> */}
                         </div>
                         <span className="chat-message-body">
                             {message.body} 
+                        </span>
+                        <span className="edit-message-popup">
+                            <i className="fa fa-ellipsis-v message-ellipses"></i>
                         </span>
                     </div>
                 </li>

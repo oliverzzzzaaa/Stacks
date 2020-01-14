@@ -547,13 +547,13 @@ function (_React$Component) {
           className: "chat-author-name"
         }, message.author.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
           className: "chat-timestamp"
-        }, new Date(message.created_at).toLocaleTimeString())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        }, new Date(message.created_at).toLocaleTimeString()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "chat-message-body"
+        }, message.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           className: "edit-message-popup"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "fa fa-ellipsis-v message-ellipses"
-        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "chat-message-body"
-        }, message.body)));
+        }))));
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chat-container"
@@ -1442,11 +1442,21 @@ function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      this.props.history.push('/session/workspace/new');
+      console.log(this.props);
+      console.log(this.props.workspaces);
+      console.log(this.state.workspace);
+
+      if (this.props.workspaces[this.state.workspace] !== undefined) {
+        this.props.history.push('/session/workspace/new');
+      } else {
+        document.getElementById("workspace-error").innerHTML = "Sorry this workspace can not be found";
+      } // this.props.history.push('/session/workspace/new')
+
     }
   }, {
     key: "componentDidMount",
-    value: function componentDidMount() {// this.props.fetchWorkspaces();
+    value: function componentDidMount() {
+      this.props.fetchWorkspaces();
     }
   }, {
     key: "handleDefaultUser",
@@ -1454,8 +1464,9 @@ function (_React$Component) {
       e.preventDefault();
       this.setState({
         workspace: 'App-Academy'
-      });
-      document.getElementById("workspace-button").click(); // return e => this.setState({workspace: 'App-Academy'}, () => {
+      }, function () {
+        document.getElementById("workspace-button").click();
+      }); // return e => this.setState({workspace: 'App-Academy'}, () => {
       //     console.log('ok')
       //     document.getElementById("workspace-button").click()
       // })
@@ -1510,7 +1521,9 @@ function (_React$Component) {
         className: "signInWelcome"
       }, "Sign in to your workspace"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "signInWelcome"
-      }, "Enter your workspace's Slack Url"), this.renderErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, "Enter your workspace's Slack Url"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        id: "workspace-error"
+      }), this.renderErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: this.state.workspace,
         onChange: this.updateField('workspace'),
@@ -1551,13 +1564,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var mapStateToProps = function mapStateToProps(_ref) {
-  var errors = _ref.errors;
+var mapStateToProps = function mapStateToProps(state) {
   return {
-    errors: errors.session,
+    errors: state.errors.session,
     workspaceform: {
       workspace: ''
-    }
+    },
+    workspaces: state.entities.workspaces
   };
 };
 

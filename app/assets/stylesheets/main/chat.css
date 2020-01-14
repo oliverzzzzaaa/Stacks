@@ -56,7 +56,8 @@
     display: flex;
     width: 90%;
     justify-content: space-between;
-    margin-bottom: 12px;
+    padding-bottom: 12px;
+    overflow: visible;
 }
 
 .chat-content {
@@ -86,6 +87,10 @@
     font-size: 12px;
     right: 0;
     visibility: hidden;
+    position: relative;
+    left: 80%;
+    bottom: 40%;
+    margin: -11px;
 }
 
 .message-li:hover .edit-message-popup {

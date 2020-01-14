@@ -1,10 +1,14 @@
 class Api::WorkspacesController < ApplicationController
 
     def index
-        @workspace_assignments = WorkspaceAssignment.where(user_id: current_user.id)
-        @workspaces = [];
-        @workspace_assignments.each do |workspace_assignment|
-            @workspaces << Workspace.find(workspace_assignment.workspace_id)
+        if current_user
+            @workspace_assignments = WorkspaceAssignment.where(user_id: current_user.id)
+            @workspaces = [];
+            @workspace_assignments.each do |workspace_assignment|
+                @workspaces << Workspace.find(workspace_assignment.workspace_id)
+            end
+        else
+            @workspaces = Workspace.all
         end
         render :index
     end 

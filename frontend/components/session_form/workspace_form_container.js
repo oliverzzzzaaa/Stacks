@@ -2,9 +2,10 @@ import {connect} from 'react-redux'
 import WorkSpaceForm from './workspace_form'
 import { fetchWorkspaces } from '../../actions/workspace_actions';
 
-const mapStateToProps = ({errors}) => ({
-    errors: errors.session,
-    workspaceform: {workspace: ''}
+const mapStateToProps = (state) => ({
+    errors: state.errors.session,
+    workspaceform: {workspace: ''},
+    workspaces: state.entities.workspaces
 })
 
 const mapDispatchToProps = dispatch => ({
