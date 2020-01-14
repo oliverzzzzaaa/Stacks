@@ -18,14 +18,14 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    overflow: scroll;
-    width: 100%;
+    overflow-y: scroll;
     height: 75%;
 }
 
 .message-li {
     display: flex;
     margin-top: 10px; 
+    width: 100%;
 }
 
 .chat-author-name {
@@ -83,14 +83,14 @@
 }
 
 .edit-message-popup {
-    justify-self: flex-end;
     font-size: 12px;
-    right: 0;
     visibility: hidden;
     position: relative;
     left: 80%;
     bottom: 40%;
     margin: -11px;
+    width: 10%;
+
 }
 
 .message-li:hover .edit-message-popup {
@@ -130,7 +130,7 @@
       visibility: hidden;
   }
   
-  .change-link {
+  /* .change-link {
     background-color: #000;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
@@ -145,7 +145,7 @@
   .change-link:hover {
     color: #fff;
     text-decoration: none;
-  }
+  } */
   
   #editor-container {
     height: 50px;
