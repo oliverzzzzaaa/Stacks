@@ -153,3 +153,7 @@
   .ql-bold:hover, .ql-italic:hover, .ql-list:hover {
       cursor: not-allowed;
   }
+
+  .ql-bold, .ql-italic, .ql-list{
+      visibility: hidden;
+  }
