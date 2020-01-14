@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink, Link } from 'react-router-dom'
 class SideBar extends React.Component {
 
     constructor(props) {
@@ -16,12 +17,16 @@ class SideBar extends React.Component {
         // this.props.fetchChannels();
     }
 
+
+
     render() {
         const channelList = this.props.channels.map( channel => {
             return (
                 <li className="sidebar-link locked-channel" key={channel.id}>
                     <img src={window.sidebarWhiteLock} className="sidebar-white-lock"/>
-                    {channel.channel_name}
+                    <NavLink to={`/messages/${channel.id}`} className="channel-links">
+                        {channel.channel_name}
+                    </NavLink>
                 </li>
             )
         })
@@ -38,7 +43,7 @@ class SideBar extends React.Component {
             <div className="sidebar-container-purple">
                 <div className="sidebar-link" id="sidebar-workspace-dropdown-hover">
                     <h4 id="sidebar-workspace-name" className="sidebar-link">Workspace Name</h4>
-                    <h4 className="sidebar-link"><span className="green-dot"></span>{this.props.currentUser[currentUserId].name}</h4>
+                    <h4 className="sidebar-link" id="current-user-link"><span className="green-dot"></span>{this.props.currentUser[currentUserId].name}</h4>
                     <div id="hidden-sidebar-dropdown" className="sidebar-revealed">
                         <div id="profile-link">Profile Link</div>
                         <ul className="sidebar-workspace-ul">
@@ -67,7 +72,7 @@ class SideBar extends React.Component {
                     </section>
                 </div>
                 <div className="back-to-splash">
-                    <button onClick={this.backToSplash}>Back to Splash</button> 
+                    <button onClick={this.backToSplash} className="sidebar-link">Back to Splash</button> 
                 </div>
             </div>
         )

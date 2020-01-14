@@ -138,6 +138,9 @@ var App = function App() {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
     path: "/messages",
     component: _components_main_main_container__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
+    path: "/messages/:channel_id",
+    component: _components_main_main_container__WEBPACK_IMPORTED_MODULE_7__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__["Route"], {
     path: "/",
     component: _components_splash_container__WEBPACK_IMPORTED_MODULE_4__["default"]
@@ -776,6 +779,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -793,6 +797,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -832,7 +837,10 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.sidebarWhiteLock,
           className: "sidebar-white-lock"
-        }), channel.channel_name);
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+          to: "/messages/".concat(channel.id),
+          className: "channel-links"
+        }, channel.channel_name));
       });
       var currentUserId = this.props.currentUserId;
       var workspaceList = this.props.workspaces.map(function (workspace) {
@@ -850,7 +858,8 @@ function (_React$Component) {
         id: "sidebar-workspace-name",
         className: "sidebar-link"
       }, "Workspace Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-        className: "sidebar-link"
+        className: "sidebar-link",
+        id: "current-user-link"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "green-dot"
       }), this.props.currentUser[currentUserId].name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -880,7 +889,8 @@ function (_React$Component) {
       }, "\u25CB Demo User 3"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "back-to-splash"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: this.backToSplash
+        onClick: this.backToSplash,
+        className: "sidebar-link"
       }, "Back to Splash")));
     }
   }]);
