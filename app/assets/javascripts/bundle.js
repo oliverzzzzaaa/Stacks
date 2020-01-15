@@ -444,9 +444,9 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Chat).call(this, props)); // this.bottom = React.createRef();
 
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
-
-    _this.editMessage.bind(_assertThisInitialized(_this));
-
+    _this.editMessageForm = _this.editMessageForm.bind(_assertThisInitialized(_this));
+    _this.cancelEditMessage = _this.cancelEditMessage.bind(_assertThisInitialized(_this));
+    _this.submitEditMessage = _this.submitEditMessage.bind(_assertThisInitialized(_this));
     _this.state = {
       currentChannel: _this.props.channels[_this.props.location.pathname.slice(10, _this.props.location.pathname.length)],
       currentUser: _this.props.currentUser,
@@ -472,6 +472,8 @@ function (_React$Component) {
         _this2.setState({
           currentChannel: _this2.props.channels[_this2.props.location.pathname.slice(10, _this2.props.location.pathname.length)]
         }), _this2.props.fetchMessages().then(function () {
+          console.log(_this2.props);
+
           if (document.getElementsByClassName("message-list")[0].lastChild) {
             document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({
               behavior: "smooth"
@@ -538,18 +540,69 @@ function (_React$Component) {
       });
     }
   }, {
-    key: "editMessage",
-    value: function editMessage(e) {
-      console.dir(e.currentTarget);
+    key: "editMessageForm",
+    value: function editMessageForm(messageId) {
+      var _this3 = this;
+
+      var messageLi = document.getElementById("message".concat(messageId));
+      var message = messageLi.innerHTML;
+      var editform = document.createElement("form");
+      var editforminput = document.createElement("input");
+      editform.setAttribute("className", "edit-message-form");
+      editform.setAttribute("id", "edit-message-form");
+      editforminput.setAttribute("id", "edit-message-input");
+      editforminput.setAttribute("type", "text");
+      editforminput.className = "edit-message-input"; // editforminput.setAttribute("className", "edit-message-input")
+
+      editforminput.setAttribute("value", message);
+      var cancelButton = document.createElement("button");
+      var submitButton = document.createElement("button");
+      cancelButton.setAttribute("type", "button");
+      cancelButton.setAttribute("value", "Cancel");
+      cancelButton.innerHTML = "Cancel";
+      cancelButton.setAttribute("onClick", this.cancelEditMessage);
+
+      cancelButton.onclick = function () {
+        return _this3.cancelEditMessage();
+      };
+
+      submitButton.setAttribute("value", "Submit");
+      submitButton.setAttribute("className", "edit-submit-button");
+      cancelButton.setAttribute("className", "edit-cancel-button");
+      submitButton.innerHTML = "Submit";
+      submitButton.setAttribute("type", "submit");
+
+      editform.onsubmit = function (e, messageId) {
+        return _this3.submitEditMessage(messageId);
+      };
+
+      editform.appendChild(editforminput);
+      editform.appendChild(cancelButton);
+      editform.appendChild(submitButton);
+      messageLi.appendChild(editform);
+    }
+  }, {
+    key: "cancelEditMessage",
+    value: function cancelEditMessage() {
+      console.log("cancelled"); // document.getElementById("edit-message-form").delete()
+    }
+  }, {
+    key: "submitEditMessage",
+    value: function submitEditMessage(messageId) {
+      var message = this.props.messageobj[messageId];
+      console.log("SUBMITTED"); // console.log(messageId)
+      // console.log(message)
+      // message.body = document.getElementById("edit-message-input").value
+      // this.props.updateMessage(message)
     }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var messageList = this.props.messages.map(function (message) {
         // const messageList = this.messages.map( message => {
-        if (_this3.state.currentChannel && message.channel_id === _this3.state.currentChannel.id) {
+        if (_this4.state.currentChannel && message.channel_id === _this4.state.currentChannel.id) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
             key: message.id,
             className: "message-li"
@@ -568,10 +621,13 @@ function (_React$Component) {
           }, message.author.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
             className: "chat-timestamp"
           }, new Date(message.created_at).toLocaleTimeString()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-            className: "chat-message-body"
+            className: "chat-message-body",
+            id: "message".concat(message.id)
           }, message.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
             className: "edit-message-popup",
-            onClick: _this3.editMessage
+            onClick: function onClick() {
+              return _this4.editMessageForm(message.id);
+            }
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fa fa-ellipsis-v message-ellipses"
           }))));
@@ -656,8 +712,9 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     messages: Object.values(state.entities.messages),
     // messages: state.messages[ownProps.match.params.channelId]
-    channels: state.entities.channels // currentChannel: Object.values(state.entities.channels)[0]
-
+    channels: state.entities.channels,
+    currentChannel: Object.values(state.entities.channels),
+    messageobj: state.entities.messages
   };
 };
 
@@ -671,6 +728,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     postMessage: function postMessage(message) {
       return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["postMessage"])(message));
+    },
+    updateMessage: function updateMessage(message) {
+      return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["updateMessage"])(message));
+    },
+    deleteMessage: function deleteMessage(messageId) {
+      return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["deleteMessage"])(messageId));
     }
   };
 };

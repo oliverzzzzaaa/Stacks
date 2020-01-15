@@ -118,6 +118,15 @@
     width: 20px;
 }
 
+/* Edit Message CSS */
+
+.edit-message-input {
+    width: 80%;
+    border-radius: 5px;
+}
+
+
+
 /* Post Message CSS */
 
 #form-container {

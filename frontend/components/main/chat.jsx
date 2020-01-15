@@ -6,7 +6,9 @@ class Chat extends React.Component {
         super(props)
         // this.bottom = React.createRef();
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.editMessage.bind(this)
+        this.editMessageForm = this.editMessageForm.bind(this)
+        this.cancelEditMessage = this.cancelEditMessage.bind(this)
+        this.submitEditMessage = this.submitEditMessage.bind(this)
         this.state =  {
             currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)],
             currentUser: this.props.currentUser,
@@ -26,6 +28,7 @@ class Chat extends React.Component {
                 // this.currentChannel = (this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)])
                 this.setState({currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)]}),    
                 this.props.fetchMessages().then(() => {
+                    console.log(this.props)
                     if(document.getElementsByClassName("message-list")[0].lastChild){
                     document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({ behavior: "smooth" });}
                 })
@@ -87,11 +90,53 @@ class Chat extends React.Component {
         
     }
 
-    editMessage(e) {
-        console.dir(e.currentTarget)
+    editMessageForm(messageId) {
+        let messageLi = document.getElementById(`message${messageId}`)
+        let message = messageLi.innerHTML
+        let editform = document.createElement("form")
+        let editforminput = document.createElement("input")
+        editform.setAttribute("className", "edit-message-form")
+        editform.setAttribute("id", "edit-message-form")
+        editforminput.setAttribute("id", "edit-message-input")
+        editforminput.setAttribute("type", "text")
+        editforminput.className = "edit-message-input"
+        // editforminput.setAttribute("className", "edit-message-input")
+        editforminput.setAttribute("value", message)
+        let cancelButton = document.createElement("button")
+        let submitButton = document.createElement("button")
+        cancelButton.setAttribute("type", "button")
+        cancelButton.setAttribute("value", "Cancel")
+        cancelButton.innerHTML = "Cancel"
+        cancelButton.setAttribute("onClick", this.cancelEditMessage)
+        cancelButton.onclick = () => this.cancelEditMessage()
+        submitButton.setAttribute("value", "Submit")
+        submitButton.setAttribute("className", "edit-submit-button")
+        cancelButton.setAttribute("className", "edit-cancel-button")
+        submitButton.innerHTML = "Submit"
+        submitButton.setAttribute("type", "submit")
+        editform.onsubmit = (e , messageId) => this.submitEditMessage(messageId)
+        editform.appendChild(editforminput)
+        editform.appendChild(cancelButton)
+        editform.appendChild(submitButton)
+        messageLi.appendChild(editform)
+    }
+    
+    cancelEditMessage() {
+        console.log("cancelled")
+        // document.getElementById("edit-message-form").delete()
+    }
+
+    submitEditMessage(messageId) {
+        let message = this.props.messageobj[messageId]
+        console.log("SUBMITTED")
+        // console.log(messageId)
+        // console.log(message)
+        // message.body = document.getElementById("edit-message-input").value
+        // this.props.updateMessage(message)
     }
 
     render() {
+        
         const messageList = this.props.messages.map( message => {
         // const messageList = this.messages.map( message => {
             if (this.state.currentChannel && message.channel_id === this.state.currentChannel.id) {
@@ -111,10 +156,10 @@ class Chat extends React.Component {
                                     </h5>
                                 </span>
                             </div>
-                            <span className="chat-message-body">
+                            <span className="chat-message-body" id={`message${message.id}`}>
                                 {message.body} 
                             </span>
-                            <span className="edit-message-popup" onClick={this.editMessage}>
+                            <span className="edit-message-popup" onClick={ () => this.editMessageForm(message.id)}>
                                 <i className="fa fa-ellipsis-v message-ellipses"></i>
                             </span>
                         </div>
@@ -124,7 +169,7 @@ class Chat extends React.Component {
                 }
             }
             )
-
+            
         return (
             <div className="chat-container">
                 <div id="chat-header">
