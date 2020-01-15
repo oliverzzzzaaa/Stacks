@@ -10,7 +10,8 @@ class Chat extends React.Component {
         this.cancelEditMessage = this.cancelEditMessage.bind(this)
         this.submitEditMessage = this.submitEditMessage.bind(this)
         this.state =  {
-            currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)],
+            // currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)],
+            currentChannel: this.props.channel,
             currentUser: this.props.currentUser,
             messages: this.messages
         }
@@ -136,16 +137,20 @@ class Chat extends React.Component {
         }  
         this.forceUpdate()
     }
-
+    
     submitEditMessage() {
         let messageId = (document.getElementById("message-id-button").innerHTML)
         let message = this.props.messageobj[messageId]
         message.body = document.getElementById("edit-message-input").value
         this.props.updateMessage(message)
+        let ellipses = document.getElementsByClassName("ellipses-hidden")
+        while (ellipses.length > 0) {
+            ellipses[0].className = "fa fa-ellipsis-v message-ellipses"
+        }  
     }
 
     render() {
-        
+        let cChannel = this.props.channel;
         const messageList = this.props.messages.map( message => {
         // const messageList = this.messages.map( message => {
             if (this.state.currentChannel && message.channel_id === this.state.currentChannel.id) {

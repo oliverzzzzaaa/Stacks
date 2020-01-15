@@ -25,7 +25,12 @@ class SideBar extends React.Component {
         )
     }
 
-    showDropdown(e) {
+    buttonclickTest(e, id) {
+        console.log(e)
+        console.log(id)
+    }
+
+    showDropdown() {
         let hiddendropdown = document.getElementById("hidden-sidebar-dropdown");
         
         if (hiddendropdown) {
@@ -113,6 +118,7 @@ class SideBar extends React.Component {
                         {dmList}
                         {/* <h4 className="sidebar-link DM">&#x25CB; Demo User 2</h4>
                         <h4 className="sidebar-link DM">&#x25CB; Demo User 3</h4> */}
+
                     </section>
                 </div>
             </div>

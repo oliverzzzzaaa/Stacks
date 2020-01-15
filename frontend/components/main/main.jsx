@@ -30,8 +30,10 @@ class Main extends React.Component {
                     messages = {this.props.messages}
                     workspaces={this.props.workspaces}
                     channels={this.props.channels}
-                    changeChannel={this.changeChannel}/>
-                <ChatContainer currentChannel={this.state.currentChannel} currentUser={this.props.currentUser} channels={this.props.channels} messages={this.props.messages} />
+                    changeChannel={this.changeChannel}
+                    currentChannel={this.state.currentChannel}/>
+                <ChatContainer channel={this.state.currentChannel} currentUser={this.props.currentUser} 
+                    channels={this.props.channels} messages={this.props.messages} />
             </div>
         )
     }

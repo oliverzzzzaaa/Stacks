@@ -126,8 +126,8 @@
     width: 80%;
     border-radius: 5px;
     margin-bottom: 5px;
-    padding-right: 150px;
-    margin-left: 0;
+    padding-right: 180px;
+    margin-left: -25px;
 }
 
 #message-id-button {

@@ -448,7 +448,8 @@ function (_React$Component) {
     _this.cancelEditMessage = _this.cancelEditMessage.bind(_assertThisInitialized(_this));
     _this.submitEditMessage = _this.submitEditMessage.bind(_assertThisInitialized(_this));
     _this.state = {
-      currentChannel: _this.props.channels[_this.props.location.pathname.slice(10, _this.props.location.pathname.length)],
+      // currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)],
+      currentChannel: _this.props.channel,
       currentUser: _this.props.currentUser,
       messages: _this.messages
     };
@@ -608,12 +609,18 @@ function (_React$Component) {
       var message = this.props.messageobj[messageId];
       message.body = document.getElementById("edit-message-input").value;
       this.props.updateMessage(message);
+      var ellipses = document.getElementsByClassName("ellipses-hidden");
+
+      while (ellipses.length > 0) {
+        ellipses[0].className = "fa fa-ellipsis-v message-ellipses";
+      }
     }
   }, {
     key: "render",
     value: function render() {
       var _this4 = this;
 
+      var cChannel = this.props.channel;
       var messageList = this.props.messages.map(function (message) {
         // const messageList = this.messages.map( message => {
         if (_this4.state.currentChannel && message.channel_id === _this4.state.currentChannel.id) {
@@ -833,9 +840,10 @@ function (_React$Component) {
         messages: this.props.messages,
         workspaces: this.props.workspaces,
         channels: this.props.channels,
-        changeChannel: this.changeChannel
+        changeChannel: this.changeChannel,
+        currentChannel: this.state.currentChannel
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chat_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        currentChannel: this.state.currentChannel,
+        channel: this.state.currentChannel,
         currentUser: this.props.currentUser,
         channels: this.props.channels,
         messages: this.props.messages
@@ -977,8 +985,14 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "buttonclickTest",
+    value: function buttonclickTest(e, id) {
+      console.log(e);
+      console.log(id);
+    }
+  }, {
     key: "showDropdown",
-    value: function showDropdown(e) {
+    value: function showDropdown() {
       var hiddendropdown = document.getElementById("hidden-sidebar-dropdown");
 
       if (hiddendropdown) {
