@@ -1,19 +1,10 @@
 LOGGER REMOVE FOR PRODUCTION
 
 Full-stack
-    channel memberships
-    workspaces on sidebar
     profile images in Chat
     move images to AWS
 
-
-CSS:
-    dropdown in sidebar to go back to splash    
+Rerender on channel change
 
 
 Incorporate ActionCable
-Link messages and channels workspaces
-
-Questions: 
-    Strong/italicize from quill
-    n+1 calls for receiveMessage on every message submit

@@ -5,4 +5,6 @@ class Message < ApplicationRecord
     belongs_to :workspace
 
     belongs_to :user
+
+    belongs_to :channel
 end

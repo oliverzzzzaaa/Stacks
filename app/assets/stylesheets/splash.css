@@ -79,13 +79,13 @@ html {
     color: black;
     align-self: center;
     justify-content: flex-start;
-    cursor: pointer;
+    cursor: default;
 }
 
 .slack-logo {
     height: 30%;
     width: 80%;
-    
+    cursor: pointer;  
 }
 
 .slack-logo-div {
@@ -290,7 +290,7 @@ body {
     display: flex;
 }
 
-#splash-dropdown-button {
+.splash-dropdown-button {
     background-color: #611f69;
     height: 60%;
     border-radius: 4px;
@@ -307,6 +307,21 @@ body {
     cursor: pointer;
 }
 
+.splash-workspace {
+    background-color: inherit;
+    width: 100%;
+    height: 100%;
+    font-size: 18px;
+    justify-self: flex-start;
+    display: flex;
+    border: 0;
+    padding: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: #454545;
+    margin-top: 5px;
+}
+
 #dropdown-signout-button {
     text-align: start;
     padding: .5rem;
@@ -315,6 +330,7 @@ body {
     background-color: #fff;
     margin-top: 20px;
     border: 0;
+    
 }
 
 #dropdown-signout-button:hover {

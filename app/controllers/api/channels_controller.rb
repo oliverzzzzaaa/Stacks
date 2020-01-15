@@ -10,6 +10,8 @@ class Api::ChannelsController < ApplicationController
     end
 
     def show
+        p params[:id]
+        @messages = Channel.includes(:messages).find(params[:id]).messages
         @channel = Channel.find(params[:id])
     end 
 
@@ -20,4 +22,8 @@ class Api::ChannelsController < ApplicationController
     # def destroy
 
     # end
+
+    def channel_params
+        params.require(:channel).permit(:channel_topic, :private_message, :workspace_id, :host_id, :channel_name)
+    end
 end

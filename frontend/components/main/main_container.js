@@ -8,13 +8,14 @@ import {withRouter} from 'react-router-dom'
 
 const mapStateToProps = state => ({
     currentUser: state.entities.users,
-    currentUserId: state.session.id
+    currentUserId: state.session.id,
+    channels: Object.values(state.entities.channels)
 })
 
 const mapDispatchToProps = dispatch => ({
     receiveCurrentUser: (user) => dispatch(receiveCurrentUser(user)),
     logout: () => dispatch(logout()),
-    fetchMessages: (messages) => dispatch(fetchMessages(messages)),
+    fetchMessages: (channelId) => dispatch(fetchMessages(channelId)),
     fetchWorkspaces: (workspaces) => dispatch(fetchWorkspaces(workspaces)),
     fetchChannels: (channels) => dispatch(fetchChannels(channels))
 })

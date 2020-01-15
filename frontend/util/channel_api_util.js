@@ -9,7 +9,7 @@ export const newChannel = (channel) => (
 export const fetchChannel = channelId => (
     $.ajax({
         method: "GET",
-        url: `/api/workspaces/${channelId}`
+        url: `/api/channels/${channelId}`
     })
 )
 

@@ -85,6 +85,23 @@ channel4 = Channel.create!({
     private_message: 0,
     workspace_id: Workspace.find_by(workspace_name: "HR").id
 })
+
+channel5 = Channel.create!({
+    host_id: User.find_by(username: "DemoUser1").id,
+    channel_name: "DM 1",
+    channel_topic: "DM",
+    private_message: 1,
+    workspace_id: Workspace.find_by(workspace_name: "App-Academy").id
+})
+
+channel_membership5 = ChannelMembership.create!({
+    user_id: User.find_by(username: "DemoUser1").id,
+    channel_id: Channel.find_by(channel_name: "DM 1").id
+})
+channel_membership6 = ChannelMembership.create!({
+    user_id: User.find_by(username: "DemoUser2").id,
+    channel_id: Channel.find_by(channel_name: "DM 1").id
+})
 channel_membership1 = ChannelMembership.create!({
     user_id: User.find_by(username: "DemoUser1").id,
     channel_id: Channel.find_by(channel_name: "Aa General").id

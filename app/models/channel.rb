@@ -8,4 +8,6 @@ class Channel < ApplicationRecord
     class_name: :User
 
     belongs_to :workspace
+
+    has_many :messages
 end

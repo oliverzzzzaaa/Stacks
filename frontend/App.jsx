@@ -24,8 +24,7 @@ const App = () => (
       <AuthRoute exact path="/users/new" component={SignUpFormContainer}/>
       <Route path="/test" component={SideBarContainer} />
       <ProtectedRoute path="/messages" component={MainContainer} />
-      <ProtectedRoute path="/messages/:channel_id" component={MainContainer} />
-      {/* <ProtectedRoute path="/messages/:workspace_id/:channel_id" component={MainContainer} /> */}
+      <ProtectedRoute path="/messages/:channelId" component={MainContainer} />
       <Route path="/" component={SplashPageContainer}/>
     </Switch>
 

@@ -139,7 +139,7 @@ var App = function App() {
     path: "/messages",
     component: _components_main_main_container__WEBPACK_IMPORTED_MODULE_7__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
-    path: "/messages/:channel_id",
+    path: "/messages/:channelId",
     component: _components_main_main_container__WEBPACK_IMPORTED_MODULE_7__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__["Route"], {
     path: "/",
@@ -183,9 +183,9 @@ var receiveChannel = function receiveChannel(channel) {
   };
 };
 
-var fetchChannel = function fetchChannel() {
+var fetchChannel = function fetchChannel(channelId) {
   return function (dispatch) {
-    return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchChannel"]().then(function (channel) {
+    return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchChannel"](channelId).then(function (channel) {
       return dispatch(receiveChannel(channel));
     });
   };
@@ -441,31 +441,48 @@ function (_React$Component) {
 
     _classCallCheck(this, Chat);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Chat).call(this, props)); // this.state = this.props.messages
-    // this.bottom = React.createRef();
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Chat).call(this, props)); // this.bottom = React.createRef();
 
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this)); // this.stringToHTML = this.stringToHTML.bind(this)
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
 
+    _this.editMessage.bind(_assertThisInitialized(_this));
+
+    _this.state = {
+      currentChannel: _this.props.channels[_this.props.location.pathname.slice(10, _this.props.location.pathname.length)],
+      currentUser: _this.props.currentUser,
+      messages: _this.messages
+    };
     return _this;
   }
 
   _createClass(Chat, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.match.params.currentChannel.id !== this.props.match.params.currentChannel.id) {
+        this.props.fetchMessages();
+      }
+    }
+  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
 
-      this.props.fetchMessages().then(function () {
-        document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({
-          behavior: "smooth"
+      this.props.fetchChannels().then(function () {
+        // this.currentChannel = (this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)])
+        _this2.setState({
+          currentChannel: _this2.props.channels[_this2.props.location.pathname.slice(10, _this2.props.location.pathname.length)]
+        }), _this2.props.fetchMessages().then(function () {
+          if (document.getElementsByClassName("message-list")[0].lastChild) {
+            document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({
+              behavior: "smooth"
+            });
+          }
         });
-      }); // this.props.fetchChannels();
-
+      });
       var bindings = {
         submit: {
           key: "enter",
           handler: function handler(range, context) {
-            console.log(quill.getContents());
-
             _this2.handleSubmit.bind(_this2)();
           }
         }
@@ -484,17 +501,7 @@ function (_React$Component) {
         },
         placeholder: 'Enter text',
         theme: 'snow'
-      }); //   var form = document.querySelector('form');
-      //   form.onsubmit = function() {
-      //     // Populate hidden form on submit
-      //     var about = document.querySelector('input[name=about]');
-      //     about.value = JSON.stringify(quill.getContents());
-      //     console.log("Submitted", $(form).serialize(), $(form).serializeArray());
-      //     // No back end to actually submit to!
-      //     alert('Open the console to see the submit data!')
-      //     return false;
-      //   };
-      // App.cable.subscriptions.create(
+      }); // App.cable.subscriptions.create(
       //     { channel: "ChatChannel" },
       //     {
       //         received: data => {
@@ -522,41 +529,57 @@ function (_React$Component) {
     value: function handleSubmit() {
       var newMessagebody = document.getElementsByClassName('ql-editor')[0].children[0].innerHTML;
       var newMessage = {
-        body: newMessagebody
+        body: newMessagebody,
+        workspace_id: 25,
+        channel_id: this.state.currentChannel.id
       };
       this.props.postMessage(newMessage).then(function () {
         return document.getElementsByClassName('ql-editor')[0].children[0].innerHTML = "";
       });
     }
   }, {
+    key: "editMessage",
+    value: function editMessage(e) {
+      console.dir(e.currentTarget);
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       var messageList = this.props.messages.map(function (message) {
-        // message.body = $(message.body)
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-          key: message.id,
-          className: "message-li"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "chat-profile-pic"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.defaultPicture
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "chat-content"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "chat-top-row"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "message-left"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "chat-author-name"
-        }, message.author.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
-          className: "chat-timestamp"
-        }, new Date(message.created_at).toLocaleTimeString()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "chat-message-body"
-        }, message.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "edit-message-popup"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "fa fa-ellipsis-v message-ellipses"
-        }))));
+        // const messageList = this.messages.map( message => {
+        if (_this3.state.currentChannel && message.channel_id === _this3.state.currentChannel.id) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+            key: message.id,
+            className: "message-li"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "chat-profile-pic"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+            src: window.defaultPicture
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "chat-content"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "chat-top-row"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "message-left"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "chat-author-name"
+          }, message.author.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+            className: "chat-timestamp"
+          }, new Date(message.created_at).toLocaleTimeString()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "chat-message-body"
+          }, message.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "edit-message-popup",
+            onClick: _this3.editMessage
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "fa fa-ellipsis-v message-ellipses"
+          }))));
+        } else {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: message.id
+          });
+        }
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chat-container"
@@ -564,7 +587,17 @@ function (_React$Component) {
         id: "chat-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "chat-container-left"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa"
+      }, "\uF023"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", {
+        id: "channel-name-header"
+      }, this.state.currentChannel ? this.state.currentChannel.channel_name : "OH NO"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "\u2606 | ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa fa-user"
+      }), " | ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa"
+      }, "\uF08D"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        id: "channel-topic-span"
+      }, this.state.currentChannel ? this.state.currentChannel.channel_topic : "ABCDAFAFD"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-list"
       }, messageList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "create-message-div"
@@ -611,6 +644,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
 /* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
 
 
 
@@ -618,20 +654,28 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
-    messages: Object.values(state.entities.messages)
+    messages: Object.values(state.entities.messages),
+    // messages: state.messages[ownProps.match.params.channelId]
+    channels: state.entities.channels // currentChannel: Object.values(state.entities.channels)[0]
+
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    // fetchChannels: () => dispatch(fetchChannels()),
+    fetchChannels: function fetchChannels() {
+      return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["fetchChannels"])());
+    },
+    fetchMessages: function fetchMessages() {
+      return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["fetchMessages"])());
+    },
     postMessage: function postMessage(message) {
       return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["postMessage"])(message));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_chat__WEBPACK_IMPORTED_MODULE_0__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_chat__WEBPACK_IMPORTED_MODULE_0__["default"])));
 
 /***/ }),
 
@@ -658,9 +702,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -676,17 +720,31 @@ function (_React$Component) {
   _inherits(Main, _React$Component);
 
   function Main(props) {
+    var _this;
+
     _classCallCheck(this, Main);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Main).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Main).call(this, props));
+    _this.changeChannel = _this.changeChannel.bind(_assertThisInitialized(_this));
+    _this.state = {
+      currentChannel: _this.props.channels[_this.props.location.pathname.slice(10, _this.props.location.pathname.length)]
+    };
+    return _this;
   }
 
   _createClass(Main, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchChannels(); // this.props.fetchMessages();
-
+      // this.props.fetchChannels();
+      // this.props.fetchMessages();
       this.props.fetchWorkspaces();
+    }
+  }, {
+    key: "changeChannel",
+    value: function changeChannel(channelId) {
+      this.setState({
+        currentChannel: this.props.channels[channelId]
+      });
     }
   }, {
     key: "render",
@@ -697,11 +755,13 @@ function (_React$Component) {
         currentUser: this.props.currentUser,
         messages: this.props.messages,
         workspaces: this.props.workspaces,
-        channels: this.props.channels
+        channels: this.props.channels,
+        changeChannel: this.changeChannel
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chat_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        currentChannel: this.state.currentChannel,
         currentUser: this.props.currentUser,
-        fetchMessages: this.props.fetchMessages,
-        channels: this.props.channels
+        channels: this.props.channels,
+        messages: this.props.messages
       }));
     }
   }]);
@@ -740,7 +800,8 @@ __webpack_require__.r(__webpack_exports__);
 var mapStateToProps = function mapStateToProps(state) {
   return {
     currentUser: state.entities.users,
-    currentUserId: state.session.id
+    currentUserId: state.session.id,
+    channels: Object.values(state.entities.channels)
   };
 };
 
@@ -752,8 +813,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     logout: function logout() {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["logout"])());
     },
-    fetchMessages: function fetchMessages(messages) {
-      return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["fetchMessages"])(messages));
+    fetchMessages: function fetchMessages(channelId) {
+      return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["fetchMessages"])(channelId));
     },
     fetchWorkspaces: function fetchWorkspaces(workspaces) {
       return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_4__["fetchWorkspaces"])(workspaces));
@@ -813,6 +874,7 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SideBar).call(this, props));
     _this.backToSplash = _this.backToSplash.bind(_assertThisInitialized(_this));
+    _this.logoutUser = _this.logoutUser.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -828,19 +890,72 @@ function (_React$Component) {
       // this.props.fetchChannels();
     }
   }, {
+    key: "logoutUser",
+    value: function logoutUser(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      this.props.logout().then(function () {
+        return _this2.props.history.push("/session/new");
+      });
+    }
+  }, {
+    key: "showDropdown",
+    value: function showDropdown(e) {
+      var hiddendropdown = document.getElementById("hidden-sidebar-dropdown");
+
+      if (hiddendropdown) {
+        hiddendropdown.id = "revealed-sidebar-dropdown";
+      } else {
+        document.getElementById("revealed-sidebar-dropdown").id = "hidden-sidebar-dropdown";
+      }
+    } // rerender() {
+    // }
+
+  }, {
     key: "render",
     value: function render() {
-      var channelList = this.props.channels.map(function (channel) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-          className: "sidebar-link locked-channel",
-          key: channel.id
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.sidebarWhiteLock,
-          className: "sidebar-white-lock"
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-          to: "/messages/".concat(channel.id),
-          className: "channel-links"
-        }, channel.channel_name));
+      var _this3 = this;
+
+      // const channelList = this.props.channels.map( channel => {
+      //     return (
+      //         <li className="sidebar-link locked-channel" key={channel.id}>
+      //             <img src={window.sidebarWhiteLock} className="sidebar-white-lock"/>
+      //             <NavLink to={`/messages/${channel.id}`} className="channel-links" onClick={() => this.props.changeChannel(channel.id)}>
+      //                 {channel.channel_name}
+      //             </NavLink>
+      //         </li>
+      //     )
+      // })
+      var channelList = [];
+      var dmList = this.props.channels.map(function (channel) {
+        if (channel.private_message === 1) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+            className: "sidebar-link DM",
+            key: channel.id
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+            to: "/messages/".concat(channel.id),
+            className: "DM-link",
+            onClick: function onClick() {
+              return _this3.props.changeChannel(channel.id);
+            }
+          }, channel.channel_name));
+        } else {
+          channelList.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+            className: "sidebar-link locked-channel",
+            key: channel.id
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+            src: window.sidebarWhiteLock,
+            className: "sidebar-white-lock"
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+            to: "/messages/".concat(channel.id),
+            className: "channel-links",
+            onClick: function onClick() {
+              return _this3.props.changeChannel(channel.id);
+            }
+          }, channel.channel_name)));
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
+        }
       });
       var currentUserId = this.props.currentUserId;
       var workspaceList = this.props.workspaces.map(function (workspace) {
@@ -853,7 +968,8 @@ function (_React$Component) {
         className: "sidebar-container-purple"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sidebar-link",
-        id: "sidebar-workspace-dropdown-hover"
+        id: "sidebar-workspace-dropdown-hover",
+        onClick: this.showDropdown
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         id: "sidebar-workspace-name",
         className: "sidebar-link"
@@ -866,13 +982,18 @@ function (_React$Component) {
         id: "hidden-sidebar-dropdown",
         className: "sidebar-revealed"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "profile-link"
+        id: "profile-link",
+        className: "sidebar-dropdown"
       }, "Profile Link"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "sidebar-workspace-ul"
+        className: "sidebar-workspace-ul sidebar-dropdown"
       }, workspaceList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "/",
-        className: "sidebar-back-to-slash"
-      }, "Back to Splash"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sidebar-back-to-slash sidebar-dropdown"
+      }, "Back to Splash"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.logoutUser,
+        className: "sidebar-signout sidebar-dropdown",
+        id: "sidebar-signout"
+      }, "Sign Out"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "channel-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "sidebar-link"
@@ -882,16 +1003,7 @@ function (_React$Component) {
         id: "dm-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "sidebar-link"
-      }, "Direct Messages"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-        className: "sidebar-link"
-      }, "\u25CB Demo User 2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-        className: "sidebar-link"
-      }, "\u25CB Demo User 3"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "back-to-splash"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: this.backToSplash,
-        className: "sidebar-link"
-      }, "Back to Splash")));
+      }, "Direct Messages"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, dmList)));
     }
   }]);
 
@@ -914,6 +1026,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _side_bar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./side_bar */ "./frontend/components/main/side_bar.jsx");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+
 
 
 
@@ -942,19 +1056,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     }(function (user) {
       return dispatch(receiveCurrentUser(user));
     }),
-    logout: function (_logout) {
-      function logout() {
-        return _logout.apply(this, arguments);
-      }
-
-      logout.toString = function () {
-        return _logout.toString();
-      };
-
-      return logout;
-    }(function () {
-      return dispatch(logout());
-    })
+    logout: function logout() {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["logout"])());
+    }
   };
 };
 
@@ -1642,7 +1746,10 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SplashPage).call(this, props));
     _this.logoutUser = _this.logoutUser.bind(_assertThisInitialized(_this));
-    _this.state = _this.props.currentUser;
+    _this.state = {
+      currentUser: _this.props.currentUser,
+      workspaces: _this.props.workspaces
+    };
     _this.redirect = _this.redirect.bind(_assertThisInitialized(_this));
     _this.showDropdown = _this.showDropdown.bind(_assertThisInitialized(_this));
     _this.windowClick = _this.windowClick.bind(_assertThisInitialized(_this));
@@ -1650,6 +1757,16 @@ function (_React$Component) {
   }
 
   _createClass(SplashPage, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.props.fetchWorkspaces().then(function () {
+        console.log(_this2.state);
+        console.log(_this2.props);
+      });
+    }
+  }, {
     key: "windowClick",
     value: function windowClick() {
       var hidden = document.getElementById("display-show");
@@ -1673,11 +1790,11 @@ function (_React$Component) {
   }, {
     key: "logoutUser",
     value: function logoutUser(e) {
-      var _this2 = this;
+      var _this3 = this;
 
       e.preventDefault();
       this.props.action().then(function () {
-        return _this2.props.history.push("/session/new");
+        return _this3.props.history.push("/session/new");
       });
     }
   }, {
@@ -1688,8 +1805,12 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
+      var tryslack = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_0__["NavLink"], {
+        to: "/users/new",
+        className: "marble-button"
+      }, "Try Slack");
       var loginout = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
         className: "header-right"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_0__["NavLink"], {
@@ -1701,31 +1822,30 @@ function (_React$Component) {
       }, "SignUp"));
 
       if (Object.keys(this.props.currentUser).length > 0) {
+        var workspaceList = this.props.workspaces.map(function (workspace) {
+          return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+            onClick: function onClick() {
+              return _this4.redirect("/messages");
+            },
+            className: "splash-workspace"
+          }, workspace.workspace_name);
+        });
         loginout = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
           className: "header-right"
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
           onClick: this.showDropdown,
-          className: "signout",
-          id: "splash-dropdown-button"
+          className: "splash-dropdown-button"
         }, "Your Workspace"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("nav", {
           className: "signout-dropdown-nav",
           id: "display-none"
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("nav", {
           id: "your-workspace-nav"
-        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
-          src: window.aalogo,
-          id: "splash-aa-logo"
-        }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-          onClick: function onClick() {
-            return _this3.redirect("/messages");
-          },
-          className: "signout-button",
-          id: "your-workspace-button"
-        }, "Workspace Name")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        }, workspaceList), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
           onClick: this.logoutUser,
           className: "signout-button",
           id: "dropdown-signout-button"
         }, "Sign Out")));
+        tryslack = null;
       }
 
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
@@ -1740,20 +1860,15 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
         src: window.iconSlack,
         className: "slack-logo"
-      }))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_0__["NavLink"], {
-        to: "/users/new",
+      }))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
         className: "splash-nav-dropdowns"
-      }, "Why Slack?"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_0__["NavLink"], {
-        to: "/users/new",
+      }, "Why Slack?"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
         className: "splash-nav-dropdowns"
-      }, "Solutions"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_0__["NavLink"], {
-        to: "/users/new",
+      }, "Solutions"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
         className: "splash-nav-dropdowns"
-      }, "Resources"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_0__["NavLink"], {
-        to: "/users/new",
+      }, "Resources"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
         className: "splash-nav-dropdowns"
-      }, "Enterprise"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_0__["NavLink"], {
-        to: "/users/new",
+      }, "Enterprise"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
         className: "splash-nav-dropdowns"
       }, "Pricing")), loginout), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "splash-main"
@@ -1764,10 +1879,7 @@ function (_React$Component) {
         id: "marble-text"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", null, "Slack replaces email inside your company"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", {
         id: "marble-text-secondary"
-      }, "Keep conversations organized in Slack, the smart alternative to email"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_0__["NavLink"], {
-        to: "/users/new",
-        className: "marble-button"
-      }, "Try Slack"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
+      }, "Keep conversations organized in Slack, the smart alternative to email"), tryslack)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
         className: "splash-item",
         id: "splash-third"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
@@ -1827,6 +1939,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _splash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./splash */ "./frontend/components/splash.jsx");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_workspace_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/workspace_actions */ "./frontend/actions/workspace_actions.js");
+
 
 
 
@@ -1835,7 +1949,8 @@ __webpack_require__.r(__webpack_exports__);
 var mapStateToProps = function mapStateToProps(state) {
   return {
     currentUser: state.entities.users,
-    currentUserId: state.session.id
+    currentUserId: state.session.id,
+    workspaces: Object.values(state.entities.workspaces)
   };
 };
 
@@ -1843,6 +1958,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     receiveCurrentUser: function receiveCurrentUser(user) {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["receiveCurrentUser"])(user));
+    },
+    fetchWorkspaces: function fetchWorkspaces() {
+      return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_3__["fetchWorkspaces"])());
     },
     action: function action() {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["logout"])());
@@ -2296,7 +2414,7 @@ var newChannel = function newChannel(channel) {
 var fetchChannel = function fetchChannel(channelId) {
   return $.ajax({
     method: "GET",
-    url: "/api/workspaces/".concat(channelId)
+    url: "/api/channels/".concat(channelId)
   });
 };
 var fetchChannels = function fetchChannels() {

@@ -5,10 +5,21 @@ class SplashPage extends React.Component {
     constructor(props) {
         super(props)
         this.logoutUser = this.logoutUser.bind(this)
-        this.state = this.props.currentUser;
+        this.state = {
+            currentUser: this.props.currentUser,
+            workspaces: this.props.workspaces
+        }
         this.redirect = this.redirect.bind(this)
         this.showDropdown = this.showDropdown.bind(this)
         this.windowClick = this.windowClick.bind(this)
+    }
+
+    componentDidMount() {
+        this.props.fetchWorkspaces()
+            .then(() => {
+                console.log(this.state)
+                console.log(this.props)
+            })
     }
 
     windowClick() {
@@ -39,6 +50,9 @@ class SplashPage extends React.Component {
         this.props.history.push(url)
     }
     render() {
+        let tryslack = (
+            <NavLink to="/users/new" className="marble-button">Try Slack</NavLink>
+        );
         let loginout = (
             <section className="header-right">
             <NavLink to='/session/new' className="splash-new-session-link">Sign In</NavLink>
@@ -46,18 +60,28 @@ class SplashPage extends React.Component {
         </section>
         )
         if (Object.keys(this.props.currentUser).length > 0) {
+            let workspaceList = this.props.workspaces.map( workspace => {
+                return (
+                    <button onClick={() => this.redirect(`/messages`)} className="splash-workspace">{workspace.workspace_name}</button>
+                )
+            })
             loginout = (
                 <section className="header-right">
-                    <button onClick={this.showDropdown} className="signout" id="splash-dropdown-button">Your Workspace</button>
+                    <button onClick={this.showDropdown} className="splash-dropdown-button">Your Workspace</button>
                     <nav className="signout-dropdown-nav" id="display-none">
                         <nav id="your-workspace-nav">
-                            <img src={window.aalogo} id="splash-aa-logo"/>
-                            <button onClick={() => this.redirect("/messages")} className="signout-button" id="your-workspace-button">Workspace Name</button>
+                            {/* <img src={window.aalogo} id="splash-aa-logo"/> */}
+                            {workspaceList}
+                            {/* <button onClick={() => this.redirect(`/messages/${this.props.currentUser[0].channels[0]}`)} className="signout-button" id="your-workspace-button">Workspace Name</button> */}
+                            {/* <button onClick={() => this.redirect(`/messages`)} className="signout-button" id="your-workspace-button">Workspace Name</button> */}
                         </nav>
                         <button onClick={this.logoutUser} className="signout-button" id="dropdown-signout-button">Sign Out</button>
                     </nav>
                 </section>
             )
+            tryslack = null
+            
+
         }
         return(
             <div>
@@ -70,11 +94,16 @@ class SplashPage extends React.Component {
                                 <img src={window.iconSlack} className="slack-logo"/>
                             </NavLink>
                         </div>
-                        <NavLink to='/users/new' className="splash-nav-dropdowns">Why Slack?</NavLink>
+                        <h2 className="splash-nav-dropdowns">Why Slack?</h2>
+                        <h2 className="splash-nav-dropdowns">Solutions</h2>
+                        <h2 className="splash-nav-dropdowns">Resources</h2>
+                        <h2 className="splash-nav-dropdowns">Enterprise</h2>
+                        <h2 className="splash-nav-dropdowns">Pricing</h2>
+                        {/* <NavLink to='/users/new' className="splash-nav-dropdowns">Why Slack?</NavLink>
                         <NavLink to='/users/new' className="splash-nav-dropdowns">Solutions</NavLink>
                         <NavLink to='/users/new' className="splash-nav-dropdowns">Resources</NavLink>
                         <NavLink to='/users/new' className="splash-nav-dropdowns">Enterprise</NavLink>
-                        <NavLink to='/users/new' className="splash-nav-dropdowns">Pricing</NavLink>
+                        <NavLink to='/users/new' className="splash-nav-dropdowns">Pricing</NavLink> */}
                     </section>
                     {loginout}
                 </section>
@@ -86,7 +115,8 @@ class SplashPage extends React.Component {
                         <section id="marble-text">
                             <h1>Slack replaces email inside your company</h1>
                             <h4 id="marble-text-secondary">Keep conversations organized in Slack, the smart alternative to email</h4>
-                            <NavLink to="/users/new" className="marble-button">Try Slack</NavLink>
+                            {/* <NavLink to="/users/new" className="marble-button">Try Slack</NavLink> */}
+                            {tryslack}
                         </section>
                     </section>
                     <section className="splash-item" id="splash-third">

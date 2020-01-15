@@ -80,10 +80,11 @@ h4 {
 
 .sidebar-workspace-ul {
     list-style: none;
+    padding-inline-start: 0;
 }
 
 .sidebar-revealed{
-    background-color: lightgray;
+    background-color: rgba(var(--sk_foreground_min_solid,248,248,248),1);
     border-radius: 5px;
     color: black;
     overflow: visible;
@@ -91,6 +92,7 @@ h4 {
     width: 270px;
     display: flex;
     flex-direction: column;
+    padding: 12px;
 }
 
 .sidebar-back-to-slash {
@@ -99,12 +101,17 @@ h4 {
 
 }
 
-#hovered-sidebar-dropdown {
-    position: absolute
+#revealed-sidebar-dropdown {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
 }
 
 #hidden-sidebar-dropdown {
     visibility: hidden;
+    
 }
 
 .channel-links {
@@ -114,4 +121,49 @@ h4 {
 
 #current-user-link {
     padding: 0;
+}
+#sidebar-signout {
+    font-size: inherit;
+    text-decoration: none;
+    margin-top: 10px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+
+}
+
+.sidebar-dropdown {
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    align-self: center;
+    justify-self: center;
+    padding-left: 25px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+
+}
+
+.sidebar-signout {
+    background-color: inherit;
+}
+
+.sidebar-dropdown:hover {
+    background-color: #1164A3;
+    color: #fff;
+}
+
+.DM:hover {
+    background: #350d36;
+}
+
+.DM {
+    text-decoration: none;
+    color: rgb(207,195,207);
+    width: 100%;
+}
+
+.DM-link {
+    color: rgb(207,195,207);
+    text-decoration: none;
 }

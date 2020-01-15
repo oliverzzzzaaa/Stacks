@@ -1,8 +1,9 @@
 class Api::MessagesController < ApplicationController
 
     def index
-        # channel_id = Channel.find(params[:channel_name]).id
-        # @messages = Message.find(channel_id: channel_id)
+        # channel_id = Channel.find(params[:channel_id]).id
+        # @messages = Message.find(:id)
+        # @messages = Channel.includes(:messages).find(params[:channelId]).messages
         @messages = Message.all
         return @messages
     end
@@ -48,6 +49,6 @@ class Api::MessagesController < ApplicationController
     private
 
     def message_params
-        params.require(:message).permit(:body, :workspace_id)
+        params.require(:message).permit(:body, :workspace_id, :channel_id)
     end
 end
