@@ -566,9 +566,9 @@ function (_React$Component) {
       };
 
       submitButton.setAttribute("value", "Submit");
-      submitButton.setAttribute("className", "edit-submit-button");
-      cancelButton.setAttribute("className", "edit-cancel-button");
-      submitButton.innerHTML = "Submit";
+      submitButton.setAttribute("class", "edit-submit-button");
+      cancelButton.setAttribute("class", "edit-cancel-button");
+      submitButton.innerHTML = "Save Changes";
       submitButton.setAttribute("type", "submit");
 
       editform.onsubmit = function (e, messageId) {

@@ -50,6 +50,7 @@
 .chat-message-body {
     margin-left: 10px;
     margin-bottom: 5px;
+    height: 100%;
 }
 
 .chat-top-row {
@@ -124,14 +125,46 @@
 .edit-message-input {
     width: 80%;
     border-radius: 5px;
+    margin-bottom: 5px;
+    padding-right: 150px;
+    margin-left: 0;
 }
 
 #message-id-button {
     visibility: hidden;
 }
 
+#edit-message-form {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    padding: 12px;
+}
 
+.edit-submit-button {
+    background-color: green;
+    color: white;
+    font-size: 12px;
+    border-radius: 10px;
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+}
 
+.edit-submit-button:hover {
+    background-color: #3CB371;
+}
+
+.edit-cancel-button {
+    background-color: white;
+    font-size: 12px;
+    border-radius: 10px;
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+    color: black
+}
+
+.edit-cancel-button:hover {
+    background-color: gray;
+}
 
 
 /* Post Message CSS */
@@ -190,3 +223,4 @@
   .ellipses-hidden {
     visibility: hidden;
 }
+

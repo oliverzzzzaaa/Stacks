@@ -8,4 +8,4 @@ Rerender on channel change
 
 
 Incorporate ActionCable
-Edit messages
+fix message timestamps
