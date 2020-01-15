@@ -552,8 +552,7 @@ function (_React$Component) {
       editform.setAttribute("id", "edit-message-form");
       editforminput.setAttribute("id", "edit-message-input");
       editforminput.setAttribute("type", "text");
-      editforminput.className = "edit-message-input"; // editforminput.setAttribute("className", "edit-message-input")
-
+      editforminput.className = "edit-message-input";
       editforminput.setAttribute("value", message);
       var cancelButton = document.createElement("button");
       var submitButton = document.createElement("button");
@@ -584,11 +583,22 @@ function (_React$Component) {
       editform.appendChild(cancelButton);
       editform.appendChild(submitButton);
       messageLi.appendChild(editform);
+      var ellipses = document.getElementsByClassName("message-ellipses");
+
+      while (ellipses.length > 0) {
+        ellipses[0].className = "ellipses-hidden";
+      }
     }
   }, {
     key: "cancelEditMessage",
     value: function cancelEditMessage() {
       document.getElementById("edit-message-form").remove();
+      var ellipses = document.getElementsByClassName("ellipses-hidden");
+
+      while (ellipses.length > 0) {
+        ellipses[0].className = "fa fa-ellipsis-v message-ellipses";
+      }
+
       this.forceUpdate();
     }
   }, {

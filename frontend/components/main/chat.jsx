@@ -100,7 +100,6 @@ class Chat extends React.Component {
         editforminput.setAttribute("id", "edit-message-input")
         editforminput.setAttribute("type", "text")
         editforminput.className = "edit-message-input"
-        // editforminput.setAttribute("className", "edit-message-input")
         editforminput.setAttribute("value", message)
         let cancelButton = document.createElement("button")
         let submitButton = document.createElement("button")
@@ -123,10 +122,18 @@ class Chat extends React.Component {
         editform.appendChild(cancelButton)
         editform.appendChild(submitButton)
         messageLi.appendChild(editform)
+        let ellipses = document.getElementsByClassName("message-ellipses")
+        while (ellipses.length > 0) {
+            ellipses[0].className = "ellipses-hidden"
+        }
     }
     
     cancelEditMessage() {
-        document.getElementById("edit-message-form").remove()  
+        document.getElementById("edit-message-form").remove()
+        let ellipses = document.getElementsByClassName("ellipses-hidden")
+        while (ellipses.length > 0) {
+            ellipses[0].className = "fa fa-ellipsis-v message-ellipses"
+        }  
         this.forceUpdate()
     }
 

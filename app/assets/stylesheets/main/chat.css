@@ -62,6 +62,7 @@
 
 .chat-content {
     width: 100%;
+    height: auto;
 }
 
 #create-message-div {
@@ -131,6 +132,8 @@
 
 
 
+
+
 /* Post Message CSS */
 
 #form-container {
@@ -183,3 +186,7 @@
   #channel-topic-span {
       padding-left: 5px;
   }
+
+  .ellipses-hidden {
+    visibility: hidden;
+}
