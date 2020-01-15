@@ -576,6 +576,10 @@ function (_React$Component) {
         return _this3.submitEditMessage(messageId);
       };
 
+      var messageIdButton = document.createElement("button");
+      messageIdButton.innerHTML = messageId;
+      messageIdButton.setAttribute("id", "message-id-button");
+      editform.appendChild(messageIdButton);
       editform.appendChild(editforminput);
       editform.appendChild(cancelButton);
       editform.appendChild(submitButton);
@@ -584,16 +588,16 @@ function (_React$Component) {
   }, {
     key: "cancelEditMessage",
     value: function cancelEditMessage() {
-      console.log("cancelled"); // document.getElementById("edit-message-form").delete()
+      document.getElementById("edit-message-form").remove();
+      this.forceUpdate();
     }
   }, {
     key: "submitEditMessage",
-    value: function submitEditMessage(messageId) {
+    value: function submitEditMessage() {
+      var messageId = document.getElementById("message-id-button").innerHTML;
       var message = this.props.messageobj[messageId];
-      console.log("SUBMITTED"); // console.log(messageId)
-      // console.log(message)
-      // message.body = document.getElementById("edit-message-input").value
-      // this.props.updateMessage(message)
+      message.body = document.getElementById("edit-message-input").value;
+      this.props.updateMessage(message);
     }
   }, {
     key: "render",

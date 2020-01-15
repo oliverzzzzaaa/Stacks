@@ -115,6 +115,10 @@ class Chat extends React.Component {
         submitButton.innerHTML = "Submit"
         submitButton.setAttribute("type", "submit")
         editform.onsubmit = (e , messageId) => this.submitEditMessage(messageId)
+        let messageIdButton = document.createElement("button")
+        messageIdButton.innerHTML = messageId
+        messageIdButton.setAttribute("id", "message-id-button")
+        editform.appendChild(messageIdButton)
         editform.appendChild(editforminput)
         editform.appendChild(cancelButton)
         editform.appendChild(submitButton)
@@ -122,17 +126,15 @@ class Chat extends React.Component {
     }
     
     cancelEditMessage() {
-        console.log("cancelled")
-        // document.getElementById("edit-message-form").delete()
+        document.getElementById("edit-message-form").remove()  
+        this.forceUpdate()
     }
 
-    submitEditMessage(messageId) {
+    submitEditMessage() {
+        let messageId = (document.getElementById("message-id-button").innerHTML)
         let message = this.props.messageobj[messageId]
-        console.log("SUBMITTED")
-        // console.log(messageId)
-        // console.log(message)
-        // message.body = document.getElementById("edit-message-input").value
-        // this.props.updateMessage(message)
+        message.body = document.getElementById("edit-message-input").value
+        this.props.updateMessage(message)
     }
 
     render() {

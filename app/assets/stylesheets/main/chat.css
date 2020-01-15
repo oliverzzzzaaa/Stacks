@@ -125,6 +125,10 @@
     border-radius: 5px;
 }
 
+#message-id-button {
+    visibility: hidden;
+}
+
 
 
 /* Post Message CSS */
