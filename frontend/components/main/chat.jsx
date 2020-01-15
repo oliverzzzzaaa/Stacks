@@ -71,7 +71,16 @@ class Chat extends React.Component {
         // )
 
     }
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
+        if (prevProps.location.pathname.slice(10,this.props.location.pathname.length) !== this.props.location.pathname.slice(10,this.props.location.pathname.length)) {
+            this.setState({currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)]}, e => {
+                this.props.fetchMessages()
+                    .then(() => 
+                        console.log(this.state.currentChannel)
+                    )
+            })
+        }
+
         let lastMessage = document.getElementsByClassName("message-list")[0].lastChild
         if (lastMessage !== null) {
             lastMessage.scrollIntoView({ behavior: "smooth" });

@@ -9,6 +9,6 @@ Rails.application.routes.draw do
     resources :messages
   end
   root "static_pages#root"
-  # mount ActionCable.server, at: '/'
+  mount ActionCable.server, at: '/'
 end
   

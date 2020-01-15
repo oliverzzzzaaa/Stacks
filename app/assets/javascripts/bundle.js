@@ -518,7 +518,19 @@ function (_React$Component) {
     }
   }, {
     key: "componentDidUpdate",
-    value: function componentDidUpdate() {
+    value: function componentDidUpdate(prevProps) {
+      var _this3 = this;
+
+      if (prevProps.location.pathname.slice(10, this.props.location.pathname.length) !== this.props.location.pathname.slice(10, this.props.location.pathname.length)) {
+        this.setState({
+          currentChannel: this.props.channels[this.props.location.pathname.slice(10, this.props.location.pathname.length)]
+        }, function (e) {
+          _this3.props.fetchMessages().then(function () {
+            return console.log(_this3.state.currentChannel);
+          });
+        });
+      }
+
       var lastMessage = document.getElementsByClassName("message-list")[0].lastChild;
 
       if (lastMessage !== null) {
@@ -543,7 +555,7 @@ function (_React$Component) {
   }, {
     key: "editMessageForm",
     value: function editMessageForm(messageId) {
-      var _this3 = this;
+      var _this4 = this;
 
       var messageLi = document.getElementById("message".concat(messageId));
       var message = messageLi.innerHTML;
@@ -563,7 +575,7 @@ function (_React$Component) {
       cancelButton.setAttribute("onClick", this.cancelEditMessage);
 
       cancelButton.onclick = function () {
-        return _this3.cancelEditMessage();
+        return _this4.cancelEditMessage();
       };
 
       submitButton.setAttribute("value", "Submit");
@@ -573,7 +585,7 @@ function (_React$Component) {
       submitButton.setAttribute("type", "submit");
 
       editform.onsubmit = function (e, messageId) {
-        return _this3.submitEditMessage(messageId);
+        return _this4.submitEditMessage(messageId);
       };
 
       var messageIdButton = document.createElement("button");
@@ -618,12 +630,12 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       var cChannel = this.props.channel;
       var messageList = this.props.messages.map(function (message) {
         // const messageList = this.messages.map( message => {
-        if (_this4.state.currentChannel && message.channel_id === _this4.state.currentChannel.id) {
+        if (_this5.state.currentChannel && message.channel_id === _this5.state.currentChannel.id) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
             key: message.id,
             className: "message-li"
@@ -647,7 +659,7 @@ function (_React$Component) {
           }, message.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
             className: "edit-message-popup",
             onClick: function onClick() {
-              return _this4.editMessageForm(message.id);
+              return _this5.editMessageForm(message.id);
             }
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fa fa-ellipsis-v message-ellipses"
