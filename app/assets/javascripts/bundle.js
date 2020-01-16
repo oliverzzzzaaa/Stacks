@@ -949,10 +949,13 @@ function (_React$Component) {
 
         if (!e.target.matches('.edit-delete-div') && !e.target.matches(".message-ellipses")) {
           var popups = document.getElementsByClassName('edit-delete-div');
-          document.getElementsByClassName("clicked-ellipsis")[0].classList.remove("clicked-ellipsis");
 
-          while (popups.length > 0) {
-            popups[0].remove();
+          if (popups.length > 0) {
+            document.getElementsByClassName("clicked-ellipsis")[0].classList.remove("clicked-ellipsis");
+
+            while (popups.length > 0) {
+              popups[0].remove();
+            }
           }
         }
       };

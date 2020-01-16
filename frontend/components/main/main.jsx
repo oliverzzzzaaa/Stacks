@@ -45,10 +45,12 @@ class Main extends React.Component {
         window.onclick = function (e) {
             console.log(e.target.matches('.edit-delete-div'))
             if (!e.target.matches('.edit-delete-div') && !e.target.matches(".message-ellipses")) {
-                const popups = document.getElementsByClassName('edit-delete-div');
-                document.getElementsByClassName("clicked-ellipsis")[0].classList.remove("clicked-ellipsis")
-                while (popups.length > 0) {
-                    popups[0].remove()
+                const popups = document.getElementsByClassName('edit-delete-div')
+                if (popups.length > 0) {
+                    document.getElementsByClassName("clicked-ellipsis")[0].classList.remove("clicked-ellipsis")
+                    while (popups.length > 0) {
+                        popups[0].remove()
+                    }
                 }
             }
         }
