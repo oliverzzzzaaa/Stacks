@@ -5,12 +5,8 @@ Full-stack
     profile images in Chat
     move images to AWS
 
-Rerender on channel change
-
+close sidebar dropdown on click
+messageTimeStamp
 
 Incorporate ActionCable
 fix message timestamps
-
-question:
-    I'm trying to lift state from sidebar by calling changechannel from sidebar
-    and passing in currentChannel to chat container as a prop but it's not changing

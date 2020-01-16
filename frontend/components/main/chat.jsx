@@ -9,6 +9,8 @@ class Chat extends React.Component {
         this.editMessageForm = this.editMessageForm.bind(this)
         this.cancelEditMessage = this.cancelEditMessage.bind(this)
         this.submitEditMessage = this.submitEditMessage.bind(this)
+        // this.hideEditMessage = this.hideEditMessage.bind(this)
+        // this.editDeletePopup = this.editDeletePopup.bind(this)
         this.state =  {
             // currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)],
             currentChannel: this.props.channel,
@@ -29,8 +31,6 @@ class Chat extends React.Component {
                 // this.currentChannel = (this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)])
                 this.setState({currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)]}),    
                 this.props.fetchMessages().then(() => {
-                    console.log(this.props)
-                    console.log(this.state)
                     if(document.getElementsByClassName("message-list")[0].lastChild){
                     document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({ behavior: "smooth" });}
                 })
@@ -104,6 +104,9 @@ class Chat extends React.Component {
     }
 
     editMessageForm(messageId) {
+        document.getElementsByClassName("clicked-ellipsis")[0].classList.remove("clicked-ellipsis")
+        let divs = document.getElementsByClassName("edit-delete-div")
+        divs[0].remove()
         let messageLi = document.getElementById(`message${messageId}`)
         let message = messageLi.innerHTML
         let editform = document.createElement("form")
@@ -147,7 +150,6 @@ class Chat extends React.Component {
         while (ellipses.length > 0) {
             ellipses[0].className = "fa fa-ellipsis-v message-ellipses"
         }  
-        this.forceUpdate()
     }
     
     submitEditMessage() {
@@ -160,34 +162,79 @@ class Chat extends React.Component {
             ellipses[0].className = "fa fa-ellipsis-v message-ellipses"
         }  
     }
+    
+
+    editDeletePopup(messageId) {
+        let editMessagePopup = document.getElementById(`edit-message-popup-${messageId}`)
+        editMessagePopup.classList.add("clicked-ellipsis")
+        let editDeleteDiv = document.createElement("div")
+        editDeleteDiv.setAttribute("class", "edit-delete-div")
+        let editButton = document.createElement("button")
+        let deleteButton = document.createElement("button")
+        // created a form to work around onclick
+        let editButtonForm = document.createElement("form")
+        editButtonForm.setAttribute("class", "hidden-form")
+        editButton.classList.add("edit-delete-button")
+        deleteButton.classList.add("edit-delete-button")
+        editButton.innerHTML = "Edit Message"
+        deleteButton.innerHTML = "Delete Message"
+        editButton.setAttribute("type", "submit")
+        deleteButton.onclick = () => this.props.openModal()
+        editButton.onclick = () => this.editMessageForm(messageId)
+        // editButtonForm.onsubmit = (e, messageId) => this.editMessageForm(messageId)
+        deleteButton.setAttribute("type", "button")
+        editButton.setAttribute("class", "edit-message-button")
+        deleteButton.setAttribute("class", "delete-message-button")
+        editButtonForm.appendChild(editButton)
+        editDeleteDiv.appendChild(editButtonForm)
+        editDeleteDiv.appendChild(deleteButton)
+        editMessagePopup.appendChild(editDeleteDiv)
+    }
+
+    hideEditMessage(e) {
+        // console.log(e)
+        console.log(e.target)
+        console.log(e.target.hasAttribute("onclick"))
+    }
 
     render() {
         let cChannel = this.props.channel;
         const messageList = this.props.messages.map( message => {
         // const messageList = this.messages.map( message => {
             if (this.state.currentChannel && message.channel_id === this.state.currentChannel.id) {
+                let messagetime = null
+                if (new Date(message.created_at).toLocaleDateString() !== new Date().toLocaleDateString()) {
+                    messagetime = new Date(message.created_at).toLocaleDateString()
+                } else {
+                    messagetime = new Date(message.created_at).toLocaleTimeString()
+                }
                 return (
                     <li key={message.id} className="message-li">
                         <div className="chat-profile-pic">
                             <img src={window.defaultPicture}/>
                         </div>
                         <div className="chat-content">
-                            <div className="chat-top-row">
+                            <div className="chat-top-row" id={`top-row-${message.id}`}>
                                 <span className="message-left">
                                     <span className="chat-author-name">
                                         {message.author.name}
                                     </span>
                                     <h5 className="chat-timestamp">
-                                        {(new Date(message.created_at).toLocaleTimeString())}
+                                        {messagetime}
+                                        {/* {(new Date(message.created_at).toLocaleTimeString())} */}
+                                        {/* {(new Date(message.created_at).toLocaleDateString())} */}
                                     </h5>
                                 </span>
                             </div>
                             <span className="chat-message-body" id={`message${message.id}`}>
                                 {message.body} 
                             </span>
-                            <span className="edit-message-popup" onClick={ () => this.editMessageForm(message.id)}>
+                            <span className="edit-message-popup" id={`edit-message-popup-${message.id}`} onClick={ () => this.editDeletePopup(message.id)}>
                                 <i className="fa fa-ellipsis-v message-ellipses"></i>
                             </span>
+                            {/* <span className="edit-message-popup" onClick={ () => this.editMessageForm(message.id)}>
+                                <i className="fa fa-ellipsis-v message-ellipses"></i>
+                            </span> */}
                         </div>
                     </li>
                 )}else{
@@ -197,7 +244,7 @@ class Chat extends React.Component {
             )
             
         return (
-            <div className="chat-container">
+            <div className="chat-container" onClick={this.hideEditMessage}>
                 <div id="chat-header">
                     <div id="chat-container-left">
                         <i className="fa">&#xf023;</i>

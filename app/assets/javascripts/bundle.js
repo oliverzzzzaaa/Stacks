@@ -446,7 +446,9 @@ function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.editMessageForm = _this.editMessageForm.bind(_assertThisInitialized(_this));
     _this.cancelEditMessage = _this.cancelEditMessage.bind(_assertThisInitialized(_this));
-    _this.submitEditMessage = _this.submitEditMessage.bind(_assertThisInitialized(_this));
+    _this.submitEditMessage = _this.submitEditMessage.bind(_assertThisInitialized(_this)); // this.hideEditMessage = this.hideEditMessage.bind(this)
+    // this.editDeletePopup = this.editDeletePopup.bind(this)
+
     _this.state = {
       // currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)],
       currentChannel: _this.props.channel,
@@ -473,9 +475,6 @@ function (_React$Component) {
         _this2.setState({
           currentChannel: _this2.props.channels[_this2.props.location.pathname.slice(10, _this2.props.location.pathname.length)]
         }), _this2.props.fetchMessages().then(function () {
-          console.log(_this2.props);
-          console.log(_this2.state);
-
           if (document.getElementsByClassName("message-list")[0].lastChild) {
             document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({
               behavior: "smooth"
@@ -563,6 +562,9 @@ function (_React$Component) {
     value: function editMessageForm(messageId) {
       var _this4 = this;
 
+      document.getElementsByClassName("clicked-ellipsis")[0].classList.remove("clicked-ellipsis");
+      var divs = document.getElementsByClassName("edit-delete-div");
+      divs[0].remove();
       var messageLi = document.getElementById("message".concat(messageId));
       var message = messageLi.innerHTML;
       var editform = document.createElement("form");
@@ -617,8 +619,6 @@ function (_React$Component) {
       while (ellipses.length > 0) {
         ellipses[0].className = "fa fa-ellipsis-v message-ellipses";
       }
-
-      this.forceUpdate();
     }
   }, {
     key: "submitEditMessage",
@@ -634,14 +634,66 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "editDeletePopup",
+    value: function editDeletePopup(messageId) {
+      var _this5 = this;
+
+      var editMessagePopup = document.getElementById("edit-message-popup-".concat(messageId));
+      editMessagePopup.classList.add("clicked-ellipsis");
+      var editDeleteDiv = document.createElement("div");
+      editDeleteDiv.setAttribute("class", "edit-delete-div");
+      var editButton = document.createElement("button");
+      var deleteButton = document.createElement("button"); // created a form to work around onclick
+
+      var editButtonForm = document.createElement("form");
+      editButtonForm.setAttribute("class", "hidden-form");
+      editButton.classList.add("edit-delete-button");
+      deleteButton.classList.add("edit-delete-button");
+      editButton.innerHTML = "Edit Message";
+      deleteButton.innerHTML = "Delete Message";
+      editButton.setAttribute("type", "submit");
+
+      deleteButton.onclick = function () {
+        return _this5.props.openModal();
+      };
+
+      editButton.onclick = function () {
+        return _this5.editMessageForm(messageId);
+      }; // editButtonForm.onsubmit = (e, messageId) => this.editMessageForm(messageId)
+
+
+      deleteButton.setAttribute("type", "button");
+      editButton.setAttribute("class", "edit-message-button");
+      deleteButton.setAttribute("class", "delete-message-button");
+      editButtonForm.appendChild(editButton);
+      editDeleteDiv.appendChild(editButtonForm);
+      editDeleteDiv.appendChild(deleteButton);
+      editMessagePopup.appendChild(editDeleteDiv);
+    }
+  }, {
+    key: "hideEditMessage",
+    value: function hideEditMessage(e) {
+      // console.log(e)
+      console.log(e.target);
+      console.log(e.target.hasAttribute("onclick"));
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this5 = this;
+      var _this6 = this;
 
       var cChannel = this.props.channel;
       var messageList = this.props.messages.map(function (message) {
         // const messageList = this.messages.map( message => {
-        if (_this5.state.currentChannel && message.channel_id === _this5.state.currentChannel.id) {
+        if (_this6.state.currentChannel && message.channel_id === _this6.state.currentChannel.id) {
+          var messagetime = null;
+
+          if (new Date(message.created_at).toLocaleDateString() !== new Date().toLocaleDateString()) {
+            messagetime = new Date(message.created_at).toLocaleDateString();
+          } else {
+            messagetime = new Date(message.created_at).toLocaleTimeString();
+          }
+
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
             key: message.id,
             className: "message-li"
@@ -652,20 +704,22 @@ function (_React$Component) {
           })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "chat-content"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: "chat-top-row"
+            className: "chat-top-row",
+            id: "top-row-".concat(message.id)
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
             className: "message-left"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
             className: "chat-author-name"
           }, message.author.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
             className: "chat-timestamp"
-          }, new Date(message.created_at).toLocaleTimeString()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          }, messagetime))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
             className: "chat-message-body",
             id: "message".concat(message.id)
           }, message.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
             className: "edit-message-popup",
+            id: "edit-message-popup-".concat(message.id),
             onClick: function onClick() {
-              return _this5.editMessageForm(message.id);
+              return _this6.editDeletePopup(message.id);
             }
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fa fa-ellipsis-v message-ellipses"
@@ -677,7 +731,8 @@ function (_React$Component) {
         }
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "chat-container"
+        className: "chat-container",
+        onClick: this.hideEditMessage
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "chat-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -828,6 +883,9 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Main).call(this, props));
     _this.changeChannel = _this.changeChannel.bind(_assertThisInitialized(_this));
+    _this.openModal = _this.openModal.bind(_assertThisInitialized(_this));
+    _this.closeModal = _this.closeModal.bind(_assertThisInitialized(_this));
+    _this.deleteMessage = _this.deleteMessage.bind(_assertThisInitialized(_this));
     _this.state = {
       currentChannel: _this.props.channels[_this.props.location.pathname.slice(10, _this.props.location.pathname.length)]
     };
@@ -835,10 +893,21 @@ function (_React$Component) {
   }
 
   _createClass(Main, [{
+    key: "openModal",
+    value: function openModal() {
+      document.getElementsByClassName("modal")[0].classList.add("modal-show");
+    }
+  }, {
+    key: "closeModal",
+    value: function closeModal() {
+      document.getElementsByClassName("modal-show")[0].classList.remove("modal-show");
+    }
+  }, {
+    key: "deleteMessage",
+    value: function deleteMessage() {}
+  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      // this.props.fetchChannels();
-      // this.props.fetchMessages();
       this.props.fetchWorkspaces();
     }
   }, {
@@ -851,6 +920,19 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      window.onclick = function (e) {
+        console.log(e.target.matches('.edit-delete-div'));
+
+        if (!e.target.matches('.edit-delete-div') && !e.target.matches(".message-ellipses")) {
+          var popups = document.getElementsByClassName('edit-delete-div');
+          document.getElementsByClassName("clicked-ellipsis")[0].classList.remove("clicked-ellipsis");
+
+          while (popups.length > 0) {
+            popups[0].remove();
+          }
+        }
+      };
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_side_bar_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -864,8 +946,23 @@ function (_React$Component) {
         channel: this.state.currentChannel,
         currentUser: this.props.currentUser,
         channels: this.props.channels,
-        messages: this.props.messages
-      }));
+        messages: this.props.messages,
+        openModal: this.openModal
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "are-you-sure"
+      }, "Are you sure you want to delete this message?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "modal-button-div"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        id: "delete-cancel-button",
+        onClick: this.closeModal
+      }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        id: "delete-confirm-button",
+        onClick: this.deleteMessage
+      }, "Delete")))));
     }
   }]);
 
