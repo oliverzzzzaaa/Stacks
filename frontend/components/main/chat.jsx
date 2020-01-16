@@ -63,14 +63,15 @@ class Chat extends React.Component {
         { channel: "ChatChannel" },
         {
             received: data => {
-            this.setState({
-                messages: this.state.messages.concat(data.message)
-            });
+                console.log('received')
+                this.props.receiveMessage(data.message)
             },
-            speak: function(data) {
-            return this.perform("speak", data);
+            speak: function() {
             }
         })
+
+
+
     }
     componentDidUpdate(prevProps) {
         if (prevProps.location.pathname.slice(10,this.props.location.pathname.length) !== this.props.location.pathname.slice(10,this.props.location.pathname.length)) {
@@ -88,18 +89,18 @@ class Chat extends React.Component {
         }
      }
     handleSubmit() {
-        
+        console.log('great')
         let newMessagebody = document.getElementsByClassName('ql-editor')[0].children[0].innerHTML
         let newMessage = {
             body: newMessagebody,
-            workspace_id: 25,
+            workspace_id: this.state.currentChannel.workspace_id,
             channel_id: this.state.currentChannel.id
         }
         
         this.props.postMessage(newMessage).then(
             () => document.getElementsByClassName('ql-editor')[0].children[0].innerHTML = ""
         )
-        App.cable.subscriptions.subscriptions[0].speak({ message: newMessage });
+        // App.cable.subscriptions.subscriptions[0].speak({ message: newMessage });
         
     }
 
@@ -179,7 +180,7 @@ class Chat extends React.Component {
         editButton.innerHTML = "Edit Message"
         deleteButton.innerHTML = "Delete Message"
         editButton.setAttribute("type", "submit")
-        deleteButton.onclick = () => this.props.openModal()
+        deleteButton.onclick = () => this.props.openModal(messageId)
         editButton.onclick = () => this.editMessageForm(messageId)
         // editButtonForm.onsubmit = (e, messageId) => this.editMessageForm(messageId)
         deleteButton.setAttribute("type", "button")

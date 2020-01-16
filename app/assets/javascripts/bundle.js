@@ -204,7 +204,7 @@ var fetchChannels = function fetchChannels() {
 /*!*********************************************!*\
   !*** ./frontend/actions/message_actions.js ***!
   \*********************************************/
-/*! exports provided: RECEIVE_MESSAGES, RECEIVE_ERRORS, REMOVE_MESSAGE, postMessage, updateMessage, deleteMessage, fetchMessages */
+/*! exports provided: RECEIVE_MESSAGES, RECEIVE_ERRORS, REMOVE_MESSAGE, RECEIVE_MESSAGE, receiveMessage, postMessage, updateMessage, deleteMessage, fetchMessages */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -212,6 +212,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_MESSAGES", function() { return RECEIVE_MESSAGES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ERRORS", function() { return RECEIVE_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_MESSAGE", function() { return REMOVE_MESSAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_MESSAGE", function() { return RECEIVE_MESSAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveMessage", function() { return receiveMessage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postMessage", function() { return postMessage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateMessage", function() { return updateMessage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteMessage", function() { return deleteMessage; });
@@ -221,6 +223,7 @@ __webpack_require__.r(__webpack_exports__);
 var RECEIVE_MESSAGES = "RECEIVE_MESSAGES";
 var RECEIVE_ERRORS = "RECEIVE_ERRORS";
 var REMOVE_MESSAGE = "REMOVE_MESSAGE";
+var RECEIVE_MESSAGE = "RECEIVE_MESSAGE";
 
 var receiveMessages = function receiveMessages(messages) {
   return {
@@ -243,6 +246,20 @@ var removeMessage = function removeMessage(messageId) {
   };
 };
 
+var actioncableMessage = function actioncableMessage(message) {
+  return {
+    type: RECEIVE_MESSAGE,
+    message: message
+  };
+};
+
+var receiveMessage = function receiveMessage(message) {
+  return function (dispatch) {
+    return function (message) {
+      return dispatch(actioncableMessage(message));
+    };
+  };
+};
 var postMessage = function postMessage(message) {
   return function (dispatch) {
     return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__["postMesage"](message).then(function (messages) {
@@ -263,8 +280,8 @@ var updateMessage = function updateMessage(message) {
 };
 var deleteMessage = function deleteMessage(messageId) {
   return function (dispatch) {
-    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__["deleteMessage"](messageId).then(function () {
-      return dispatch(removeMessage());
+    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__["deleteMessage"](messageId).then(function (messageId) {
+      return dispatch(removeMessage(messageId));
     }, function (error) {
       return dispatch(receiveErrors(error.responseJSON));
     });
@@ -509,13 +526,11 @@ function (_React$Component) {
         channel: "ChatChannel"
       }, {
         received: function received(data) {
-          _this2.setState({
-            messages: _this2.state.messages.concat(data.message)
-          });
+          console.log('received');
+
+          _this2.props.receiveMessage(data.message);
         },
-        speak: function speak(data) {
-          return this.perform("speak", data);
-        }
+        speak: function speak() {}
       });
     }
   }, {
@@ -544,18 +559,16 @@ function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit() {
+      console.log('great');
       var newMessagebody = document.getElementsByClassName('ql-editor')[0].children[0].innerHTML;
       var newMessage = {
         body: newMessagebody,
-        workspace_id: 25,
+        workspace_id: this.state.currentChannel.workspace_id,
         channel_id: this.state.currentChannel.id
       };
       this.props.postMessage(newMessage).then(function () {
         return document.getElementsByClassName('ql-editor')[0].children[0].innerHTML = "";
-      });
-      App.cable.subscriptions.subscriptions[0].speak({
-        message: newMessage
-      });
+      }); // App.cable.subscriptions.subscriptions[0].speak({ message: newMessage });
     }
   }, {
     key: "editMessageForm",
@@ -654,7 +667,7 @@ function (_React$Component) {
       editButton.setAttribute("type", "submit");
 
       deleteButton.onclick = function () {
-        return _this5.props.openModal();
+        return _this5.props.openModal(messageId);
       };
 
       editButton.onclick = function () {
@@ -826,8 +839,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     updateMessage: function updateMessage(message) {
       return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["updateMessage"])(message));
     },
-    deleteMessage: function deleteMessage(messageId) {
-      return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["deleteMessage"])(messageId));
+    receiveMessage: function receiveMessage(message) {
+      return Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["receiveMessage"])(message);
     }
   };
 };
@@ -894,8 +907,12 @@ function (_React$Component) {
 
   _createClass(Main, [{
     key: "openModal",
-    value: function openModal() {
+    value: function openModal(messageId) {
       document.getElementsByClassName("modal")[0].classList.add("modal-show");
+      var messagediv = document.createElement("div");
+      messagediv.setAttribute("class", "delete-message-id");
+      messagediv.innerHTML = messageId;
+      document.getElementById("chat-header").append(messagediv);
     }
   }, {
     key: "closeModal",
@@ -904,7 +921,14 @@ function (_React$Component) {
     }
   }, {
     key: "deleteMessage",
-    value: function deleteMessage() {}
+    value: function deleteMessage() {
+      var _this2 = this;
+
+      var messageId = document.getElementsByClassName("delete-message-id")[0].innerHTML;
+      this.props.deleteMessage(messageId).then(function () {
+        return _this2.closeModal();
+      });
+    }
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
@@ -1013,14 +1037,17 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     logout: function logout() {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["logout"])());
     },
-    fetchMessages: function fetchMessages(channelId) {
-      return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["fetchMessages"])(channelId));
+    fetchMessages: function fetchMessages() {
+      return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["fetchMessages"])());
     },
     fetchWorkspaces: function fetchWorkspaces(workspaces) {
       return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_4__["fetchWorkspaces"])(workspaces));
     },
     fetchChannels: function fetchChannels(channels) {
       return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_5__["fetchChannels"])(channels));
+    },
+    deleteMessage: function deleteMessage(messageId) {
+      return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["deleteMessage"])(messageId));
     }
   };
 };
@@ -2274,6 +2301,8 @@ var errorsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"]
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/message_actions */ "./frontend/actions/message_actions.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 var messagesReducer = function messagesReducer() {
@@ -2289,6 +2318,9 @@ var messagesReducer = function messagesReducer() {
 
     case _actions_message_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_MESSAGES"]:
       return action.messages;
+
+    case _actions_message_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_MESSAGE"]:
+      return Object.assign({}, state, _defineProperty({}, action.message.id, action.message));
 
     default:
       return state;

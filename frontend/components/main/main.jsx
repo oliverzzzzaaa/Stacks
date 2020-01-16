@@ -14,8 +14,12 @@ class Main extends React.Component {
         }
     }
 
-    openModal() {
+    openModal(messageId) {
         document.getElementsByClassName("modal")[0].classList.add("modal-show")
+        let messagediv = document.createElement("div")
+        messagediv.setAttribute("class", "delete-message-id")
+        messagediv.innerHTML = messageId
+        document.getElementById("chat-header").append(messagediv)
     }
 
     closeModal() {
@@ -23,7 +27,9 @@ class Main extends React.Component {
     }
 
     deleteMessage() {
-
+        let messageId = document.getElementsByClassName("delete-message-id")[0].innerHTML
+        this.props.deleteMessage(messageId)
+            .then(() => this.closeModal())
     }
 
     componentDidMount() {

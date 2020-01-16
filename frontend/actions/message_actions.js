@@ -2,7 +2,8 @@ import * as APIUtil from '../util/message_api_util'
 
 export const RECEIVE_MESSAGES = "RECEIVE_MESSAGES";
 export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
-export const REMOVE_MESSAGE = "REMOVE_MESSAGE"
+export const REMOVE_MESSAGE = "REMOVE_MESSAGE";
+export const RECEIVE_MESSAGE = "RECEIVE_MESSAGE"
 
 
 const receiveMessages = messages => ({
@@ -20,6 +21,17 @@ const removeMessage = messageId => ({
     messageId
 })
 
+const actioncableMessage = message => ({
+    type: RECEIVE_MESSAGE,
+    message
+})
+
+
+export const receiveMessage = message => dispatch => (
+    (message) => dispatch(actioncableMessage(message))
+)
+
+
 export const postMessage = message => dispatch => (
     APIUtil.postMesage(message)
         .then((messages) => dispatch(receiveMessages(messages))
@@ -34,7 +46,7 @@ export const updateMessage = message => dispatch => (
 
 export const deleteMessage = messageId => dispatch => (
     APIUtil.deleteMessage(messageId)
-    .then(() => dispatch(removeMessage())
+    .then((messageId) => dispatch(removeMessage(messageId))
     , error => (dispatch(receiveErrors(error.responseJSON))))
 )
 

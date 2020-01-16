@@ -1,4 +1,4 @@
-import {RECEIVE_MESSAGES, REMOVE_MESSAGE} from '../actions/message_actions';
+import {RECEIVE_MESSAGES, REMOVE_MESSAGE, RECEIVE_MESSAGE} from '../actions/message_actions';
 
 
 const messagesReducer = (state = {}, action) => {
@@ -10,6 +10,8 @@ const messagesReducer = (state = {}, action) => {
             return newState
         case RECEIVE_MESSAGES:
             return action.messages;
+        case RECEIVE_MESSAGE:
+            return Object.assign({}, state, {[action.message.id]: action.message})
         default:
             return state;
     }

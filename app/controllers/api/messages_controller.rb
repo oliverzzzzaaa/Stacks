@@ -28,18 +28,17 @@ class Api::MessagesController < ApplicationController
     end 
 
     def destroy
-        @message = Message.find(:id)
+        @message = Message.find(params[:id])
         @message.destroy
-        render :show
+        render json: @message.id
     end
 
     def create
         @message = Message.new(message_params)
         @message.user_id = current_user.id
-        @message.workspace_id = Workspace.find_by(workspace_name: "App-Academy").id
-        # @message.workspace_id = params[:workspace_id]
+        # @message.workspace_id = Workspace.find_by(workspace_name: "App-Academy").id
         if @message.save
-            # ActionCable.server.broadcast "chat_channel", message: @message
+            ActionCable.server.broadcast "chat_channel", message: @message
             @messages = Message.all
             render :index
         else

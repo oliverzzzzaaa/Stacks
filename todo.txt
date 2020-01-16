@@ -10,3 +10,7 @@ messageTimeStamp
 
 Incorporate ActionCable
 fix message timestamps
+
+
+dangerously set
+purify

@@ -315,7 +315,7 @@
     font-size: 36px;
     line-height: 1;
     cursor: pointer;
-  }
+}
 
 #modal-button-div {
     align-self: flex-end;
@@ -350,4 +350,8 @@
     border-radius: 5px;
     color: white;
     background-color: purple;
+}
+
+.delete-message-id {
+    visibility: hidden;
 }
