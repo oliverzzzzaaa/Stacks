@@ -96,7 +96,7 @@ class SideBar extends React.Component {
                     <h4 id="sidebar-workspace-name" className="sidebar-link">Workspace Name</h4>
                     <h4 className="sidebar-link" id="current-user-link"><span className="green-dot"></span>{this.props.currentUser[currentUserId].name}</h4>
                     <div id="hidden-sidebar-dropdown" className="sidebar-revealed">
-                        <div id="profile-link" className="sidebar-dropdown">Profile Link</div>
+                        {/* <div id="profile-link" className="sidebar-dropdown">Profile Link</div> */}
                         <ul className="sidebar-workspace-ul sidebar-dropdown">
                             {workspaceList}
                         </ul>

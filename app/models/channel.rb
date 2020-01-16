@@ -10,4 +10,12 @@ class Channel < ApplicationRecord
     belongs_to :workspace
 
     has_many :messages
+
+    has_many :channel_memberships,
+    foreign_key: :channel_id,
+    class_name: :ChannelMembership
+
+    has_many :users,
+    through: :channel_memberships,
+    source: :user
 end

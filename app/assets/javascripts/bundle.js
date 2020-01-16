@@ -474,6 +474,7 @@ function (_React$Component) {
           currentChannel: _this2.props.channels[_this2.props.location.pathname.slice(10, _this2.props.location.pathname.length)]
         }), _this2.props.fetchMessages().then(function () {
           console.log(_this2.props);
+          console.log(_this2.state);
 
           if (document.getElementsByClassName("message-list")[0].lastChild) {
             document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({
@@ -504,17 +505,19 @@ function (_React$Component) {
         },
         placeholder: 'Enter text',
         theme: 'snow'
-      }); // App.cable.subscriptions.create(
-      //     { channel: "ChatChannel" },
-      //     {
-      //         received: data => {
-      //             this.setState({messages: this.state.messages.concat(data.message)});
-      //         },
-      //         speak: function(data) {
-      //             return this.perform("speak", data);
-      //         }
-      //     }
-      // )
+      });
+      App.cable.subscriptions.create({
+        channel: "ChatChannel"
+      }, {
+        received: function received(data) {
+          _this2.setState({
+            messages: _this2.state.messages.concat(data.message)
+          });
+        },
+        speak: function speak(data) {
+          return this.perform("speak", data);
+        }
+      });
     }
   }, {
     key: "componentDidUpdate",
@@ -550,6 +553,9 @@ function (_React$Component) {
       };
       this.props.postMessage(newMessage).then(function () {
         return document.getElementsByClassName('ql-editor')[0].children[0].innerHTML = "";
+      });
+      App.cable.subscriptions.subscriptions[0].speak({
+        message: newMessage
       });
     }
   }, {
@@ -680,13 +686,13 @@ function (_React$Component) {
         className: "fa"
       }, "\uF023"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", {
         id: "channel-name-header"
-      }, this.state.currentChannel ? this.state.currentChannel.channel_name : "OH NO"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "\u2606 | ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }, this.state.currentChannel ? this.state.currentChannel.channel_name : "Choose a channel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "\u2606 | ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fa fa-user"
       }), " | ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fa"
       }, "\uF08D"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         id: "channel-topic-span"
-      }, this.state.currentChannel ? this.state.currentChannel.channel_topic : "ABCDAFAFD"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.state.currentChannel ? this.state.currentChannel.channel_topic : " "))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-list"
       }, messageList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "create-message-div"
@@ -1084,10 +1090,7 @@ function (_React$Component) {
       }), this.props.currentUser[currentUserId].name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "hidden-sidebar-dropdown",
         className: "sidebar-revealed"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "profile-link",
-        className: "sidebar-dropdown"
-      }, "Profile Link"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "sidebar-workspace-ul sidebar-dropdown"
       }, workspaceList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "/",

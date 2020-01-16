@@ -30,6 +30,7 @@ class Chat extends React.Component {
                 this.setState({currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)]}),    
                 this.props.fetchMessages().then(() => {
                     console.log(this.props)
+                    console.log(this.state)
                     if(document.getElementsByClassName("message-list")[0].lastChild){
                     document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({ behavior: "smooth" });}
                 })
@@ -58,18 +59,18 @@ class Chat extends React.Component {
             theme: 'snow'
           });
 
-        // App.cable.subscriptions.create(
-        //     { channel: "ChatChannel" },
-        //     {
-        //         received: data => {
-        //             this.setState({messages: this.state.messages.concat(data.message)});
-        //         },
-        //         speak: function(data) {
-        //             return this.perform("speak", data);
-        //         }
-        //     }
-        // )
-
+        App.cable.subscriptions.create(
+        { channel: "ChatChannel" },
+        {
+            received: data => {
+            this.setState({
+                messages: this.state.messages.concat(data.message)
+            });
+            },
+            speak: function(data) {
+            return this.perform("speak", data);
+            }
+        })
     }
     componentDidUpdate(prevProps) {
         if (prevProps.location.pathname.slice(10,this.props.location.pathname.length) !== this.props.location.pathname.slice(10,this.props.location.pathname.length)) {
@@ -87,6 +88,7 @@ class Chat extends React.Component {
         }
      }
     handleSubmit() {
+        
         let newMessagebody = document.getElementsByClassName('ql-editor')[0].children[0].innerHTML
         let newMessage = {
             body: newMessagebody,
@@ -97,6 +99,7 @@ class Chat extends React.Component {
         this.props.postMessage(newMessage).then(
             () => document.getElementsByClassName('ql-editor')[0].children[0].innerHTML = ""
         )
+        App.cable.subscriptions.subscriptions[0].speak({ message: newMessage });
         
     }
 
@@ -199,12 +202,12 @@ class Chat extends React.Component {
                     <div id="chat-container-left">
                         <i className="fa">&#xf023;</i>
                         <strong id="channel-name-header">
-                            {(this.state.currentChannel) ? this.state.currentChannel.channel_name : "OH NO"}
+                            {(this.state.currentChannel) ? this.state.currentChannel.channel_name : "Choose a channel"}
                         </strong>
                         <div>
                             <span>&#x2606; | <i className="fa fa-user"></i> | <i className="fa">&#xf08d;</i>
                                 <span id="channel-topic-span">
-                                    {(this.state.currentChannel) ? this.state.currentChannel.channel_topic : "ABCDAFAFD"}
+                                    {(this.state.currentChannel) ? this.state.currentChannel.channel_topic : " "}
                                 </span>
                             </span>
                         </div>

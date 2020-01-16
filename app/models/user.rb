@@ -14,9 +14,13 @@ class User < ApplicationRecord
 
     has_many :messages
 
+    has_many :channel_memberships,
+    foreign_key: :user_id,
+    class_name: :ChannelMembership
+
     has_many :channels,
-    foreign_key: :host_id,
-    class_name: :Channel
+    through: :channel_memberships,
+    source: :channel
 
     after_initialize :ensure_session_token
 

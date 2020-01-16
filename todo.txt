@@ -1,5 +1,6 @@
 LOGGER REMOVE FOR PRODUCTION
 
+change slack logo
 Full-stack
     profile images in Chat
     move images to AWS
