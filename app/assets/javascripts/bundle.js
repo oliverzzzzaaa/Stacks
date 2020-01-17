@@ -495,11 +495,9 @@ function (_React$Component) {
   }, {
     key: "updateState",
     value: function updateState(message) {
-      console.log(this.props);
       this.setState({
         messages: this.state.messages.concat(message)
       });
-      console.log(this.state.messages);
     }
   }, {
     key: "componentDidMount",
@@ -1006,8 +1004,6 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       window.onclick = function (e) {
-        console.log(e.target.matches('.edit-delete-div'));
-
         if (!e.target.matches('.edit-delete-div') && !e.target.matches(".message-ellipses")) {
           var popups = document.getElementsByClassName('edit-delete-div');
 
@@ -1236,7 +1232,6 @@ function (_React$Component) {
     key: "openProfileModal",
     value: function openProfileModal() {
       var modal = document.getElementsByClassName("user-profile-modal")[0];
-      console.log(modal);
       modal.classList.add("user-profile-modal-show");
     }
   }, {
@@ -1290,7 +1285,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         id: "sidebar-workspace-name",
         className: "sidebar-link"
-      }, "Workspace Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+      }, this.props.workspaces[0] ? this.props.workspaces[0].workspace_name : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "sidebar-link",
         id: "current-user-link"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -1299,11 +1294,9 @@ function (_React$Component) {
         id: "hidden-sidebar-dropdown",
         className: "sidebar-revealed"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "sidebar-dropdown",
+        className: "sidebar-dropdown sidebar-edit-dropdown",
         onClick: this.openProfileModal
-      }, "Edit Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "sidebar-workspace-ul sidebar-dropdown"
-      }, workspaceList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }, "Edit Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "/",
         className: "sidebar-back-to-slash sidebar-dropdown"
       }, "Back to Splash"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -1873,16 +1866,12 @@ function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      console.log(this.props);
-      console.log(this.props.workspaces);
-      console.log(this.state.workspace);
 
       if (this.props.workspaces[this.state.workspace] !== undefined) {
         this.props.history.push('/session/workspace/new');
       } else {
         document.getElementById("workspace-error").innerHTML = "Sorry this workspace can not be found";
-      } // this.props.history.push('/session/workspace/new')
-
+      }
     }
   }, {
     key: "componentDidMount",
@@ -1897,13 +1886,7 @@ function (_React$Component) {
         workspace: 'App-Academy'
       }, function () {
         document.getElementById("workspace-button").click();
-      }); // return e => this.setState({workspace: 'App-Academy'}, () => {
-      //     console.log('ok')
-      //     document.getElementById("workspace-button").click()
-      // })
-      // this.state = {
-      //     workspace: "App-Academy"
-      // }
+      });
     }
   }, {
     key: "render",
@@ -2076,12 +2059,7 @@ function (_React$Component) {
   _createClass(SplashPage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this2 = this;
-
-      this.props.fetchWorkspaces().then(function () {
-        console.log(_this2.state);
-        console.log(_this2.props);
-      });
+      this.props.fetchWorkspaces().then(function () {});
     }
   }, {
     key: "windowClick",
@@ -2107,11 +2085,11 @@ function (_React$Component) {
   }, {
     key: "logoutUser",
     value: function logoutUser(e) {
-      var _this3 = this;
+      var _this2 = this;
 
       e.preventDefault();
       this.props.action().then(function () {
-        return _this3.props.history.push("/session/new");
+        return _this2.props.history.push("/session/new");
       });
     }
   }, {
@@ -2122,7 +2100,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       var tryslack = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_0__["NavLink"], {
         to: "/users/new",
@@ -2142,7 +2120,7 @@ function (_React$Component) {
         var workspaceList = this.props.workspaces.map(function (workspace) {
           return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
             onClick: function onClick() {
-              return _this4.redirect("/messages");
+              return _this3.redirect("/messages");
             },
             className: "splash-workspace"
           }, workspace.workspace_name);
@@ -2658,13 +2636,10 @@ document.addEventListener("DOMContentLoaded", function () {
     };
     store = Object(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"])(preloadedState);
   } else {
-    console.log('no current user');
     store = Object(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"])();
     delete window.currentUser;
   }
 
-  window.getState = store.getState;
-  window.dispatch = store.dispatch;
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_root__WEBPACK_IMPORTED_MODULE_3__["default"], {
     store: store
   }), root);

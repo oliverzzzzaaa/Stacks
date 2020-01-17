@@ -39,7 +39,6 @@ class SideBar extends React.Component {
 
     openProfileModal() {
         let modal = document.getElementsByClassName("user-profile-modal")[0]
-        console.log(modal)
         modal.classList.add("user-profile-modal-show")
     }
 
@@ -80,16 +79,16 @@ class SideBar extends React.Component {
         return(
             <div className="sidebar-container-purple">
                 <div className="sidebar-link" id="sidebar-workspace-dropdown-hover" onClick={this.showDropdown}>
-                    <h4 id="sidebar-workspace-name" className="sidebar-link">Workspace Name</h4>
+                    <h4 id="sidebar-workspace-name" className="sidebar-link">{this.props.workspaces[0] ? this.props.workspaces[0].workspace_name : null}</h4>
                     <h4 className="sidebar-link" id="current-user-link"><span className="green-dot"></span>{this.props.currentUser[currentUserId].name}</h4>
                     <div id="hidden-sidebar-dropdown" className="sidebar-revealed">
                         {/* <div id="profile-link" className="sidebar-dropdown">Profile Link</div> */}
-                        <div className="sidebar-dropdown" onClick={this.openProfileModal}>
+                        <div className="sidebar-dropdown sidebar-edit-dropdown" onClick={this.openProfileModal}>
                             Edit Profile
                         </div>
-                        <ul className="sidebar-workspace-ul sidebar-dropdown">
+                        {/* <ul className="sidebar-workspace-ul sidebar-dropdown">
                             {workspaceList}
-                        </ul>
+                        </ul> */}
                         <a href="/" className="sidebar-back-to-slash sidebar-dropdown">Back to Splash</a>
                         <button onClick={this.logoutUser} className="sidebar-signout sidebar-dropdown" id="sidebar-signout">Sign Out</button>
                     </div>

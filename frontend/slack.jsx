@@ -15,11 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     store = configureStore(preloadedState);
   } else {
-    console.log('no current user')
     store = configureStore();
     delete window.currentUser
   }
-  window.getState = store.getState;
-  window.dispatch = store.dispatch;
   ReactDOM.render(<Root store={store}/>, root);
 });

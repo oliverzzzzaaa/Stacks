@@ -17,8 +17,6 @@ class SplashPage extends React.Component {
     componentDidMount() {
         this.props.fetchWorkspaces()
             .then(() => {
-                console.log(this.state)
-                console.log(this.props)
             })
     }
 

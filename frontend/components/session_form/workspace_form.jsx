@@ -28,15 +28,11 @@ class WorkspaceForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log(this.props)
-        console.log(this.props.workspaces)
-        console.log(this.state.workspace)
         if (this.props.workspaces[this.state.workspace] !== undefined) {
             this.props.history.push('/session/workspace/new')
         } else {
                 document.getElementById("workspace-error").innerHTML = "Sorry this workspace can not be found"
             }
-        // this.props.history.push('/session/workspace/new')
     }
 
     componentDidMount() {
@@ -48,14 +44,6 @@ class WorkspaceForm extends React.Component {
         this.setState({workspace: 'App-Academy'}, () => {
             document.getElementById("workspace-button").click()
         })
-        
-        // return e => this.setState({workspace: 'App-Academy'}, () => {
-        //     console.log('ok')
-        //     document.getElementById("workspace-button").click()
-        // })
-        // this.state = {
-        //     workspace: "App-Academy"
-        // }
     }
 
     render() {

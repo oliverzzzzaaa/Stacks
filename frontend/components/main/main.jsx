@@ -70,7 +70,6 @@ class Main extends React.Component {
 
     render() {
         window.onclick = function (e) {
-            console.log(e.target.matches('.edit-delete-div'))
             if (!e.target.matches('.edit-delete-div') && !e.target.matches(".message-ellipses")) {
                 const popups = document.getElementsByClassName('edit-delete-div')
                 if (popups.length > 0) {

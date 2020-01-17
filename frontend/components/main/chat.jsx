@@ -25,9 +25,7 @@ class Chat extends React.Component {
     }
 
     updateState(message) {
-        console.log(this.props)
         this.setState({messages: this.state.messages.concat(message)})
-        console.log(this.state.messages)
     }
 
     componentDidMount() {

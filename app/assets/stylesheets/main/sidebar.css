@@ -59,6 +59,11 @@ h4 {
     font-weight: normal;
 }
 
+.sidebar-edit-dropdown {
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
 #sidebar-workspace-dropdown-hover:hover {
     background: #350d36;
 }
