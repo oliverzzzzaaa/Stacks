@@ -17,6 +17,12 @@ export const receiveErrors = errors => ({
     type: RECEIVE_ERRORS,
     errors
 })
+
+export const updateUser = user => dispatch => (
+    APIUtil.updateUser(user)
+        .then((user) => dispatch(receiveCurrentUser(user)))
+        , error => (dispatch(receiveErrors(error.responseJSON)))
+)
     
 export const login = user => dispatch => (
     APIUtil.login(user)

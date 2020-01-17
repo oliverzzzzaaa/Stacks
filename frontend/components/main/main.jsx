@@ -9,8 +9,13 @@ class Main extends React.Component {
         this.openModal = this.openModal.bind(this)
         this.closeModal = this.closeModal.bind(this)
         this.deleteMessage = this.deleteMessage.bind(this)
+        this.updateUser = this.updateUser.bind(this)
+        this.updateField = this.updateField.bind(this)
+        this.closeProfileModal=  this.closeProfileModal.bind(this)
         this.state = {
             currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)],
+            email: Object.values(this.props.currentUser)[0].email,
+            name: Object.values(this.props.currentUser)[0].name
         }
     }
 
@@ -37,8 +42,30 @@ class Main extends React.Component {
     
     }
 
+    updateUser() {
+        this.props.updateUser({
+            id: Object.values(this.props.currentUser)[0].id,
+            username: Object.values(this.props.currentUser)[0].username,
+            email: document.getElementById("edit-user-email").value,
+            name: document.getElementById("edit-user-name").value
+        })
+    }
+
     changeChannel(channelId) {
         this.setState({currentChannel: this.props.channels[channelId]})
+    }
+
+    updateField(field) {
+        return e => this.setState({
+            [field]: e.target.value
+        })
+    }
+
+    closeProfileModal() {
+        let modal = document.getElementsByClassName("user-profile-modal")[0]
+        if (modal) {
+            modal.classList.remove("user-profile-modal-show")
+        }
     }
 
     render() {
@@ -54,6 +81,7 @@ class Main extends React.Component {
                 }
             }
         }
+        let currUser = Object.values(this.props.currentUser)[0]
         return(
             <div className="main-div">
                 <SideBarContainer 
@@ -73,6 +101,28 @@ class Main extends React.Component {
                             <button id="delete-cancel-button" onClick={this.closeModal}>Cancel</button>
                             <button id="delete-confirm-button" onClick={this.deleteMessage}>Delete</button>
                         </div>
+                    </div>
+                </div>
+                <div className="user-profile-modal">
+                    <div className="user-profile-content">
+                        <div className="x-button" onClick={this.closeProfileModal}>
+                            &times;
+                        </div>
+                        <form className="user-profile-form" onSubmit={this.updateUser}>
+                            <div className="user-profile-picture-div">
+                                <h3>Edit Your Profile</h3>
+                                <h6>Sorry Profile Pictures are for paid members</h6>
+                            </div>
+                            <div className="user-profile-input-div">
+                                <label>Email
+                                    <input type="text" value={this.state.email} id="edit-user-email" onChange={this.updateField('email')}/>
+                                </label>
+                                <label>Name
+                                    <input type="text" value={this.state.name} id="edit-user-name" onChange={this.updateField('name')}/>
+                                </label>
+                            </div>
+                            <button type="submit" className="update-profile-button">Update Profile</button>
+                        </form>
                     </div>
                 </div>
             </div>

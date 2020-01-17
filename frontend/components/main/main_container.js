@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import Main from './main'
-import {receiveCurrentUser, logout} from '../../actions/session_actions';   
+import {receiveCurrentUser, logout, updateUser} from '../../actions/session_actions';   
 import {fetchMessages, deleteMessage} from '../../actions/message_actions'
 import {fetchWorkspaces} from '../../actions/workspace_actions';
 import {fetchChannels} from '../../actions/channel_actions'
@@ -18,7 +18,8 @@ const mapDispatchToProps = dispatch => ({
     fetchMessages: () => dispatch(fetchMessages()),
     fetchWorkspaces: (workspaces) => dispatch(fetchWorkspaces(workspaces)),
     fetchChannels: (channels) => dispatch(fetchChannels(channels)),
-    deleteMessage: (messageId) => dispatch(deleteMessage(messageId))
+    deleteMessage: (messageId) => dispatch(deleteMessage(messageId)),
+    updateUser: (user) => dispatch(updateUser(user))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main))

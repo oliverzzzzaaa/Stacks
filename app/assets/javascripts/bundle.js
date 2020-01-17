@@ -301,7 +301,7 @@ var fetchMessages = function fetchMessages() {
 /*!*********************************************!*\
   !*** ./frontend/actions/session_actions.js ***!
   \*********************************************/
-/*! exports provided: RECEIVE_CURRENT_USER, LOGOUT_CURRENT_USER, RECEIVE_ERRORS, receiveCurrentUser, logoutCurrentUser, receiveErrors, login, logout, signup */
+/*! exports provided: RECEIVE_CURRENT_USER, LOGOUT_CURRENT_USER, RECEIVE_ERRORS, receiveCurrentUser, logoutCurrentUser, receiveErrors, updateUser, login, logout, signup */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -312,6 +312,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveCurrentUser", function() { return receiveCurrentUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logoutCurrentUser", function() { return logoutCurrentUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveErrors", function() { return receiveErrors; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUser", function() { return updateUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "signup", function() { return signup; });
@@ -335,6 +336,15 @@ var receiveErrors = function receiveErrors(errors) {
   return {
     type: RECEIVE_ERRORS,
     errors: errors
+  };
+};
+var updateUser = function updateUser(user) {
+  return function (dispatch) {
+    return _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__["updateUser"](user).then(function (user) {
+      return dispatch(receiveCurrentUser(user));
+    }), function (error) {
+      return dispatch(receiveErrors(error.responseJSON));
+    };
   };
 };
 var login = function login(user) {
@@ -559,7 +569,6 @@ function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit() {
-      console.log('great');
       var newMessagebody = document.getElementsByClassName('ql-editor')[0].children[0].innerHTML;
       var newMessage = {
         body: newMessagebody,
@@ -864,6 +873,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _side_bar_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./side_bar_container */ "./frontend/components/main/side_bar_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -899,8 +910,13 @@ function (_React$Component) {
     _this.openModal = _this.openModal.bind(_assertThisInitialized(_this));
     _this.closeModal = _this.closeModal.bind(_assertThisInitialized(_this));
     _this.deleteMessage = _this.deleteMessage.bind(_assertThisInitialized(_this));
+    _this.updateUser = _this.updateUser.bind(_assertThisInitialized(_this));
+    _this.updateField = _this.updateField.bind(_assertThisInitialized(_this));
+    _this.closeProfileModal = _this.closeProfileModal.bind(_assertThisInitialized(_this));
     _this.state = {
-      currentChannel: _this.props.channels[_this.props.location.pathname.slice(10, _this.props.location.pathname.length)]
+      currentChannel: _this.props.channels[_this.props.location.pathname.slice(10, _this.props.location.pathname.length)],
+      email: Object.values(_this.props.currentUser)[0].email,
+      name: Object.values(_this.props.currentUser)[0].name
     };
     return _this;
   }
@@ -935,11 +951,39 @@ function (_React$Component) {
       this.props.fetchWorkspaces();
     }
   }, {
+    key: "updateUser",
+    value: function updateUser() {
+      this.props.updateUser({
+        id: Object.values(this.props.currentUser)[0].id,
+        username: Object.values(this.props.currentUser)[0].username,
+        email: document.getElementById("edit-user-email").value,
+        name: document.getElementById("edit-user-name").value
+      });
+    }
+  }, {
     key: "changeChannel",
     value: function changeChannel(channelId) {
       this.setState({
         currentChannel: this.props.channels[channelId]
       });
+    }
+  }, {
+    key: "updateField",
+    value: function updateField(field) {
+      var _this3 = this;
+
+      return function (e) {
+        return _this3.setState(_defineProperty({}, field, e.target.value));
+      };
+    }
+  }, {
+    key: "closeProfileModal",
+    value: function closeProfileModal() {
+      var modal = document.getElementsByClassName("user-profile-modal")[0];
+
+      if (modal) {
+        modal.classList.remove("user-profile-modal-show");
+      }
     }
   }, {
     key: "render",
@@ -960,6 +1004,7 @@ function (_React$Component) {
         }
       };
 
+      var currUser = Object.values(this.props.currentUser)[0];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_side_bar_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -989,7 +1034,34 @@ function (_React$Component) {
       }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         id: "delete-confirm-button",
         onClick: this.deleteMessage
-      }, "Delete")))));
+      }, "Delete")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "user-profile-modal"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "user-profile-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "x-button",
+        onClick: this.closeProfileModal
+      }, "\xD7"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "user-profile-form",
+        onSubmit: this.updateUser
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "user-profile-picture-div"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Edit Your Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", null, "Sorry Profile Pictures are for paid members")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "user-profile-input-div"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Email", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        value: this.state.email,
+        id: "edit-user-email",
+        onChange: this.updateField('email')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Name", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        value: this.state.name,
+        id: "edit-user-name",
+        onChange: this.updateField('name')
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "submit",
+        className: "update-profile-button"
+      }, "Update Profile")))));
     }
   }]);
 
@@ -1051,6 +1123,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     deleteMessage: function deleteMessage(messageId) {
       return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["deleteMessage"])(messageId));
+    },
+    updateUser: function updateUser(user) {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["updateUser"])(user));
     }
   };
 };
@@ -1145,6 +1220,13 @@ function (_React$Component) {
       } else {
         document.getElementById("revealed-sidebar-dropdown").id = "hidden-sidebar-dropdown";
       }
+    }
+  }, {
+    key: "openProfileModal",
+    value: function openProfileModal() {
+      var modal = document.getElementsByClassName("user-profile-modal")[0];
+      console.log(modal);
+      modal.classList.add("user-profile-modal-show");
     } // rerender() {
     // }
 
@@ -1217,7 +1299,10 @@ function (_React$Component) {
       }), this.props.currentUser[currentUserId].name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "hidden-sidebar-dropdown",
         className: "sidebar-revealed"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sidebar-dropdown",
+        onClick: this.openProfileModal
+      }, "Edit Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "sidebar-workspace-ul sidebar-dropdown"
       }, workspaceList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "/",
@@ -2776,18 +2861,28 @@ var ProtectedRoute = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withR
 /*!*******************************************!*\
   !*** ./frontend/util/session_api_util.js ***!
   \*******************************************/
-/*! exports provided: signup, login, logout */
+/*! exports provided: signup, updateUser, login, logout */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "signup", function() { return signup; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUser", function() { return updateUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
 var signup = function signup(user) {
   return $.ajax({
     method: "POST",
     url: '/api/users',
+    data: {
+      user: user
+    }
+  });
+};
+var updateUser = function updateUser(user) {
+  return $.ajax({
+    method: "PATCH",
+    url: "/api/users/".concat(user.id),
     data: {
       user: user
     }

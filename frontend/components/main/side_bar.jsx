@@ -40,6 +40,12 @@ class SideBar extends React.Component {
         }
     }
 
+    openProfileModal() {
+        let modal = document.getElementsByClassName("user-profile-modal")[0]
+        console.log(modal)
+        modal.classList.add("user-profile-modal-show")
+    }
+
     // rerender() {
         
     // }
@@ -97,6 +103,9 @@ class SideBar extends React.Component {
                     <h4 className="sidebar-link" id="current-user-link"><span className="green-dot"></span>{this.props.currentUser[currentUserId].name}</h4>
                     <div id="hidden-sidebar-dropdown" className="sidebar-revealed">
                         {/* <div id="profile-link" className="sidebar-dropdown">Profile Link</div> */}
+                        <div className="sidebar-dropdown" onClick={this.openProfileModal}>
+                            Edit Profile
+                        </div>
                         <ul className="sidebar-workspace-ul sidebar-dropdown">
                             {workspaceList}
                         </ul>

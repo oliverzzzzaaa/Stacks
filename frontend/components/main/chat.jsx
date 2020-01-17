@@ -88,8 +88,7 @@ class Chat extends React.Component {
             lastMessage.scrollIntoView({ behavior: "smooth" });
         }
      }
-    handleSubmit() {
-        console.log('great')
+    handleSubmit() {    
         let newMessagebody = document.getElementsByClassName('ql-editor')[0].children[0].innerHTML
         let newMessage = {
             body: newMessagebody,
