@@ -688,9 +688,9 @@ function (_React$Component) {
       var editMessagePopup = document.getElementById("edit-message-popup-".concat(messageId));
       editMessagePopup.classList.add("clicked-ellipsis");
       var editDeleteDiv = document.createElement("div");
-      editDeleteDiv.setAttribute("class", "edit-delete-div");
       var editButton = document.createElement("button");
-      var deleteButton = document.createElement("button"); // created a form to work around onclick
+      var deleteButton = document.createElement("button");
+      editDeleteDiv.setAttribute("class", "edit-delete-div"); // created a form to work around onclick
 
       var editButtonForm = document.createElement("form");
       editButtonForm.setAttribute("class", "hidden-form");
@@ -1207,9 +1207,7 @@ function (_React$Component) {
     }
   }, {
     key: "componentDidMount",
-    value: function componentDidMount() {// this.props.fetchWorkspaces()
-      // this.props.fetchChannels();
-    }
+    value: function componentDidMount() {}
   }, {
     key: "logoutUser",
     value: function logoutUser(e) {
@@ -1222,10 +1220,7 @@ function (_React$Component) {
     }
   }, {
     key: "buttonclickTest",
-    value: function buttonclickTest(e, id) {
-      console.log(e);
-      console.log(id);
-    }
+    value: function buttonclickTest(e, id) {}
   }, {
     key: "showDropdown",
     value: function showDropdown() {
@@ -1243,24 +1238,12 @@ function (_React$Component) {
       var modal = document.getElementsByClassName("user-profile-modal")[0];
       console.log(modal);
       modal.classList.add("user-profile-modal-show");
-    } // rerender() {
-    // }
-
+    }
   }, {
     key: "render",
     value: function render() {
       var _this3 = this;
 
-      // const channelList = this.props.channels.map( channel => {
-      //     return (
-      //         <li className="sidebar-link locked-channel" key={channel.id}>
-      //             <img src={window.sidebarWhiteLock} className="sidebar-white-lock"/>
-      //             <NavLink to={`/messages/${channel.id}`} className="channel-links" onClick={() => this.props.changeChannel(channel.id)}>
-      //                 {channel.channel_name}
-      //             </NavLink>
-      //         </li>
-      //     )
-      // })
       var channelList = [];
       var dmList = this.props.channels.map(function (channel) {
         if (channel.private_message === 1) {

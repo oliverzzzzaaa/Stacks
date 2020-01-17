@@ -14,8 +14,6 @@ class SideBar extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.fetchWorkspaces()
-        // this.props.fetchChannels();
     }
 
     logoutUser(e) {
@@ -26,8 +24,7 @@ class SideBar extends React.Component {
     }
 
     buttonclickTest(e, id) {
-        console.log(e)
-        console.log(id)
+
     }
 
     showDropdown() {
@@ -46,23 +43,7 @@ class SideBar extends React.Component {
         modal.classList.add("user-profile-modal-show")
     }
 
-    // rerender() {
-        
-    // }
-
-
-
     render() {
-        // const channelList = this.props.channels.map( channel => {
-        //     return (
-        //         <li className="sidebar-link locked-channel" key={channel.id}>
-        //             <img src={window.sidebarWhiteLock} className="sidebar-white-lock"/>
-        //             <NavLink to={`/messages/${channel.id}`} className="channel-links" onClick={() => this.props.changeChannel(channel.id)}>
-        //                 {channel.channel_name}
-        //             </NavLink>
-        //         </li>
-        //     )
-        // })
         const channelList = []
 
         const dmList = this.props.channels.map (channel => {

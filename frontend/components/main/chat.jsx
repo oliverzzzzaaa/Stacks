@@ -186,9 +186,9 @@ class Chat extends React.Component {
         let editMessagePopup = document.getElementById(`edit-message-popup-${messageId}`)
         editMessagePopup.classList.add("clicked-ellipsis")
         let editDeleteDiv = document.createElement("div")
-        editDeleteDiv.setAttribute("class", "edit-delete-div")
         let editButton = document.createElement("button")
         let deleteButton = document.createElement("button")
+        editDeleteDiv.setAttribute("class", "edit-delete-div")
         // created a form to work around onclick
         let editButtonForm = document.createElement("form")
         editButtonForm.setAttribute("class", "hidden-form")
@@ -233,8 +233,6 @@ class Chat extends React.Component {
                                     </span>
                                     <h5 className="chat-timestamp">
                                         {messagetime}
-                                        {/* {(new Date(message.created_at).toLocaleTimeString())} */}
-                                        {/* {(new Date(message.created_at).toLocaleDateString())} */}
                                     </h5>
                                 </span>
                             </div>
@@ -244,9 +242,6 @@ class Chat extends React.Component {
                             <span className="edit-message-popup" id={`edit-message-popup-${message.id}`} onClick={ () => this.editDeletePopup(message.id)}>
                                 <i className="fa fa-ellipsis-v message-ellipses"></i>
                             </span>
-                            {/* <span className="edit-message-popup" onClick={ () => this.editMessageForm(message.id)}>
-                                <i className="fa fa-ellipsis-v message-ellipses"></i>
-                            </span> */}
                         </div>
                     </li>
                 )}else{
