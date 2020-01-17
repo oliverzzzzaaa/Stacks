@@ -110,6 +110,10 @@ after lots of styling with classnames...
           });
 ```
 
+Screenshot: 
+![alt text](app/assets/images/demo-screenshot.png "Screentshot Jan 17")
+
+
 
 Features to Add:
   + Uploading Files and Profile Pictures (hosting on AWS)
