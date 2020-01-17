@@ -37,6 +37,13 @@ user4 = User.create!({
     name: "FourMeansMore"
 })
 
+user5 = User.create!({
+    username: "Mike",
+    password: "bigmike123",
+    email: "bigmike123@gmail.com",
+    name: "Big Mike"
+})
+
 workspace = Workspace.create!({
     host_id: User.find_by(username: "DemoUser1").id,
     workspace_name: "App-Academy"
@@ -57,6 +64,11 @@ workspace_assignment3 = WorkspaceAssignment.create!({
 workspace_assignment4 = WorkspaceAssignment.create!({ 
     user_id: User.find_by(username: "Fourismore").id, 
     workspace_id: Workspace.find_by(workspace_name: "HR").id})
+workspace_assignment5 = WorkspaceAssignment.create!({
+    user_id: User.find_by(username: "Mike").id,
+    workspace_id: Workspace.find_by(workspace_name: "App-Academy").id
+})
+
 channel1 = Channel.create!({
     host_id: User.find_by(username: "DemoUser1").id,
     channel_name: "Aa General",
@@ -88,51 +100,79 @@ channel4 = Channel.create!({
 
 channel5 = Channel.create!({
     host_id: User.find_by(username: "DemoUser1").id,
-    channel_name: "DM 1",
-    channel_topic: "DM",
+    channel_name: "DemoUser2",
+    channel_topic: "DemoUser2",
     private_message: 1,
     workspace_id: Workspace.find_by(workspace_name: "App-Academy").id
 })
 
-channel_membership5 = ChannelMembership.create!({
-    user_id: User.find_by(username: "DemoUser1").id,
-    channel_id: Channel.find_by(channel_name: "DM 1").id
+channel6 = Channel.create!({
+    host_id: User.find_by(username: "DemoUser1").id,
+    channel_name: "Mike",
+    channel_topic: "Mike",
+    private_message: 1,
+    workspace_id: Workspace.find_by(workspace_name: "App-Academy").id
 })
-channel_membership6 = ChannelMembership.create!({
-    user_id: User.find_by(username: "DemoUser2").id,
-    channel_id: Channel.find_by(channel_name: "DM 1").id
-})
+
 channel_membership1 = ChannelMembership.create!({
     user_id: User.find_by(username: "DemoUser1").id,
-    channel_id: Channel.find_by(channel_name: "Aa General").id
+    channel_id: Channel.find_by(channel_name: "DemoUser2").id
 })
 channel_membership2 = ChannelMembership.create!({
     user_id: User.find_by(username: "DemoUser2").id,
-    channel_id: Channel.find_by(channel_name: "Aa General").id
+    channel_id: Channel.find_by(channel_name: "DemoUser2").id
 })
 channel_membership3 = ChannelMembership.create!({
     user_id: User.find_by(username: "DemoUser1").id,
-    channel_id: Channel.find_by(channel_name: "Michelles Circle").id
+    channel_id: Channel.find_by(channel_name: "Aa General").id
+})
+channel_membership4 = ChannelMembership.create!({
+    user_id: User.find_by(username: "DemoUser2").id,
+    channel_id: Channel.find_by(channel_name: "Aa General").id
 })
 channel_membership5 = ChannelMembership.create!({
-    user_id: User.find_by(username: "DemoUser2").id,
+    user_id: User.find_by(username: "DemoUser1").id,
     channel_id: Channel.find_by(channel_name: "Michelles Circle").id
 })
 channel_membership6 = ChannelMembership.create!({
-    user_id: User.find_by(username: "Threeisaparty").id,
-    channel_id: Channel.find_by(channel_name: "HR General").id
+    user_id: User.find_by(username: "DemoUser2").id,
+    channel_id: Channel.find_by(channel_name: "Michelles Circle").id
 })
 channel_membership7 = ChannelMembership.create!({
     user_id: User.find_by(username: "Threeisaparty").id,
-    channel_id: Channel.find_by(channel_name: "HR > Aa").id
+    channel_id: Channel.find_by(channel_name: "HR General").id
 })
 channel_membership8 = ChannelMembership.create!({
+    user_id: User.find_by(username: "Threeisaparty").id,
+    channel_id: Channel.find_by(channel_name: "HR > Aa").id
+})
+channel_membership9 = ChannelMembership.create!({
     user_id: User.find_by(username: "Fourismore").id,
     channel_id: Channel.find_by(channel_name: "HR General").id
 })
-channel_membership4 = ChannelMembership.create!({
+channel_membership10 = ChannelMembership.create!({
     user_id: User.find_by(username: "Fourismore").id,
     channel_id: Channel.find_by(channel_name: "HR > Aa").id
+})
+
+channel_membership11 = ChannelMembership.create!({
+    user_id: User.find_by(username: "Mike").id,
+    channel_id: Channel.find_by(channel_name: "Aa General").id
+})
+
+channel_membership12 = ChannelMembership.create!({
+    user_id: User.find_by(username: 'Mike').id,
+    channel_id: Channel.find_by(channel_name: "Michelles Circle").id
+})
+
+channel_membership13 = ChannelMembership.create!({
+    user_id: User.find_by(username: "DemoUser1").id,
+    channel_id: Channel.find_by(channel_name: "Mike").id
+})
+
+channel_membership14 = ChannelMembership.create!({
+    user_id: User.find_by(username: "Mike").id,
+    channel_id: Channel.find_by(channel_name: "Mike").id
 })
 
 message1 = Message.create!({
@@ -170,4 +210,11 @@ message6 = Message.create! ({
     user_id: User.find_by(username: "Threeisaparty").id,
     workspace_id: Workspace.find_by(workspace_name: "HR").id,
     channel_id: Channel.find_by(channel_name: "HR > Aa").id
+})
+
+message7 = Message.create! ({
+    body: "First the worst!",
+    user_id: User.find_by(username: "Mike").id,
+    workspace_id: Workspace.find_by(workspace_name: "HR").id,
+    channel_id: Channel.find_by(channel_name: "Michelles Circle").id
 })
