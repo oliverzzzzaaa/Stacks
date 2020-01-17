@@ -473,8 +473,7 @@ function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.editMessageForm = _this.editMessageForm.bind(_assertThisInitialized(_this));
     _this.cancelEditMessage = _this.cancelEditMessage.bind(_assertThisInitialized(_this));
-    _this.submitEditMessage = _this.submitEditMessage.bind(_assertThisInitialized(_this)); // this.hideEditMessage = this.hideEditMessage.bind(this)
-    // this.editDeletePopup = this.editDeletePopup.bind(this)
+    _this.submitEditMessage = _this.submitEditMessage.bind(_assertThisInitialized(_this)); // this.editDeletePopup = this.editDeletePopup.bind(this)
 
     _this.state = {
       // currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)],
@@ -508,6 +507,22 @@ function (_React$Component) {
             });
           }
         });
+      }).then(function () {
+        App.cable.subscriptions.create({
+          channel: "ChatChannel"
+        }, {
+          received: function received(data) {
+            console.log('RECEIVED DATA');
+            console.log(data.message);
+            console.log(_this2.state.messages);
+
+            _this2.props.receiveMessage(data.message); // this.state.messages.concat(data.message)
+
+          },
+          speak: function speak(data) {
+            return this.perform("speak", data);
+          }
+        });
       });
       var bindings = {
         submit: {
@@ -531,16 +546,6 @@ function (_React$Component) {
         },
         placeholder: 'Enter text',
         theme: 'snow'
-      });
-      App.cable.subscriptions.create({
-        channel: "ChatChannel"
-      }, {
-        received: function received(data) {
-          console.log('received');
-
-          _this2.props.receiveMessage(data.message);
-        },
-        speak: function speak() {}
       });
     }
   }, {
@@ -576,8 +581,11 @@ function (_React$Component) {
         channel_id: this.state.currentChannel.id
       };
       this.props.postMessage(newMessage).then(function () {
-        return document.getElementsByClassName('ql-editor')[0].children[0].innerHTML = "";
-      }); // App.cable.subscriptions.subscriptions[0].speak({ message: newMessage });
+        document.getElementsByClassName('ql-editor')[0].children[0].innerHTML = "";
+        App.cable.subscriptions.subscriptions[0].speak({
+          message: newMessage
+        });
+      });
     }
   }, {
     key: "editMessageForm",
@@ -693,13 +701,6 @@ function (_React$Component) {
       editMessagePopup.appendChild(editDeleteDiv);
     }
   }, {
-    key: "hideEditMessage",
-    value: function hideEditMessage(e) {
-      // console.log(e)
-      console.log(e.target);
-      console.log(e.target.hasAttribute("onclick"));
-    }
-  }, {
     key: "render",
     value: function render() {
       var _this6 = this;
@@ -753,8 +754,7 @@ function (_React$Component) {
         }
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "chat-container",
-        onClick: this.hideEditMessage
+        className: "chat-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "chat-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

@@ -9,7 +9,6 @@ class Chat extends React.Component {
         this.editMessageForm = this.editMessageForm.bind(this)
         this.cancelEditMessage = this.cancelEditMessage.bind(this)
         this.submitEditMessage = this.submitEditMessage.bind(this)
-        // this.hideEditMessage = this.hideEditMessage.bind(this)
         // this.editDeletePopup = this.editDeletePopup.bind(this)
         this.state =  {
             // currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)],
@@ -35,6 +34,22 @@ class Chat extends React.Component {
                     document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({ behavior: "smooth" });}
                 })
             })
+            .then(() => {
+                App.cable.subscriptions.create(
+                    { channel: "ChatChannel" },
+                    {
+                        received: data => {
+                            console.log('RECEIVED DATA')
+                            console.log(data.message)
+                            console.log(this.state.messages)
+                            this.props.receiveMessage(data.message)
+                            // this.state.messages.concat(data.message)
+                        },
+                        speak: function(data) {
+                            return this.perform("speak", data)
+                        }
+                    })
+            })
 
         let bindings = {
             submit: {
@@ -59,16 +74,7 @@ class Chat extends React.Component {
             theme: 'snow'
           });
 
-        App.cable.subscriptions.create(
-        { channel: "ChatChannel" },
-        {
-            received: data => {
-                console.log('received')
-                this.props.receiveMessage(data.message)
-            },
-            speak: function() {
-            }
-        })
+        
 
 
 
@@ -96,10 +102,12 @@ class Chat extends React.Component {
             channel_id: this.state.currentChannel.id
         }
         
-        this.props.postMessage(newMessage).then(
-            () => document.getElementsByClassName('ql-editor')[0].children[0].innerHTML = ""
+        this.props.postMessage(newMessage).then( 
+            () => {
+                document.getElementsByClassName('ql-editor')[0].children[0].innerHTML = "";
+                App.cable.subscriptions.subscriptions[0].speak({ message: newMessage });
+            }
         )
-        // App.cable.subscriptions.subscriptions[0].speak({ message: newMessage });
         
     }
 
@@ -191,12 +199,6 @@ class Chat extends React.Component {
         editMessagePopup.appendChild(editDeleteDiv)
     }
 
-    hideEditMessage(e) {
-        // console.log(e)
-        console.log(e.target)
-        console.log(e.target.hasAttribute("onclick"))
-    }
-
     render() {
         let cChannel = this.props.channel;
         const messageList = this.props.messages.map( message => {
@@ -244,7 +246,7 @@ class Chat extends React.Component {
             )
             
         return (
-            <div className="chat-container" onClick={this.hideEditMessage}>
+            <div className="chat-container">
                 <div id="chat-header">
                     <div id="chat-container-left">
                         <i className="fa">&#xf023;</i>
