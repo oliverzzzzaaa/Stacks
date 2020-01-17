@@ -38,7 +38,7 @@ Technologies Used:
   
 -------------------
 
-**Some Features:**
+## **Some Features:**
 
   + Live Chat: 
   
@@ -58,7 +58,33 @@ Technologies Used:
       
 -------------------
 
-***Code Snippets:***
+## ***Code Snippets:***
+
+## Appending Edit Box
+
+```
+  let messageLi = document.getElementById(`message${messageId}`)
+  let message = messageLi.innerHTML
+  let editform = document.createElement("form")
+  let editforminput = document.createElement("input")
+  let cancelButton = document.createElement("button")
+  let submitButton = document.createElement("button")
+```
+
+after lots of styling with classnames...
+
+```
+  editform.appendChild(messageIdButton)
+  editform.appendChild(editforminput)
+  editform.appendChild(cancelButton)
+  editform.appendChild(submitButton)
+  messageLi.appendChild(editform)
+```
+
+Features to Add:
+  + Uploading Files and Profile Pictures (hosting on AWS)
+  + Admin Rights
+  + Direct Messages with Members as Header 
 
 
 
