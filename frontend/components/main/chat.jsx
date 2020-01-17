@@ -9,18 +9,25 @@ class Chat extends React.Component {
         this.editMessageForm = this.editMessageForm.bind(this)
         this.cancelEditMessage = this.cancelEditMessage.bind(this)
         this.submitEditMessage = this.submitEditMessage.bind(this)
+        this.updateState = this.updateState.bind(this)
         // this.editDeletePopup = this.editDeletePopup.bind(this)
         this.state =  {
             // currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)],
             currentChannel: this.props.channel,
             currentUser: this.props.currentUser,
-            messages: this.messages
+            messages: this.props.messages
         }
     }
     componentDidUpdate(prevProps) {
         if (prevProps.match.params.currentChannel.id !== this.props.match.params.currentChannel.id) {
             this.props.fetchMessages()   
         }
+    }
+
+    updateState(message) {
+        console.log(this.props)
+        this.setState({messages: this.state.messages.concat(message)})
+        console.log(this.state.messages)
     }
 
     componentDidMount() {
@@ -30,6 +37,7 @@ class Chat extends React.Component {
                 // this.currentChannel = (this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)])
                 this.setState({currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)]}),    
                 this.props.fetchMessages().then(() => {
+                    this.setState({messages: Object.values(this.props.messages)})
                     if(document.getElementsByClassName("message-list")[0].lastChild){
                     document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({ behavior: "smooth" });}
                 })
@@ -39,11 +47,12 @@ class Chat extends React.Component {
                     { channel: "ChatChannel" },
                     {
                         received: data => {
-                            console.log('RECEIVED DATA')
-                            console.log(data.message)
-                            console.log(this.state.messages)
-                            this.props.receiveMessage(data.message)
-                            // this.state.messages.concat(data.message)
+                            this.props.fetchMessages()
+                                .then(() => {
+                                    this.setState({messages: this.props.messages})
+                                    })
+                            // this.updateState(data.message)
+                            // this.setState({messages: this.props.messages.concat(data.message)})
                         },
                         speak: function(data) {
                             return this.perform("speak", data)
@@ -83,8 +92,9 @@ class Chat extends React.Component {
         if (prevProps.location.pathname.slice(10,this.props.location.pathname.length) !== this.props.location.pathname.slice(10,this.props.location.pathname.length)) {
             this.setState({currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)]}, e => {
                 this.props.fetchMessages()
-                    .then(() => 
-                        console.log(this.state.currentChannel)
+                    .then(() => {
+                        this.setState({messages: this.props.messages})
+                    }
                     )
             })
         }

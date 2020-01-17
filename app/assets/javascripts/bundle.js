@@ -473,13 +473,14 @@ function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.editMessageForm = _this.editMessageForm.bind(_assertThisInitialized(_this));
     _this.cancelEditMessage = _this.cancelEditMessage.bind(_assertThisInitialized(_this));
-    _this.submitEditMessage = _this.submitEditMessage.bind(_assertThisInitialized(_this)); // this.editDeletePopup = this.editDeletePopup.bind(this)
+    _this.submitEditMessage = _this.submitEditMessage.bind(_assertThisInitialized(_this));
+    _this.updateState = _this.updateState.bind(_assertThisInitialized(_this)); // this.editDeletePopup = this.editDeletePopup.bind(this)
 
     _this.state = {
       // currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)],
       currentChannel: _this.props.channel,
       currentUser: _this.props.currentUser,
-      messages: _this.messages
+      messages: _this.props.messages
     };
     return _this;
   }
@@ -492,6 +493,15 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "updateState",
+    value: function updateState(message) {
+      console.log(this.props);
+      this.setState({
+        messages: this.state.messages.concat(message)
+      });
+      console.log(this.state.messages);
+    }
+  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
@@ -501,6 +511,10 @@ function (_React$Component) {
         _this2.setState({
           currentChannel: _this2.props.channels[_this2.props.location.pathname.slice(10, _this2.props.location.pathname.length)]
         }), _this2.props.fetchMessages().then(function () {
+          _this2.setState({
+            messages: Object.values(_this2.props.messages)
+          });
+
           if (document.getElementsByClassName("message-list")[0].lastChild) {
             document.getElementsByClassName("message-list")[0].lastChild.scrollIntoView({
               behavior: "smooth"
@@ -512,11 +526,12 @@ function (_React$Component) {
           channel: "ChatChannel"
         }, {
           received: function received(data) {
-            console.log('RECEIVED DATA');
-            console.log(data.message);
-            console.log(_this2.state.messages);
-
-            _this2.props.receiveMessage(data.message); // this.state.messages.concat(data.message)
+            _this2.props.fetchMessages().then(function () {
+              _this2.setState({
+                messages: _this2.props.messages
+              });
+            }); // this.updateState(data.message)
+            // this.setState({messages: this.props.messages.concat(data.message)})
 
           },
           speak: function speak(data) {
@@ -558,7 +573,9 @@ function (_React$Component) {
           currentChannel: this.props.channels[this.props.location.pathname.slice(10, this.props.location.pathname.length)]
         }, function (e) {
           _this3.props.fetchMessages().then(function () {
-            return console.log(_this3.state.currentChannel);
+            _this3.setState({
+              messages: _this3.props.messages
+            });
           });
         });
       }
@@ -1018,7 +1035,6 @@ function (_React$Component) {
         channel: this.state.currentChannel,
         currentUser: this.props.currentUser,
         channels: this.props.channels,
-        messages: this.props.messages,
         openModal: this.openModal
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal"

@@ -92,8 +92,10 @@ class Main extends React.Component {
                     changeChannel={this.changeChannel}
                     currentChannel={this.state.currentChannel}/>
                 <ChatContainer channel={this.state.currentChannel} currentUser={this.props.currentUser} 
-                    channels={this.props.channels} messages={this.props.messages} 
-                    openModal={this.openModal}/>
+                    channels={this.props.channels} 
+                    openModal={this.openModal}
+                        />
+                    {/* messages={this.props.messages}  */}
                 <div className="modal">
                     <div className="modal-content">
                         <span className="are-you-sure">Are you sure you want to delete this message?</span>
