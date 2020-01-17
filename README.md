@@ -81,6 +81,36 @@ after lots of styling with classnames...
   messageLi.appendChild(editform)
 ```
 
+## Quill Editor
+
+``` import Quill from 'quill' ```
+
+```
+  let bindings = {
+            submit: {
+                key: "enter",
+                handler: (range, context) => {
+                    this.handleSubmit.bind(this)()
+                }
+            }
+        }
+        let quill = new Quill('#editor-container', {
+            modules: {
+                keyboard: {
+                    bindings: bindings
+                },
+              toolbar: [
+                ['bold', 'italic'],
+                // ['link', 'blockquote', 'code-block'],
+                [{ list: 'ordered' }, { list: 'bullet' }]
+              ]
+            },
+            placeholder: 'Enter text',
+            theme: 'snow'
+          });
+```
+
+
 Features to Add:
   + Uploading Files and Profile Pictures (hosting on AWS)
   + Admin Rights
