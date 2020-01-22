@@ -193,6 +193,11 @@
     font-size: 14px;
 }
 
+.tongues {
+    width: 30px;
+    height: 50px;
+}
+
 .edit-message-button {
     visibility: visible;
     background-color: white;
