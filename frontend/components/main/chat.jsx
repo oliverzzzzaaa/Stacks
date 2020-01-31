@@ -221,7 +221,7 @@ class Chat extends React.Component {
                 return (
                     <li key={message.id} className="message-li">
                         <div className="chat-profile-pic">
-                            <img src={window.tongues} className="tongues"/>
+                            <img src={window.defaultPicture} className=""/>
                         </div>
                         <div className="chat-content">
                             <div className="chat-top-row" id={`top-row-${message.id}`}>

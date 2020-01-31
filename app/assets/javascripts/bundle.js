@@ -738,8 +738,8 @@ function (_React$Component) {
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "chat-profile-pic"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-            src: window.tongues,
-            className: "tongues"
+            src: window.defaultPicture,
+            className: ""
           })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "chat-content"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
