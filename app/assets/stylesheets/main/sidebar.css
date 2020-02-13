@@ -61,7 +61,7 @@ h4 {
 
 .sidebar-edit-dropdown {
     padding-bottom: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 #sidebar-workspace-dropdown-hover:hover {
@@ -130,7 +130,7 @@ h4 {
 #sidebar-signout {
     font-size: inherit;
     text-decoration: none;
-    margin-top: 10px;
+    margin-top: 5px;
     border: none;
     width: 100%;
     cursor: pointer;
@@ -173,4 +173,12 @@ h4 {
 .DM-link {
     color: rgb(207,195,207);
     text-decoration: none;
+}
+
+.sidebar-create-channel {
+    font-size: inherit;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    margin-top: 5px;
 }

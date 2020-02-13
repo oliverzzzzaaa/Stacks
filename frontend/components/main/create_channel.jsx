@@ -3,7 +3,7 @@ import React from 'react'
 class CreateChannel extends React.Component {
     constructor(props) {
         super(props)
-        this.createChannel = this.createChannel.bind(this)
+        this.submitChannelForm = this.submitChannelForm.bind(this)
         this.cancel = this.cancel.bind(this)
         this.updateState = this.updateState.bind(this)
         this.state = {
@@ -17,7 +17,7 @@ class CreateChannel extends React.Component {
         this.props.history.push("/messages")
     }
 
-    createChannel() {
+    submitChannelForm() {
         channel = {
             channel_topic: this.state.channelTopic,
             channel_name: this.state.channelName,
@@ -25,13 +25,20 @@ class CreateChannel extends React.Component {
             workspace_id: this.props.currentChannel.id
         }
         this.props.createChannel(channel)
-            .then((channel) => console.log(channel))
+            .then((channel) => {
+                console.log(channel)
+                this.props.history.push("/messages")
+            })
     }
 
     updateState(field) {
         return e => {
             this.setState({[field]: e.currentTarget.value})
         }
+    }
+
+    componentDidMount() {
+        console.log(this.props)
     }
 
     render() {
@@ -43,7 +50,7 @@ class CreateChannel extends React.Component {
                 <br/>
                 <br/>
                 <br/>
-                <form onSubmit={this.createChannel}>
+                <form onSubmit={this.submitChannelForm}>
                     <label>Name
                         <input type="text" value={this.state.channelName} placeholder="Ex. #Marketing" onChange={this.updateState('channelName')}/>
                     </label>

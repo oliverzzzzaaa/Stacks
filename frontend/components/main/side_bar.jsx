@@ -91,7 +91,7 @@ class SideBar extends React.Component {
                             {workspaceList}
                         </ul> */}
                         <a href="/" className="sidebar-back-to-slash sidebar-dropdown">Back to Splash</a>
-                        <button onClick={this.redirectCreateChannel} className="sidebar-signout sidebar-dropdown">Create A Channel</button>
+                        <button onClick={this.redirectCreateChannel} className="sidebar-back-to-slash sidebar-dropdown sidebar-create-channel">Create A Channel</button>
                         <button onClick={this.logoutUser} className="sidebar-signout sidebar-dropdown" id="sidebar-signout">Sign Out</button>
                     </div>
                 </div>
