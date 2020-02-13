@@ -7,7 +7,7 @@
     width: 40%;
     height: 60%;
     background-color: white;
-    border: 1px solid lightgray;
+    /* border: 1px solid lightgray; */
 }
 
 .create-channel-header {
@@ -36,3 +36,22 @@
     height: 10%;
     cursor: pointer;
 }
+
+.create-channel label, .create-channel input {
+    display: block;
+    margin-left: 0;
+    line-height: 26px;
+}
+
+.create-channel label {
+    margin-bottom: 2px;
+    font-size: 18px;
+}
+
+.create-channel input {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid gray;
+    padding: 10px;
+}
+
