@@ -4,10 +4,17 @@ class CreateChannel extends React.Component {
     constructor(props) {
         super(props)
         this.createChannel = this.createChannel.bind(this)
+        this.cancel = this.cancel.bind(this)
+        this.updateState = this.updateState.bind(this)
         this.state = {
             channelName: "",
             channelTopic: ""
         }
+    }
+
+    cancel(e) {
+        e.preventDefault();
+        this.props.history.push("/messages")
     }
 
     createChannel() {
@@ -43,7 +50,10 @@ class CreateChannel extends React.Component {
                     <label>Purpose
                         <input type="text" value={this.state.channelTopic} placeholder="Ex. General Ideas" onChange={this.updateState('channelTopic')}/>
                     </label>
-                    <button type="submit">Create!</button>
+                    <div className="create-channel-buttons">
+                        <button onClick={this.cancel} className="create-cancel-button">Cancel</button>
+                        <button type="submit" className="create-submit-button">Create Channel</button>
+                    </div>
                 </form>
             </div>
         )

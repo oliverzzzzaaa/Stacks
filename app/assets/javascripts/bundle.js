@@ -932,6 +932,8 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CreateChannel).call(this, props));
     _this.createChannel = _this.createChannel.bind(_assertThisInitialized(_this));
+    _this.cancel = _this.cancel.bind(_assertThisInitialized(_this));
+    _this.updateState = _this.updateState.bind(_assertThisInitialized(_this));
     _this.state = {
       channelName: "",
       channelTopic: ""
@@ -940,6 +942,12 @@ function (_React$Component) {
   }
 
   _createClass(CreateChannel, [{
+    key: "cancel",
+    value: function cancel(e) {
+      e.preventDefault();
+      this.props.history.push("/messages");
+    }
+  }, {
     key: "createChannel",
     value: function createChannel() {
       channel = {
@@ -978,9 +986,15 @@ function (_React$Component) {
         value: this.state.channelTopic,
         placeholder: "Ex. General Ideas",
         onChange: this.updateState('channelTopic')
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "submit"
-      }, "Create!")));
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "create-channel-buttons"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.cancel,
+        className: "create-cancel-button"
+      }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "submit",
+        className: "create-submit-button"
+      }, "Create Channel"))));
     }
   }]);
 

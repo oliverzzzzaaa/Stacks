@@ -55,3 +55,39 @@
     padding: 10px;
 }
 
+.create-channel-buttons {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.create-submit-button {
+    /* background-color: green; */
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 10px 20px 10px 20px;
+    cursor: pointer;
+    background-color: #3CB371;
+    margin-left: 5px;
+}
+
+.create-submit-button:hover {
+    background-color: green;
+    /* background-color: #3CB371; */
+}
+
+.create-cancel-button {
+    color: black;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 10px 20px 10px 20px;
+    cursor: pointer;
+}
+
+.create-cancel-button:hover {
+    background-color: lightgray;
+}
+
