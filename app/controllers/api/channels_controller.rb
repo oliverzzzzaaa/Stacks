@@ -10,14 +10,20 @@ class Api::ChannelsController < ApplicationController
     end
 
     def show
-        p params[:id]
         @messages = Channel.includes(:messages).find(params[:id]).messages
         @channel = Channel.find(params[:id])
     end 
 
-    # def create
-
-    # end
+    def create
+        @channel = Channel.new(channel_params)
+        @channel.host_id = current_user.id
+        # @message.workspace_id = Workspace.find_by(workspace_name: "App-Academy").id
+        if @channel.save
+            render :show
+        else
+            render json: @message.errors.full_messages, status: 422
+        end
+    end
     
     # def destroy
 

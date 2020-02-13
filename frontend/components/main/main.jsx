@@ -15,7 +15,7 @@ class Main extends React.Component {
         this.state = {
             currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)],
             email: Object.values(this.props.currentUser)[0].email,
-            name: Object.values(this.props.currentUser)[0].name
+            name: Object.values(this.props.currentUser)[0].name,
         }
     }
 
@@ -89,7 +89,8 @@ class Main extends React.Component {
                     workspaces={this.props.workspaces}
                     channels={this.props.channels}
                     changeChannel={this.changeChannel}
-                    currentChannel={this.state.currentChannel}/>
+                    currentChannel={this.state.currentChannel}
+                    openCreateChannel={this.openCreateChannel}/>
                 <ChatContainer channel={this.state.currentChannel} currentUser={this.props.currentUser} 
                     channels={this.props.channels} 
                     openModal={this.openModal}

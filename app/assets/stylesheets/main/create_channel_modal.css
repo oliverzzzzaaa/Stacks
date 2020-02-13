@@ -1,0 +1,38 @@
+.create-channel {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 16%;
+    left: 34%;
+    width: 40%;
+    height: 60%;
+    background-color: white;
+    border: 1px solid lightgray;
+}
+
+.create-channel-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-channel h1 {
+    font-size: 24px;
+}
+
+.create-channel h3 {
+    color: gray;
+    font-size: 13px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.create-channel-header h2 {
+    justify-self: flex-end;
+}
+
+.create-channel .close-button {
+    display: flex;
+    justify-content: flex-end;
+    height: 10%;
+    cursor: pointer;
+}

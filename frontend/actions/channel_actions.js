@@ -16,7 +16,14 @@ const receiveChannel = channel => ({
 
 export const fetchChannel = (channelId) => dispatch => (
     APIUtil.fetchChannel(channelId)
+        .then((channel) => dispatch(receiveChannel(channel))
+        , error => (dispatch(receiveErrors(error.responseJSON))))
+)
+
+export const createChannel = (channel) => dispatch (
+    APIUtil.newChannel(channel)
         .then((channel) => dispatch(receiveChannel(channel)))
+
 )
 
 export const fetchChannels = () => dispatch => (

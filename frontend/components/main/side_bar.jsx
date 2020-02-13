@@ -6,6 +6,7 @@ class SideBar extends React.Component {
         super(props)
         this.backToSplash = this.backToSplash.bind(this)
         this.logoutUser = this.logoutUser.bind(this)
+        this.redirectCreateChannel = this.redirectCreateChannel.bind(this)
     }
 
     backToSplash(e) {
@@ -23,8 +24,8 @@ class SideBar extends React.Component {
         )
     }
 
-    buttonclickTest(e, id) {
-
+    redirectCreateChannel() {
+        this.props.history.push("/channels/new")
     }
 
     showDropdown() {
@@ -90,6 +91,7 @@ class SideBar extends React.Component {
                             {workspaceList}
                         </ul> */}
                         <a href="/" className="sidebar-back-to-slash sidebar-dropdown">Back to Splash</a>
+                        <button onClick={this.redirectCreateChannel} className="sidebar-signout sidebar-dropdown">Create A Channel</button>
                         <button onClick={this.logoutUser} className="sidebar-signout sidebar-dropdown" id="sidebar-signout">Sign Out</button>
                     </div>
                 </div>
