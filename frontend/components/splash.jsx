@@ -44,8 +44,9 @@ class SplashPage extends React.Component {
         )
     }
     
-    redirect(url) {
-        this.props.history.push(url)
+    redirect(workspace) {
+        this.props.fetchWorkspace(workspace)
+            .then(() => this.props.history.push('/messages'))
     }
     render() {
         let tryslack = (
@@ -60,7 +61,7 @@ class SplashPage extends React.Component {
         if (Object.keys(this.props.currentUser).length > 0) {
             let workspaceList = this.props.workspaces.map( workspace => {
                 return (
-                    <button onClick={() => this.redirect(`/messages`)} className="splash-workspace">{workspace.workspace_name}</button>
+                    <button onClick={() => this.redirect(workspace)} className="splash-workspace">{workspace.workspace_name}</button>
                 )
             })
             loginout = (
@@ -68,10 +69,7 @@ class SplashPage extends React.Component {
                     <button onClick={this.showDropdown} className="splash-dropdown-button">Your Workspace</button>
                     <nav className="signout-dropdown-nav" id="display-none">
                         <nav id="your-workspace-nav">
-                            {/* <img src={window.aalogo} id="splash-aa-logo"/> */}
                             {workspaceList}
-                            {/* <button onClick={() => this.redirect(`/messages/${this.props.currentUser[0].channels[0]}`)} className="signout-button" id="your-workspace-button">Workspace Name</button> */}
-                            {/* <button onClick={() => this.redirect(`/messages`)} className="signout-button" id="your-workspace-button">Workspace Name</button> */}
                         </nav>
                         <button onClick={this.logoutUser} className="signout-button" id="dropdown-signout-button">Sign Out</button>
                     </nav>

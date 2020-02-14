@@ -38,7 +38,8 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchWorkspaces();
+        console.log(this.props)
+        // this.props.fetchWorkspaces();
     
     }
 

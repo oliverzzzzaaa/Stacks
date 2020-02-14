@@ -20,10 +20,10 @@ export const fetchChannel = (channelId) => dispatch => (
         , error => (dispatch(receiveErrors(error.responseJSON))))
 )
 
-export const createChannel = (channel) => dispatch (
+export const createChannel = (channel) => dispatch => (
     APIUtil.newChannel(channel)
         .then((channel) => dispatch(receiveChannel(channel)))
-
+        , error => (dispatch(receiveErrors(error.responseJSON)))
 )
 
 export const fetchChannels = () => dispatch => (

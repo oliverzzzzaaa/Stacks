@@ -19,7 +19,7 @@ export const fetchWorkspaces = () => dispatch => (
         .then((workspaces) => dispatch(receiveWorkspaces(workspaces)))
 )
 
-export const fetchWorkspace = () => dispatch => (
-    APIUtil.fetchWorkspace()
+export const fetchWorkspace = (workspace) => dispatch => (
+    APIUtil.fetchWorkspace(workspace)
         .then((workspace) => dispatch(receiveWorkspace(workspace)))
 )

@@ -19,7 +19,15 @@ class Api::ChannelsController < ApplicationController
         @channel.host_id = current_user.id
         # @message.workspace_id = Workspace.find_by(workspace_name: "App-Academy").id
         if @channel.save
-            render :show
+            cMembership = ChannelMembership.new(
+                user_id: current_user.id,
+                channel_id: @channel.id
+            )
+            if cMembership.save
+                render :show
+            else
+                render json: @message.errors.full_messages, status: 422
+            end
         else
             render json: @message.errors.full_messages, status: 422
         end

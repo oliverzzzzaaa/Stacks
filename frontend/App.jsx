@@ -7,7 +7,7 @@ import WorkSpaceFormContainer from './components/session_form/workspace_form_con
 import SignUpFormContainer from './components/session_form/sign_up_form_container'
 import MainContainer from './components/main/main_container'
 import SideBarContainer from './components/main/side_bar_container'
-import CreateChannel from "./components/main/create_channel";
+import CreateChannelContainer from "./components/main/create_channel_container";
 import {
   Route,
   Redirect,
@@ -26,7 +26,7 @@ const App = () => (
       <Route path="/test" component={SideBarContainer} />
       <ProtectedRoute path="/messages" component={MainContainer} />
       <ProtectedRoute path="/messages/:channelId" component={MainContainer} />
-      <ProtectedRoute path="/channels/new" component={CreateChannel} />
+      <ProtectedRoute path="/channels/new" component={CreateChannelContainer} />
       <Route path="/" component={SplashPageContainer}/>
     </Switch>
 

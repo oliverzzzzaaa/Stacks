@@ -17,16 +17,16 @@ class CreateChannel extends React.Component {
         this.props.history.push("/messages")
     }
 
-    submitChannelForm() {
-        channel = {
+    submitChannelForm(e) {
+        e.preventDefault()
+        let channel = {
             channel_topic: this.state.channelTopic,
             channel_name: this.state.channelName,
             private_message: 0,
-            workspace_id: this.props.currentChannel.id
+            workspace_id: this.props.workspaces[0].id
         }
         this.props.createChannel(channel)
-            .then((channel) => {
-                console.log(channel)
+            .then(() => {
                 this.props.history.push("/messages")
             })
     }
@@ -38,7 +38,10 @@ class CreateChannel extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props)
+        this.props.fetchWorkspaces()
+        .then(() => {
+            console.log(this.props.workspaces)
+        })
     }
 
     render() {

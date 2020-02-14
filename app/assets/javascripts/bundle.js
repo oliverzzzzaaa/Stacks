@@ -105,7 +105,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_session_form_sign_up_form_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/session_form/sign_up_form_container */ "./frontend/components/session_form/sign_up_form_container.js");
 /* harmony import */ var _components_main_main_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/main/main_container */ "./frontend/components/main/main_container.js");
 /* harmony import */ var _components_main_side_bar_container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/main/side_bar_container */ "./frontend/components/main/side_bar_container.js");
-/* harmony import */ var _components_main_create_channel__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/main/create_channel */ "./frontend/components/main/create_channel.jsx");
+/* harmony import */ var _components_main_create_channel_container__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/main/create_channel_container */ "./frontend/components/main/create_channel_container.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 
 
@@ -145,7 +145,7 @@ var App = function App() {
     component: _components_main_main_container__WEBPACK_IMPORTED_MODULE_7__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
     path: "/channels/new",
-    component: _components_main_create_channel__WEBPACK_IMPORTED_MODULE_9__["default"]
+    component: _components_main_create_channel_container__WEBPACK_IMPORTED_MODULE_9__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Route"], {
     path: "/",
     component: _components_splash_container__WEBPACK_IMPORTED_MODULE_4__["default"]
@@ -199,9 +199,13 @@ var fetchChannel = function fetchChannel(channelId) {
   };
 };
 var createChannel = function createChannel(channel) {
-  return dispatch(_util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__["newChannel"](channel).then(function (channel) {
-    return dispatch(receiveChannel(channel));
-  }));
+  return function (dispatch) {
+    return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__["newChannel"](channel).then(function (channel) {
+      return dispatch(receiveChannel(channel));
+    }), function (error) {
+      return dispatch(receiveErrors(error.responseJSON));
+    };
+  };
 };
 var fetchChannels = function fetchChannels() {
   return function (dispatch) {
@@ -427,9 +431,9 @@ var fetchWorkspaces = function fetchWorkspaces() {
     });
   };
 };
-var fetchWorkspace = function fetchWorkspace() {
+var fetchWorkspace = function fetchWorkspace(workspace) {
   return function (dispatch) {
-    return _util_workspace_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchWorkspace"]().then(function (workspace) {
+    return _util_workspace_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchWorkspace"](workspace).then(function (workspace) {
       return dispatch(receiveWorkspace(workspace));
     });
   };
@@ -949,18 +953,17 @@ function (_React$Component) {
     }
   }, {
     key: "submitChannelForm",
-    value: function submitChannelForm() {
+    value: function submitChannelForm(e) {
       var _this2 = this;
 
-      channel = {
+      e.preventDefault();
+      var channel = {
         channel_topic: this.state.channelTopic,
         channel_name: this.state.channelName,
         private_message: 0,
-        workspace_id: this.props.currentChannel.id
+        workspace_id: this.props.workspaces[0].id
       };
-      this.props.createChannel(channel).then(function (channel) {
-        console.log(channel);
-
+      this.props.createChannel(channel).then(function () {
         _this2.props.history.push("/messages");
       });
     }
@@ -976,7 +979,11 @@ function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log(this.props);
+      var _this4 = this;
+
+      this.props.fetchWorkspaces().then(function () {
+        console.log(_this4.props.workspaces);
+      });
     }
   }, {
     key: "render",
@@ -1011,6 +1018,50 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (CreateChannel);
+
+/***/ }),
+
+/***/ "./frontend/components/main/create_channel_container.js":
+/*!**************************************************************!*\
+  !*** ./frontend/components/main/create_channel_container.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _create_channel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./create_channel */ "./frontend/components/main/create_channel.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_workspace_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/workspace_actions */ "./frontend/actions/workspace_actions.js");
+
+
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    workspaces: Object.values(state.entities.workspaces)
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    createChannel: function createChannel(channel) {
+      return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__["createChannel"])(channel));
+    },
+    fetchWorkspaces: function fetchWorkspaces() {
+      return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_5__["fetchWorkspaces"])());
+    } // fetchWorkspace: (workspace) => dispatch(fetchWorkspace(workspace))
+
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_create_channel__WEBPACK_IMPORTED_MODULE_0__["default"])));
 
 /***/ }),
 
@@ -1104,7 +1155,7 @@ function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchWorkspaces();
+      console.log(this.props); // this.props.fetchWorkspaces();
     }
   }, {
     key: "updateUser",
@@ -2242,13 +2293,17 @@ function (_React$Component) {
     }
   }, {
     key: "redirect",
-    value: function redirect(url) {
-      this.props.history.push(url);
+    value: function redirect(workspace) {
+      var _this3 = this;
+
+      this.props.fetchWorkspace(workspace).then(function () {
+        return _this3.props.history.push('/messages');
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var tryslack = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_0__["NavLink"], {
         to: "/users/new",
@@ -2268,7 +2323,7 @@ function (_React$Component) {
         var workspaceList = this.props.workspaces.map(function (workspace) {
           return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
             onClick: function onClick() {
-              return _this3.redirect("/messages");
+              return _this4.redirect(workspace);
             },
             className: "splash-workspace"
           }, workspace.workspace_name);
@@ -2407,6 +2462,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     action: function action() {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["logout"])());
+    },
+    fetchWorkspace: function fetchWorkspace(workspace) {
+      return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_3__["fetchWorkspace"])(workspace));
     }
   };
 };
@@ -3037,10 +3095,10 @@ var newWorkspace = function newWorkspace(workspace) {
     }
   });
 };
-var fetchWorkspace = function fetchWorkspace(workspaceId) {
+var fetchWorkspace = function fetchWorkspace(workspace) {
   return $.ajax({
     method: "GET",
-    url: "/api/workspaces/".concat(workspaceId)
+    url: "/api/workspaces/".concat(workspace.id)
   });
 };
 var fetchWorkspaces = function fetchWorkspaces() {
