@@ -954,8 +954,6 @@ function (_React$Component) {
   }, {
     key: "submitChannelForm",
     value: function submitChannelForm(e) {
-      var _this2 = this;
-
       e.preventDefault();
       var channel = {
         channel_topic: this.state.channelTopic,
@@ -963,26 +961,25 @@ function (_React$Component) {
         private_message: 0,
         workspace_id: this.props.workspaces[0].id
       };
-      this.props.createChannel(channel).then(function () {
-        _this2.props.history.push("/messages");
-      });
+      this.props.createChannel(channel);
+      this.props.history.push("/messages");
     }
   }, {
     key: "updateState",
     value: function updateState(field) {
-      var _this3 = this;
+      var _this2 = this;
 
       return function (e) {
-        _this3.setState(_defineProperty({}, field, e.currentTarget.value));
+        _this2.setState(_defineProperty({}, field, e.currentTarget.value));
       };
     }
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.props.fetchWorkspaces().then(function () {
-        console.log(_this4.props.workspaces);
+        console.log(_this3.props.workspaces);
       });
     }
   }, {
