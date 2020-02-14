@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
+import JoinChannel from './channels/join_channel'
 class SideBar extends React.Component {
 
     constructor(props) {
@@ -96,7 +97,7 @@ class SideBar extends React.Component {
                     </div>
                 </div>
                 <div id="channel-div">
-                    <h4 className="sidebar-link">Channels</h4>
+                    <h4 className="sidebar-link" onClick={this.props.openJoinChannel}>Channels</h4>
                     <ul id="channel-list-ul">
                         {channelList}
                     </ul>

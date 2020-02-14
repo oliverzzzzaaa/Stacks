@@ -1,0 +1,24 @@
+.escape-button {
+    display: flex;
+    border-radius: 100%;
+    border: none;
+    position: absolute;
+    right: 48px;
+    top: 48px;
+    font-size: 20px;
+    padding: 10px;
+    height: 10vh;
+    width: 10vh;
+    justify-content: center;
+    align-items: center;
+}
+.escape-button:hover {
+    background-color: lightgray;
+}
+.join-channel-div {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    
+}

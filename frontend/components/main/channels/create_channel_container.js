@@ -1,9 +1,9 @@
 import CreateChannel from './create_channel'
 import { connect} from "react-redux"
 import { withRouter } from 'react-router-dom';
-import {createChannel} from '../../actions/channel_actions'
-import receiveCurrentUser from '../../actions/session_actions'
-import {fetchWorkspaces} from '../../actions/workspace_actions'
+import {createChannel} from '../../../actions/channel_actions'
+import receiveCurrentUser from '../../../actions/session_actions'
+import {fetchWorkspaces} from '../../../actions/workspace_actions'
 
 
 const mapStateToProps = (state, ownProps) => {

@@ -1,6 +1,7 @@
 import React from 'react'
 import ChatContainer from './chat_container';
 import SideBarContainer from './side_bar_container'
+import JoinChannel from './channels/join_channel'
 
 class Main extends React.Component {
     constructor(props) {
@@ -12,11 +13,23 @@ class Main extends React.Component {
         this.updateUser = this.updateUser.bind(this)
         this.updateField = this.updateField.bind(this)
         this.closeProfileModal=  this.closeProfileModal.bind(this)
+        this.openJoinChannel = this.openJoinChannel.bind(this)
+        this.closeJoinChannel = this.closeJoinChannel.bind(this)
         this.state = {
             currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)],
             email: Object.values(this.props.currentUser)[0].email,
             name: Object.values(this.props.currentUser)[0].name,
+            joinChannelModal: false
         }
+    }
+
+    openJoinChannel() {
+        this.setState({joinChannelModal: true})
+    }
+
+    closeJoinChannel() {
+        // console.log("CLOSE")
+        this.setState({joinChannelModal: false})
     }
 
     openModal(messageId) {
@@ -91,7 +104,8 @@ class Main extends React.Component {
                     channels={this.props.channels}
                     changeChannel={this.changeChannel}
                     currentChannel={this.state.currentChannel}
-                    openCreateChannel={this.openCreateChannel}/>
+                    openCreateChannel={this.openCreateChannel}
+                    openJoinChannel={this.openJoinChannel}/>
                 <ChatContainer channel={this.state.currentChannel} currentUser={this.props.currentUser} 
                     channels={this.props.channels} 
                     openModal={this.openModal}
@@ -128,6 +142,7 @@ class Main extends React.Component {
                         </form>
                     </div>
                 </div>
+                {this.state.joinChannelModal ? <JoinChannel closeJoinChannel={this.closeJoinChannel}/> : null}
             </div>
         )
     }
