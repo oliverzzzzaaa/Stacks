@@ -22,3 +22,44 @@
     position: absolute;
     
 }
+
+.join-channel-main {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    left: 28%;
+    position: absolute;
+    top: 12%;
+}
+
+.join-channel-main input {
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 15px 10px 15px 10px;
+    margin-left: 0;
+}
+
+.join-channel-li {
+    border-top: 1px solid gray;
+    /* border-bottom: 1px solid gray; */
+    list-style: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+}
+
+.join-channel-li:hover {
+    background: rgba(var(--sk_foreground_min,29,28,29),.04);
+    cursor: pointer;
+}
+
+.join-channel-li h3 {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.join-channel-li h4 {
+    font-size: 14px;
+    color: gray;
+}

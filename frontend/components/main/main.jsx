@@ -28,7 +28,7 @@ class Main extends React.Component {
     }
 
     closeJoinChannel() {
-        // console.log("CLOSE")
+        
         this.setState({joinChannelModal: false})
     }
 
@@ -142,7 +142,7 @@ class Main extends React.Component {
                         </form>
                     </div>
                 </div>
-                {this.state.joinChannelModal ? <JoinChannel closeJoinChannel={this.closeJoinChannel}/> : null}
+                {this.state.joinChannelModal ? <JoinChannel closeJoinChannel={this.closeJoinChannel} channels={this.props.channels}/> : null}
             </div>
         )
     }

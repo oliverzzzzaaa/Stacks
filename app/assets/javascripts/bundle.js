@@ -656,8 +656,10 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(JoinChannel).call(this, props));
     _this.updateField = _this.updateField.bind(_assertThisInitialized(_this));
     _this.searchChannels = _this.searchChannels.bind(_assertThisInitialized(_this));
+    _this.renderChannels = _this.renderChannels.bind(_assertThisInitialized(_this));
     _this.state = {
-      search: ''
+      search: '',
+      channels: _this.props.channels
     };
     return _this;
   }
@@ -680,6 +682,17 @@ function (_React$Component) {
       };
     }
   }, {
+    key: "renderChannels",
+    value: function renderChannels() {
+      var channelList = this.state.channels.map(function (channel) {
+        // if (this.props.currentUser)
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "join-channel-li"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, channel.channel_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, channel.channel_topic));
+      });
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, channelList);
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -689,12 +702,15 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "join-channel-main",
         onClick: this.props.closeJoinChannel
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "X"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "esc"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Browse Channels"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "X"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "esc"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "join-channel-main"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Browse Channels"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         className: "browse-channels-input",
         onChange: this.updateField(),
-        value: this.state.search
-      })));
+        value: this.state.search,
+        placeholder: "Search Channels"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.renderChannels()));
     }
   }]);
 
@@ -1233,7 +1249,6 @@ function (_React$Component) {
   }, {
     key: "closeJoinChannel",
     value: function closeJoinChannel() {
-      // console.log("CLOSE")
       this.setState({
         joinChannelModal: false
       });
@@ -1378,7 +1393,8 @@ function (_React$Component) {
         type: "submit",
         className: "update-profile-button"
       }, "Update Profile")))), this.state.joinChannelModal ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_channels_join_channel__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        closeJoinChannel: this.closeJoinChannel
+        closeJoinChannel: this.closeJoinChannel,
+        channels: this.props.channels
       }) : null);
     }
   }]);
