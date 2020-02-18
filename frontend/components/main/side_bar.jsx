@@ -48,24 +48,26 @@ class SideBar extends React.Component {
         const channelList = []
 
         const dmList = this.props.channels.map (channel => {
-            if (channel.private_message === 1) {
-                return (
-                    <li className="sidebar-link DM" key={channel.id}>
-                        <NavLink to={`/messages/${channel.id}`} className="DM-link" onClick={() => this.props.changeChannel(channel.id)}>
-                            {channel.channel_name}
-                        </NavLink>
-                    </li>
-                )
-            } else {
-                channelList.push(
-                    <li className="sidebar-link locked-channel" key={channel.id}>
-                        <img src={window.sidebarWhiteLock} className="sidebar-white-lock"/>
-                        <NavLink to={`/messages/${channel.id}`} className="channel-links" onClick={() => this.props.changeChannel(channel.id)}>
-                            {channel.channel_name}
-                        </NavLink>
-                    </li>
-                )
-                return(<div></div>)
+            if (channel.workspace_id === this.props.workspaces[0].id) {
+                if (channel.private_message === 1) {
+                    return (
+                        <li className="sidebar-link DM" key={channel.id}>
+                            <NavLink to={`/messages/${channel.id}`} className="DM-link" onClick={() => this.props.changeChannel(channel.id)}>
+                                {channel.channel_name}
+                            </NavLink>
+                        </li>
+                    )
+                } else {
+                    channelList.push(
+                        <li className="sidebar-link locked-channel" key={channel.id}>
+                            <img src={window.sidebarWhiteLock} className="sidebar-white-lock"/>
+                            <NavLink to={`/messages/${channel.id}`} className="channel-links" onClick={() => this.props.changeChannel(channel.id)}>
+                                {channel.channel_name}
+                            </NavLink>
+                        </li>
+                    )
+                    return(<div></div>)
+                }
             }
         })
 

@@ -17,6 +17,10 @@ class SplashPage extends React.Component {
     componentDidMount() {
         this.props.fetchWorkspaces()
             .then(() => {
+                if (this.props.currentUser) {
+                    this.props.fetchChannels()
+                    .then(()=> console.log(this.props))
+                }
             })
     }
 
@@ -45,8 +49,15 @@ class SplashPage extends React.Component {
     }
     
     redirect(workspace) {
+        let channels = this.props.channels
+        let channelId = 0;
+        for (let i = channels.length - 1; i >= 0; i--) {
+            if (channels[i].workspace_id === workspace.id) {
+                channelId = channels[i].id;
+            }
+        }
         this.props.fetchWorkspace(workspace)
-            .then(() => this.props.history.push('/messages'))
+            .then(() => this.props.history.push(`/messages/${channelId}`))
     }
     render() {
         let tryslack = (

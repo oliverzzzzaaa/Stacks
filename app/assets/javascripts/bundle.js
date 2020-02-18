@@ -686,9 +686,13 @@ function (_React$Component) {
     value: function renderChannels() {
       var channelList = this.state.channels.map(function (channel) {
         // if (this.props.currentUser)
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-          className: "join-channel-li"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, channel.channel_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, channel.channel_topic));
+        if (channel.private_message === 0) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+            className: "join-channel-li"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, channel.channel_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, channel.channel_topic));
+        } else {
+          return null;
+        }
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, channelList);
     }
@@ -1242,6 +1246,7 @@ function (_React$Component) {
   _createClass(Main, [{
     key: "openJoinChannel",
     value: function openJoinChannel() {
+      console.log(this.props.channels);
       this.setState({
         joinChannelModal: true
       });
@@ -1434,7 +1439,8 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     currentUser: state.entities.users,
     currentUserId: state.session.id,
-    channels: Object.values(state.entities.channels)
+    channels: Object.values(state.entities.channels),
+    workspaces: Object.values(state.entities.workspaces)
   };
 };
 
@@ -1568,32 +1574,34 @@ function (_React$Component) {
 
       var channelList = [];
       var dmList = this.props.channels.map(function (channel) {
-        if (channel.private_message === 1) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-            className: "sidebar-link DM",
-            key: channel.id
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-            to: "/messages/".concat(channel.id),
-            className: "DM-link",
-            onClick: function onClick() {
-              return _this3.props.changeChannel(channel.id);
-            }
-          }, channel.channel_name));
-        } else {
-          channelList.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-            className: "sidebar-link locked-channel",
-            key: channel.id
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-            src: window.sidebarWhiteLock,
-            className: "sidebar-white-lock"
-          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-            to: "/messages/".concat(channel.id),
-            className: "channel-links",
-            onClick: function onClick() {
-              return _this3.props.changeChannel(channel.id);
-            }
-          }, channel.channel_name)));
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
+        if (channel.workspace_id === _this3.props.workspaces[0].id) {
+          if (channel.private_message === 1) {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+              className: "sidebar-link DM",
+              key: channel.id
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+              to: "/messages/".concat(channel.id),
+              className: "DM-link",
+              onClick: function onClick() {
+                return _this3.props.changeChannel(channel.id);
+              }
+            }, channel.channel_name));
+          } else {
+            channelList.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+              className: "sidebar-link locked-channel",
+              key: channel.id
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+              src: window.sidebarWhiteLock,
+              className: "sidebar-white-lock"
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+              to: "/messages/".concat(channel.id),
+              className: "channel-links",
+              onClick: function onClick() {
+                return _this3.props.changeChannel(channel.id);
+              }
+            }, channel.channel_name)));
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
+          }
         }
       });
       var currentUserId = this.props.currentUserId;
@@ -2390,7 +2398,15 @@ function (_React$Component) {
   _createClass(SplashPage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchWorkspaces().then(function () {});
+      var _this2 = this;
+
+      this.props.fetchWorkspaces().then(function () {
+        if (_this2.props.currentUser) {
+          _this2.props.fetchChannels().then(function () {
+            return console.log(_this2.props);
+          });
+        }
+      });
     }
   }, {
     key: "windowClick",
@@ -2416,26 +2432,35 @@ function (_React$Component) {
   }, {
     key: "logoutUser",
     value: function logoutUser(e) {
-      var _this2 = this;
+      var _this3 = this;
 
       e.preventDefault();
       this.props.action().then(function () {
-        return _this2.props.history.push("/session/new");
+        return _this3.props.history.push("/session/new");
       });
     }
   }, {
     key: "redirect",
     value: function redirect(workspace) {
-      var _this3 = this;
+      var _this4 = this;
+
+      var channels = this.props.channels;
+      var channelId = 0;
+
+      for (var i = channels.length - 1; i >= 0; i--) {
+        if (channels[i].workspace_id === workspace.id) {
+          channelId = channels[i].id;
+        }
+      }
 
       this.props.fetchWorkspace(workspace).then(function () {
-        return _this3.props.history.push('/messages');
+        return _this4.props.history.push("/messages/".concat(channelId));
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       var tryslack = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_0__["NavLink"], {
         to: "/users/new",
@@ -2455,7 +2480,7 @@ function (_React$Component) {
         var workspaceList = this.props.workspaces.map(function (workspace) {
           return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
             onClick: function onClick() {
-              return _this4.redirect(workspace);
+              return _this5.redirect(workspace);
             },
             className: "splash-workspace"
           }, workspace.workspace_name);
@@ -2570,6 +2595,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _splash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./splash */ "./frontend/components/splash.jsx");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_workspace_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/workspace_actions */ "./frontend/actions/workspace_actions.js");
+/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+
 
 
 
@@ -2580,7 +2607,8 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     currentUser: state.entities.users,
     currentUserId: state.session.id,
-    workspaces: Object.values(state.entities.workspaces)
+    workspaces: Object.values(state.entities.workspaces),
+    channels: Object.values(state.entities.channels)
   };
 };
 
@@ -2597,6 +2625,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchWorkspace: function fetchWorkspace(workspace) {
       return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_3__["fetchWorkspace"])(workspace));
+    },
+    fetchChannels: function fetchChannels() {
+      return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_4__["fetchChannels"])());
     }
   };
 };

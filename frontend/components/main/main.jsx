@@ -24,6 +24,7 @@ class Main extends React.Component {
     }
 
     openJoinChannel() {
+        console.log(this.props.channels)
         this.setState({joinChannelModal: true})
     }
 

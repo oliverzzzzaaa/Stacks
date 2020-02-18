@@ -9,7 +9,8 @@ import {withRouter} from 'react-router-dom'
 const mapStateToProps = state => ({
     currentUser: state.entities.users,
     currentUserId: state.session.id,
-    channels: Object.values(state.entities.channels)
+    channels: Object.values(state.entities.channels),
+    workspaces: Object.values(state.entities.workspaces)
 })
 
 const mapDispatchToProps = dispatch => ({
