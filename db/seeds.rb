@@ -81,7 +81,7 @@ channel2 = Channel.create!({
     channel_name: "Michelles Circle",
     channel_topic: "Best Circle",
     private_message: 0,
-    workspace_id: Workspace.find_by(workspace_name: "HR").id
+    workspace_id: Workspace.find_by(workspace_name: "App-Academy").id
 })
 channel3 = Channel.create!({
     host_id: User.find_by(username: "Threeisaparty").id,
