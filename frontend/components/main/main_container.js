@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => ({
     receiveCurrentUser: (user) => dispatch(receiveCurrentUser(user)),
     logout: () => dispatch(logout()),
     fetchMessages: () => dispatch(fetchMessages()),
-    fetchWorkspaces: (workspaces) => dispatch(fetchWorkspaces(workspaces)),
+    fetchWorkspaces: () => dispatch(fetchWorkspaces()),
     fetchChannels: (channels) => dispatch(fetchChannels(channels)),
     deleteMessage: (messageId) => dispatch(deleteMessage(messageId)),
     updateUser: (user) => dispatch(updateUser(user))

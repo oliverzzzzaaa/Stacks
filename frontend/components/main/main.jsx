@@ -6,6 +6,7 @@ import JoinChannel from './channels/join_channel'
 class Main extends React.Component {
     constructor(props) {
         super(props)
+        this.workspace = this.props.workspaces[0]
         this.changeChannel = this.changeChannel.bind(this)
         this.openModal = this.openModal.bind(this)
         this.closeModal = this.closeModal.bind(this)
@@ -19,7 +20,9 @@ class Main extends React.Component {
             currentChannel: this.props.channels[this.props.location.pathname.slice(10,this.props.location.pathname.length)],
             email: Object.values(this.props.currentUser)[0].email,
             name: Object.values(this.props.currentUser)[0].name,
-            joinChannelModal: false
+            joinChannelModal: false,
+            channels: this.props.channels,
+            workspace: this.props.workspaces[0]
         }
     }
 
@@ -52,8 +55,10 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props)
-        // this.props.fetchWorkspaces();
+        this.props.fetchWorkspaces()
+        .then((res) => {
+            this.setState({workspace: Object.values(res.workspaces)[0]})
+        })
     
     }
 
@@ -102,6 +107,7 @@ class Main extends React.Component {
                     currentUser={this.props.currentUser}
                     messages = {this.props.messages}
                     workspaces={this.props.workspaces}
+                    workspace={this.state.workspace}
                     channels={this.props.channels}
                     changeChannel={this.changeChannel}
                     currentChannel={this.state.currentChannel}
@@ -143,7 +149,7 @@ class Main extends React.Component {
                         </form>
                     </div>
                 </div>
-                {this.state.joinChannelModal ? <JoinChannel closeJoinChannel={this.closeJoinChannel} channels={this.props.channels}/> : null}
+                {this.state.joinChannelModal ? <JoinChannel workspace={this.workspace} closeJoinChannel={this.closeJoinChannel} channels={this.props.channels}/> : null}
             </div>
         )
     }

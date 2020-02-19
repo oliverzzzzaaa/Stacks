@@ -27,7 +27,7 @@ class JoinChannel extends React.Component {
     renderChannels() {
         let channelList = this.state.channels.map(channel => {
             // if (this.props.currentUser)
-            if (channel.private_message === 0) {
+            if (channel.private_message === 0 && channel.workspace_id === this.props.workspace.id) {
                 return (
                     <li className="join-channel-li">
                         <h3>{channel.channel_name}</h3>

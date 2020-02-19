@@ -684,9 +684,11 @@ function (_React$Component) {
   }, {
     key: "renderChannels",
     value: function renderChannels() {
+      var _this3 = this;
+
       var channelList = this.state.channels.map(function (channel) {
         // if (this.props.currentUser)
-        if (channel.private_message === 0) {
+        if (channel.private_message === 0 && channel.workspace_id === _this3.props.workspace.id) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
             className: "join-channel-li"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, channel.channel_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, channel.channel_topic));
@@ -1225,6 +1227,7 @@ function (_React$Component) {
     _classCallCheck(this, Main);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Main).call(this, props));
+    _this.workspace = _this.props.workspaces[0];
     _this.changeChannel = _this.changeChannel.bind(_assertThisInitialized(_this));
     _this.openModal = _this.openModal.bind(_assertThisInitialized(_this));
     _this.closeModal = _this.closeModal.bind(_assertThisInitialized(_this));
@@ -1238,7 +1241,9 @@ function (_React$Component) {
       currentChannel: _this.props.channels[_this.props.location.pathname.slice(10, _this.props.location.pathname.length)],
       email: Object.values(_this.props.currentUser)[0].email,
       name: Object.values(_this.props.currentUser)[0].name,
-      joinChannelModal: false
+      joinChannelModal: false,
+      channels: _this.props.channels,
+      workspace: _this.props.workspaces[0]
     };
     return _this;
   }
@@ -1285,7 +1290,13 @@ function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log(this.props); // this.props.fetchWorkspaces();
+      var _this3 = this;
+
+      this.props.fetchWorkspaces().then(function (res) {
+        _this3.setState({
+          workspace: Object.values(res.workspaces)[0]
+        });
+      });
     }
   }, {
     key: "updateUser",
@@ -1307,10 +1318,10 @@ function (_React$Component) {
   }, {
     key: "updateField",
     value: function updateField(field) {
-      var _this3 = this;
+      var _this4 = this;
 
       return function (e) {
-        return _this3.setState(_defineProperty({}, field, e.target.value));
+        return _this4.setState(_defineProperty({}, field, e.target.value));
       };
     }
   }, {
@@ -1346,6 +1357,7 @@ function (_React$Component) {
         currentUser: this.props.currentUser,
         messages: this.props.messages,
         workspaces: this.props.workspaces,
+        workspace: this.state.workspace,
         channels: this.props.channels,
         changeChannel: this.changeChannel,
         currentChannel: this.state.currentChannel,
@@ -1398,6 +1410,7 @@ function (_React$Component) {
         type: "submit",
         className: "update-profile-button"
       }, "Update Profile")))), this.state.joinChannelModal ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_channels_join_channel__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        workspace: this.workspace,
         closeJoinChannel: this.closeJoinChannel,
         channels: this.props.channels
       }) : null);
@@ -1455,8 +1468,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     fetchMessages: function fetchMessages() {
       return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["fetchMessages"])());
     },
-    fetchWorkspaces: function fetchWorkspaces(workspaces) {
-      return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_4__["fetchWorkspaces"])(workspaces));
+    fetchWorkspaces: function fetchWorkspaces() {
+      return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_4__["fetchWorkspaces"])());
     },
     fetchChannels: function fetchChannels(channels) {
       return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_5__["fetchChannels"])(channels));
@@ -1573,37 +1586,46 @@ function (_React$Component) {
       var _this3 = this;
 
       var channelList = [];
-      var dmList = this.props.channels.map(function (channel) {
-        if (channel.workspace_id === _this3.props.workspaces[0].id) {
-          if (channel.private_message === 1) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-              className: "sidebar-link DM",
-              key: channel.id
-            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-              to: "/messages/".concat(channel.id),
-              className: "DM-link",
-              onClick: function onClick() {
-                return _this3.props.changeChannel(channel.id);
-              }
-            }, channel.channel_name));
-          } else {
-            channelList.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-              className: "sidebar-link locked-channel",
-              key: channel.id
-            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-              src: window.sidebarWhiteLock,
-              className: "sidebar-white-lock"
-            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-              to: "/messages/".concat(channel.id),
-              className: "channel-links",
-              onClick: function onClick() {
-                return _this3.props.changeChannel(channel.id);
-              }
-            }, channel.channel_name)));
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
+      var dmList;
+
+      if (this.props.workspace) {
+        console.log(this.props.workspace);
+        dmList = this.props.channels.map(function (channel) {
+          console.log(channel.workspace_id);
+          console.log(_this3.props.workspace.id);
+
+          if (channel.workspace_id === _this3.props.workspace.id) {
+            if (channel.private_message === 1) {
+              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+                className: "sidebar-link DM",
+                key: channel.id
+              }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+                to: "/messages/".concat(channel.id),
+                className: "DM-link",
+                onClick: function onClick() {
+                  return _this3.props.changeChannel(channel.id);
+                }
+              }, channel.channel_name));
+            } else {
+              channelList.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+                className: "sidebar-link locked-channel",
+                key: channel.id
+              }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+                src: window.sidebarWhiteLock,
+                className: "sidebar-white-lock"
+              }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+                to: "/messages/".concat(channel.id),
+                className: "channel-links",
+                onClick: function onClick() {
+                  return _this3.props.changeChannel(channel.id);
+                }
+              }, channel.channel_name)));
+              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
+            }
           }
-        }
-      });
+        });
+      }
+
       var currentUserId = this.props.currentUserId;
       var workspaceList = this.props.workspaces.map(function (workspace) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
