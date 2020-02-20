@@ -149,7 +149,9 @@ class Main extends React.Component {
                         </form>
                     </div>
                 </div>
-                {this.state.joinChannelModal ? <JoinChannel workspace={this.workspace} closeJoinChannel={this.closeJoinChannel} channels={this.props.channels}/> : null}
+                {this.state.joinChannelModal ? <JoinChannel 
+                currentUserId={this.props.currentUserId} action={this.props.joinChannel}
+                workspace={this.workspace} closeJoinChannel={this.closeJoinChannel} channels={this.props.channels}/> : null}
             </div>
         )
     }

@@ -27,12 +27,12 @@ class JoinChannel extends React.Component {
 
 
     joinChannel(channel) {
-        // data = {
-        //     channelId: channel.id,
-        //     // userId: 
-        // }
-        // this.action
-        console.log(this.props)
+        data = {
+            channelId: channel.id,
+            userId: this.props.currentUserId
+        }
+        this.props.action(data)
+        // console.log(this.props.currentUserId)
     }
 
     renderChannels() {

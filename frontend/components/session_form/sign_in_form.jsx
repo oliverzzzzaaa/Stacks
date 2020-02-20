@@ -38,8 +38,8 @@ class SignInForm extends React.Component {
             email: "DemoUser1@aa.io",
             password: "DemoUser1",
         }, () => {
-            this.handleSubmit()
-            // document.getElementById("sign-in-button").click()
+            // this.handleSubmit()
+            document.getElementById("sign-in-button").click()
         })
     }
 

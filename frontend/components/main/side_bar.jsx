@@ -49,10 +49,7 @@ class SideBar extends React.Component {
         const channelList = []
         let dmList;
         if (this.props.workspace) {
-            console.log(this.props.workspace)
             dmList = this.props.channels.map (channel => {
-                console.log(channel.workspace_id)
-                console.log(this.props.workspace.id)
                 if (channel.workspace_id === this.props.workspace.id) {
                     if (channel.private_message === 1) {
                         return (

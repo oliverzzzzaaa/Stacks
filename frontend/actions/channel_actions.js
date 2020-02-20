@@ -32,7 +32,7 @@ export const fetchChannels = () => dispatch => (
         .then((channels) => dispatch(receiveChannels(channels)))
 )
 
-export const joinChannels = (data) => dispatch => (
+export const joinChannel = (data) => dispatch => (
     ChannelMemAPIUtil.newChannelMembership(data)
         .then((channels) => dispatch(receiveChannels(channels)))
 ) 
