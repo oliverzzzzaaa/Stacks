@@ -705,20 +705,24 @@ function (_React$Component) {
     value: function renderChannels() {
       var _this3 = this;
 
-      var channelList = this.state.channels.map(function (channel) {
-        // if (this.props.currentUser)
-        if (channel.private_message === 0 && channel.workspace_id === _this3.props.workspace.id) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-            className: "join-channel-li",
-            onClick: function onClick() {
-              return _this3.joinChannel(channel);
-            }
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, channel.channel_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, channel.channel_topic));
-        } else {
-          return null;
-        }
-      });
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, channelList);
+      if (this.props.workspace) {
+        var channelList = this.state.channels.map(function (channel) {
+          // if (this.props.currentUser)
+          if (channel.private_message === 0 && channel.workspace_id === _this3.props.workspace.id) {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+              className: "join-channel-li",
+              onClick: function onClick() {
+                return _this3.joinChannel(channel);
+              }
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, channel.channel_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, channel.channel_topic));
+          } else {
+            return null;
+          }
+        });
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, channelList);
+      } else {
+        return null;
+      }
     }
   }, {
     key: "render",
@@ -1434,7 +1438,7 @@ function (_React$Component) {
       }, "Update Profile")))), this.state.joinChannelModal ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_channels_join_channel__WEBPACK_IMPORTED_MODULE_3__["default"], {
         currentUserId: this.props.currentUserId,
         action: this.props.joinChannel,
-        workspace: this.workspace,
+        workspace: this.state.workspace,
         closeJoinChannel: this.closeJoinChannel,
         channels: this.props.channels
       }) : null);
