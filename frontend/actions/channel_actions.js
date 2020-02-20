@@ -1,4 +1,5 @@
 import * as APIUtil from '../util/channel_api_util'
+import * as ChannelMemAPIUtil from '../util/channel_membership_api_util'
 
 export const RECEIVE_CHANNELS = "RECEIVE_CHANNELS";
 export const RECEIVE_CHANNEL = "RECEIVE_CHANNEL";
@@ -30,6 +31,11 @@ export const fetchChannels = () => dispatch => (
     APIUtil.fetchChannels()
         .then((channels) => dispatch(receiveChannels(channels)))
 )
+
+export const joinChannels = (data) => dispatch => (
+    ChannelMemAPIUtil.newChannelMembership(data)
+        .then((channels) => dispatch(receiveChannels(channels)))
+) 
 
 
 

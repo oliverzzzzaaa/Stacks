@@ -5,11 +5,15 @@ class Api::ChannelMembershipsController < ApplicationController
         if @channel_membership.save
             # @channels = Channel.all
             @user = current_user
-            render "/api/users/show"
+            @channels = Channel.all
+            render "/api/channels/index"
         else
             render json: @user.errors.full_messages, status: 422
         end
     end
+
+    # def destroy
+    # end
 
     private
     def channel_membership_params

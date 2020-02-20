@@ -160,7 +160,7 @@ var App = function App() {
 /*!*********************************************!*\
   !*** ./frontend/actions/channel_actions.js ***!
   \*********************************************/
-/*! exports provided: RECEIVE_CHANNELS, RECEIVE_CHANNEL, fetchChannel, createChannel, fetchChannels */
+/*! exports provided: RECEIVE_CHANNELS, RECEIVE_CHANNEL, fetchChannel, createChannel, fetchChannels, joinChannels */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -170,7 +170,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchChannel", function() { return fetchChannel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createChannel", function() { return createChannel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchChannels", function() { return fetchChannels; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "joinChannels", function() { return joinChannels; });
 /* harmony import */ var _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/channel_api_util */ "./frontend/util/channel_api_util.js");
+/* harmony import */ var _util_channel_membership_api_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/channel_membership_api_util */ "./frontend/util/channel_membership_api_util.js");
+/* harmony import */ var _util_channel_membership_api_util__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_util_channel_membership_api_util__WEBPACK_IMPORTED_MODULE_1__);
+
 
 var RECEIVE_CHANNELS = "RECEIVE_CHANNELS";
 var RECEIVE_CHANNEL = "RECEIVE_CHANNEL";
@@ -210,6 +214,13 @@ var createChannel = function createChannel(channel) {
 var fetchChannels = function fetchChannels() {
   return function (dispatch) {
     return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchChannels"]().then(function (channels) {
+      return dispatch(receiveChannels(channels));
+    });
+  };
+};
+var joinChannels = function joinChannels(data) {
+  return function (dispatch) {
+    return _util_channel_membership_api_util__WEBPACK_IMPORTED_MODULE_1__["newChannelMembership"](data).then(function (channels) {
       return dispatch(receiveChannels(channels));
     });
   };
@@ -682,6 +693,16 @@ function (_React$Component) {
       };
     }
   }, {
+    key: "joinChannel",
+    value: function joinChannel(channel) {
+      // data = {
+      //     channelId: channel.id,
+      //     // userId: 
+      // }
+      // this.action
+      console.log(this.props);
+    }
+  }, {
     key: "renderChannels",
     value: function renderChannels() {
       var _this3 = this;
@@ -690,7 +711,10 @@ function (_React$Component) {
         // if (this.props.currentUser)
         if (channel.private_message === 0 && channel.workspace_id === _this3.props.workspace.id) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-            className: "join-channel-li"
+            className: "join-channel-li",
+            onClick: function onClick() {
+              return _this3.joinChannel(channel);
+            }
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, channel.channel_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, channel.channel_topic));
         } else {
           return null;
@@ -1868,12 +1892,15 @@ function (_React$Component) {
   }, {
     key: "handleDefaultUser",
     value: function handleDefaultUser(e) {
+      var _this4 = this;
+
       e.preventDefault();
       this.setState({
         email: "DemoUser1@aa.io",
         password: "DemoUser1"
       }, function () {
-        document.getElementById("sign-in-button").click();
+        _this4.handleSubmit(); // document.getElementById("sign-in-button").click()
+
       });
     }
   }, {
@@ -3099,6 +3126,17 @@ var fetchChannels = function fetchChannels() {
     url: '/api/channels'
   });
 };
+
+/***/ }),
+
+/***/ "./frontend/util/channel_membership_api_util.js":
+/*!******************************************************!*\
+  !*** ./frontend/util/channel_membership_api_util.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/wikiwoo/Desktop/FSP/Stacks/frontend/util/channel_membership_api_util.js: Invalid regular expression flag (4:19)\n\n\u001b[0m \u001b[90m 2 | \u001b[39m    $\u001b[33m.\u001b[39majax ({\u001b[0m\n\u001b[0m \u001b[90m 3 | \u001b[39m        method\u001b[33m:\u001b[39m \u001b[32m\"POST\"\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 | \u001b[39m        url\u001b[33m:\u001b[39m \u001b[33m/\u001b[39mapi\u001b[33m/\u001b[39mchannel_memberships\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   | \u001b[39m                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 5 | \u001b[39m        data\u001b[33m:\u001b[39m data\u001b[0m\n\u001b[0m \u001b[90m 6 | \u001b[39m    })\u001b[0m\n\u001b[0m \u001b[90m 7 | \u001b[39m)\u001b[0m\n    at Object.raise (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:7012:17)\n    at Object.readRegexp (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:7774:14)\n    at Object.readToken_slash (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:7385:12)\n    at Object.getTokenFromCode (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:7663:14)\n    at Object.getTokenFromCode (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:4158:18)\n    at Object.nextToken (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:7232:12)\n    at Object.next (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:7161:10)\n    at Object.eat (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:7166:12)\n    at Object.parseObjectProperty (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:10112:14)\n    at Object.parseObjPropValue (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:10138:101)\n    at Object.parseObjectMember (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:10062:10)\n    at Object.parseObj (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9982:25)\n    at Object.parseExprAtom (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9604:28)\n    at Object.parseExprAtom (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:4126:20)\n    at Object.parseExprSubscripts (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9237:23)\n    at Object.parseMaybeUnary (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9217:21)\n    at Object.parseExprOps (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9083:23)\n    at Object.parseMaybeConditional (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9056:23)\n    at Object.parseMaybeAssign (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9015:21)\n    at Object.parseExprListItem (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:10331:18)\n    at Object.parseCallExpressionArguments (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9434:22)\n    at Object.parseSubscript (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9342:29)\n    at Object.parseSubscripts (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9258:19)\n    at Object.parseExprSubscripts (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9247:17)\n    at Object.parseMaybeUnary (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9217:21)\n    at Object.parseExprOps (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9083:23)\n    at Object.parseMaybeConditional (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9056:23)\n    at Object.parseMaybeAssign (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9015:21)\n    at Object.parseParenAndDistinguishExpression (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9799:28)\n    at Object.parseExprAtom (/Users/wikiwoo/Desktop/FSP/Stacks/node_modules/@babel/parser/lib/index.js:9582:21)");
 
 /***/ }),
 
