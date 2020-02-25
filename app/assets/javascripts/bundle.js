@@ -160,7 +160,7 @@ var App = function App() {
 /*!*********************************************!*\
   !*** ./frontend/actions/channel_actions.js ***!
   \*********************************************/
-/*! exports provided: RECEIVE_CHANNELS, RECEIVE_CHANNEL, fetchChannel, createChannel, fetchChannels, joinChannel */
+/*! exports provided: RECEIVE_CHANNELS, RECEIVE_CHANNEL, fetchChannel, createChannel, fetchChannels */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -170,7 +170,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchChannel", function() { return fetchChannel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createChannel", function() { return createChannel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchChannels", function() { return fetchChannels; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "joinChannel", function() { return joinChannel; });
 /* harmony import */ var _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/channel_api_util */ "./frontend/util/channel_api_util.js");
 /* harmony import */ var _util_channel_membership_api_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/channel_membership_api_util */ "./frontend/util/channel_membership_api_util.js");
 
@@ -213,13 +212,6 @@ var createChannel = function createChannel(channel) {
 var fetchChannels = function fetchChannels() {
   return function (dispatch) {
     return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchChannels"]().then(function (channels) {
-      return dispatch(receiveChannels(channels));
-    });
-  };
-};
-var joinChannel = function joinChannel(data) {
-  return function (dispatch) {
-    return _util_channel_membership_api_util__WEBPACK_IMPORTED_MODULE_1__["newChannelMembership"](data).then(function (channels) {
       return dispatch(receiveChannels(channels));
     });
   };
@@ -3159,19 +3151,26 @@ var fetchChannels = function fetchChannels() {
 /*!******************************************************!*\
   !*** ./frontend/util/channel_membership_api_util.js ***!
   \******************************************************/
-/*! exports provided: newChannelMembership */
+/*! exports provided: newChannelMembership, fetchMemberships */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "newChannelMembership", function() { return newChannelMembership; });
-var newChannelMembership = function newChannelMembership(data) {
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchMemberships", function() { return fetchMemberships; });
+var newChannelMembership = function newChannelMembership(userId) {
   return $.ajax({
     method: "POST",
     url: '/api/channel_memberships',
     data: {
-      data: data
+      userId: userId
     }
+  });
+};
+var fetchMemberships = function fetchMemberships() {
+  return $.ajax({
+    method: "GET",
+    url: '/api/channel_memberships'
   });
 };
 

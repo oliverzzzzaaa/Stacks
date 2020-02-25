@@ -6,9 +6,14 @@ const receiveChannelMemberships = (memberships) => ({
     type: RECEIVE_MEMBERSHIPS,
     memberships
 })
-    
+
 export const fetchChannelMemberships = () => dispatch => (
-    APIUtil.newChannelMembership()
+    APIUtil.newChannelMembership(userId)
         .then((memberships) => dispatch(receiveChannelMemberships(memberships)))
 )
+
+export const joinChannel = (data) => dispatch => (
+    APIUtil.newChannelMembership(data)
+        .then((channels) => dispatch(receiveChannels(channels)))
+) 
 

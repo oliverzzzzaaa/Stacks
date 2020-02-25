@@ -12,6 +12,11 @@ class Api::ChannelMembershipsController < ApplicationController
         end
     end
 
+    def index
+        @channel_memberships = ChannelMembership.where(user_id: current_user.id)
+        
+    end
+
     # def destroy
     # end
 
