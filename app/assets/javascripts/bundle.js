@@ -930,7 +930,21 @@ function (_React$Component) {
           message: newMessage
         });
       });
-    }
+    } // editMessageForm(messageId) {
+    //     document.getElementsByClassName("clicked-ellipsis")[0].classList.remove("clicked-ellipsis")
+    //     let divs = document.getElementsByClassName("edit-delete-div")
+    //     divs[0].remove()
+    //     let message = document.getElementById(`message${messageId}`).innerHTML
+    //     return (
+    //         <form className="edit-message-form" id="edit-message-form" onSubmit={(e , messageId) => this.submitEditMessage(messageId)}>
+    //             <input type="text" id="edit-message-input" className="edit-message-input" value={message}/>
+    //             <button type="submit" value="Submit" onClick={this.cancelEditMessage} className="edit-submit-button">Save Changes</button>
+    //             <button type="button" value="Cancel" className="edit-cancel-button">Cancel</button>
+    //             <button id="message-id-button">{messageId}</button>
+    //         </form>
+    //     )
+    // }
+
   }, {
     key: "editMessageForm",
     value: function editMessageForm(messageId) {
@@ -1006,7 +1020,18 @@ function (_React$Component) {
       while (ellipses.length > 0) {
         ellipses[0].className = "fa fa-ellipsis-v message-ellipses";
       }
-    }
+    } // editDeletePopup(messageId) {
+    //     document.getElementById(`edit-message-popup-${messageId}`).classList.add("clicked-ellipsis")
+    //     return (
+    //         <div className="edit-delete-div">
+    //             <form type="hidden" className="hidden-form">
+    //                 <button className="edit-delete-button" onClick={() => this.editMessageForm(messageId)}>Edit Message</button>
+    //                 <button className="edit-delete-button">Delete Message</button>
+    //             </form>
+    //         </div>
+    //     )
+    // }
+
   }, {
     key: "editDeletePopup",
     value: function editDeletePopup(messageId) {
