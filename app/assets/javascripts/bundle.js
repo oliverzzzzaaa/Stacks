@@ -171,8 +171,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createChannel", function() { return createChannel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchChannels", function() { return fetchChannels; });
 /* harmony import */ var _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/channel_api_util */ "./frontend/util/channel_api_util.js");
-/* harmony import */ var _util_channel_membership_api_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/channel_membership_api_util */ "./frontend/util/channel_membership_api_util.js");
-
 
 var RECEIVE_CHANNELS = "RECEIVE_CHANNELS";
 var RECEIVE_CHANNEL = "RECEIVE_CHANNEL";
@@ -212,6 +210,46 @@ var createChannel = function createChannel(channel) {
 var fetchChannels = function fetchChannels() {
   return function (dispatch) {
     return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchChannels"]().then(function (channels) {
+      return dispatch(receiveChannels(channels));
+    });
+  };
+};
+
+/***/ }),
+
+/***/ "./frontend/actions/channel_membership_actions.js":
+/*!********************************************************!*\
+  !*** ./frontend/actions/channel_membership_actions.js ***!
+  \********************************************************/
+/*! exports provided: RECEIVE_MEMBERSHIPS, fetchChannelMemberships, joinChannel */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_MEMBERSHIPS", function() { return RECEIVE_MEMBERSHIPS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchChannelMemberships", function() { return fetchChannelMemberships; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "joinChannel", function() { return joinChannel; });
+/* harmony import */ var _util_channel_membership_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/channel_membership_api_util */ "./frontend/util/channel_membership_api_util.js");
+
+var RECEIVE_MEMBERSHIPS = "RECEIVE_MEMBERSHIPS";
+
+var receiveChannelMemberships = function receiveChannelMemberships(memberships) {
+  return {
+    type: RECEIVE_MEMBERSHIPS,
+    memberships: memberships
+  };
+};
+
+var fetchChannelMemberships = function fetchChannelMemberships() {
+  return function (dispatch) {
+    return _util_channel_membership_api_util__WEBPACK_IMPORTED_MODULE_0__["newChannelMembership"](userId).then(function (memberships) {
+      return dispatch(receiveChannelMemberships(memberships));
+    });
+  };
+};
+var joinChannel = function joinChannel(data) {
+  return function (dispatch) {
+    return _util_channel_membership_api_util__WEBPACK_IMPORTED_MODULE_0__["newChannelMembership"](data).then(function (channels) {
       return dispatch(receiveChannels(channels));
     });
   };
@@ -2757,6 +2795,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _messages_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./messages_reducer */ "./frontend/reducers/messages_reducer.js");
 /* harmony import */ var _workspaces_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./workspaces_reducer */ "./frontend/reducers/workspaces_reducer.js");
 /* harmony import */ var _channels_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./channels_reducer */ "./frontend/reducers/channels_reducer.js");
+/* harmony import */ var _memberships_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./memberships_reducer */ "./frontend/reducers/memberships_reducer.js");
+
 
 
 
@@ -2766,7 +2806,8 @@ var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers
   users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   messages: _messages_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
   workspaces: _workspaces_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
-  channels: _channels_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
+  channels: _channels_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
+  memberships: _memberships_reducer__WEBPACK_IMPORTED_MODULE_6__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -2789,6 +2830,41 @@ var errorsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"]
   session: _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (errorsReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/memberships_reducer.js":
+/*!**************************************************!*\
+  !*** ./frontend/reducers/memberships_reducer.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_channel_membership_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/channel_membership_actions */ "./frontend/actions/channel_membership_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+
+
+
+var membershipsReducer = function membershipsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_channel_membership_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_MEMBERSHIPS"]:
+      return action.memberships;
+
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["LOGOUT_CURRENT_USER"]:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (membershipsReducer);
 
 /***/ }),
 
