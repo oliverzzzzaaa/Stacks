@@ -195,6 +195,18 @@ class Chat extends React.Component {
         }  
     }
     
+    // editDeletePopup(messageId) {
+    //     document.getElementById(`edit-message-popup-${messageId}`).classList.add("clicked-ellipsis")
+
+    //     return (
+    //         <div className="edit-delete-div">
+    //             <form type="hidden" className="hidden-form">
+    //                 <button className="edit-delete-button" onClick={() => this.editMessageForm(messageId)}>Edit Message</button>
+    //                 <button className="edit-delete-button">Delete Message</button>
+    //             </form>
+    //         </div>
+    //     )
+    // }
 
     editDeletePopup(messageId) {
         let editMessagePopup = document.getElementById(`edit-message-popup-${messageId}`)
