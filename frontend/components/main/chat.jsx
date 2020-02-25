@@ -119,6 +119,10 @@ class Chat extends React.Component {
         
     }
 
+    // editMessageForm(messageId) {
+
+    // }
+
     editMessageForm(messageId) {
         document.getElementsByClassName("clicked-ellipsis")[0].classList.remove("clicked-ellipsis")
         let divs = document.getElementsByClassName("edit-delete-div")
