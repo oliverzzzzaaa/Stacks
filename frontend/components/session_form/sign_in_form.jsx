@@ -17,7 +17,10 @@ class SignInForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         this.props.action(this.state).then(
-            () => this.props.fetchMessages())
+            () => {
+                this.props.fetchMessages()
+                this.props.fetchChannelMemberships()
+            })
     }
 
     renderErrors() {

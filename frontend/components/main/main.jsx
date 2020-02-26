@@ -21,7 +21,7 @@ class Main extends React.Component {
             email: Object.values(this.props.currentUser)[0].email,
             name: Object.values(this.props.currentUser)[0].name,
             joinChannelModal: false,
-            channels: this.props.channels,
+            channels: this.props.memberships,
             workspace: this.props.workspaces[0]
         }
     }
@@ -59,6 +59,7 @@ class Main extends React.Component {
         .then((res) => {
             this.setState({workspace: Object.values(res.workspaces)[0]})
         })
+
     
     }
 

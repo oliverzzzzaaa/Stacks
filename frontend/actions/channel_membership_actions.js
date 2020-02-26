@@ -9,7 +9,7 @@ const receiveChannelMemberships = (memberships) => ({
 
 
 export const fetchChannelMemberships = () => dispatch => (
-    APIUtil.newChannelMembership(userId)
+    APIUtil.fetchMemberships()
         .then((memberships) => dispatch(receiveChannelMemberships(memberships)))
 )
 

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :update, :show]
     resources :workspaces, only: [:index, :create, :show]
     resources :workspace_assignments, only: [:create, :destroy]
-    resources :channel_memberships, only: [:create, :destroy]
+    resources :channel_memberships, only: [:create, :index, :destroy]
     resource :session, only: [:create, :destroy, :show]
     resources :channels
     resources :messages

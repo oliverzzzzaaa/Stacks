@@ -14,7 +14,7 @@ class Api::ChannelMembershipsController < ApplicationController
 
     def index
         @channel_memberships = ChannelMembership.where(user_id: current_user.id)
-        
+        render "/api/channel_memberships/index"
     end
 
     # def destroy

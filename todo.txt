@@ -1,10 +1,5 @@
-LOGGER REMOVE FOR PRODUCTION
+JSP: Github and LinkedIN 
+slightly change instructions
+FSP: Join and memberships (filter sidebar by memberships)
 
-change slack logo
-Full-stack
-    profile images in Chat
-    move images to AWS
-
-
-dangerously set
-purify
+Message Anne Marie on Monday 

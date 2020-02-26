@@ -19,7 +19,7 @@ class SplashPage extends React.Component {
             .then(() => {
                 if (this.props.currentUser) {
                     this.props.fetchChannels()
-                    .then(()=> console.log(this.props))
+                    .then(()=> this.props.fetchChannelMemberships())
                 }
             })
     }

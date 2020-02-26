@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
     currentUser: state.entities.users,
     currentUserId: state.session.id,
     channels: Object.values(state.entities.channels),
-    workspaces: Object.values(state.entities.workspaces)
+    workspaces: Object.values(state.entities.workspaces),
+    memberships: Object.values(state.entities.memberships)
 })
 
 const mapDispatchToProps = dispatch => ({
