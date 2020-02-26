@@ -1632,6 +1632,8 @@ function (_React$Component) {
     _this.backToSplash = _this.backToSplash.bind(_assertThisInitialized(_this));
     _this.logoutUser = _this.logoutUser.bind(_assertThisInitialized(_this));
     _this.redirectCreateChannel = _this.redirectCreateChannel.bind(_assertThisInitialized(_this));
+    _this.renderChannelList = _this.renderChannelList.bind(_assertThisInitialized(_this));
+    _this.renderDMList = _this.renderDMList.bind(_assertThisInitialized(_this));
     _this.state = {
       memberships: _this.props.memberships
     };
@@ -1682,30 +1684,15 @@ function (_React$Component) {
       modal.classList.add("user-profile-modal-show");
     }
   }, {
-    key: "render",
-    value: function render() {
+    key: "renderChannelList",
+    value: function renderChannelList() {
       var _this3 = this;
 
-      var channelList = [];
-      var dmList;
-
       if (this.props.workspace) {
-        console.log(this.props.memberships);
-        dmList = this.state.memberships.map(function (membership) {
-          if (membership.workspace_id === _this3.props.workspace.id) {
-            if (membership.channel_name.private_message === 1) {
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-                className: "sidebar-link DM",
-                key: membership.id
-              }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-                to: "/messages/".concat(membership.channel_id),
-                className: "DM-link",
-                onClick: function onClick() {
-                  return _this3.props.changeChannel(channel.id);
-                }
-              }, membership.id));
-            } else {
-              channelList.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        return this.props.memberships.map(function (membership) {
+          if (membership.channel_name.workspace_id === _this3.props.workspace.id) {
+            if (membership.channel_name.private_message !== 1) {
+              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
                 className: "sidebar-link locked-channel",
                 key: membership.id
               }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -1715,18 +1702,49 @@ function (_React$Component) {
                 to: "/messages/".concat(membership.channel_id),
                 className: "channel-links",
                 onClick: function onClick() {
-                  return _this3.props.changeChannel(channel.id);
+                  return _this3.props.changeChannel(membership.channel_id);
                 }
-              }, membership.channel_name[channel_name])));
+              }, membership.channel_name.channel_name));
+            } else {
               return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
             }
           }
         });
       } else {
-        console.log("NULL");
         return null;
       }
+    }
+  }, {
+    key: "renderDMList",
+    value: function renderDMList() {
+      var _this4 = this;
 
+      if (this.props.workspace) {
+        return this.props.memberships.map(function (membership) {
+          if (membership.channel_name.workspace_id === _this4.props.workspace.id) {
+            if (membership.channel_name.private_message === 1) {
+              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+                className: "sidebar-link DM",
+                key: membership.id
+              }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+                to: "/messages/".concat(membership.channel_id),
+                className: "DM-link",
+                onClick: function onClick() {
+                  return _this4.props.changeChannel(channel.id);
+                }
+              }, membership.channel_name.channel_name));
+            }
+          } else {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
+          }
+        });
+      } else {
+        return null;
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
       var currentUserId = this.props.currentUserId;
       var workspaceList = this.props.workspaces.map(function (workspace) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
@@ -1771,11 +1789,11 @@ function (_React$Component) {
         onClick: this.props.openJoinChannel
       }, "Channels"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         id: "channel-list-ul"
-      }, channelList)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.renderChannelList())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "dm-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "sidebar-link"
-      }, "Direct Messages"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, dmList)));
+      }, "Direct Messages"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, this.renderDMList())));
     }
   }]);
 

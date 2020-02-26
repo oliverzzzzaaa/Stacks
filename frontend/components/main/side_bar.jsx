@@ -8,6 +8,8 @@ class SideBar extends React.Component {
         this.backToSplash = this.backToSplash.bind(this)
         this.logoutUser = this.logoutUser.bind(this)
         this.redirectCreateChannel = this.redirectCreateChannel.bind(this)
+        this.renderChannelList = this.renderChannelList.bind(this)
+        this.renderDMList = this.renderDMList.bind(this)
         this.state = {
             memberships: this.props.memberships
         }
@@ -48,38 +50,58 @@ class SideBar extends React.Component {
         modal.classList.add("user-profile-modal-show")
     }
 
-
-    render() {
-        const channelList = []
-        let dmList;
+    renderChannelList() {
         if (this.props.workspace) {
-            console.log(this.props.memberships)
-            dmList= this.state.memberships.map (membership => {
-                if (membership.workspace_id === this.props.workspace.id) {
-                    if (membership.channel_name.private_message === 1) {
-                        <li className="sidebar-link DM" key={membership.id}>
-                            <NavLink to={`/messages/${membership.channel_id}`} className="DM-link" onClick={() => this.props.changeChannel(channel.id)}>
-                                {/* {membership.channel_name[channel_name]} */}
-                                {membership.id}
-                            </NavLink>
-                        </li>
-                    }else {
-                        channelList.push(
+            return (this.props.memberships.map (membership => {
+                if (membership.channel_name.workspace_id === this.props.workspace.id) {
+                    if (membership.channel_name.private_message !== 1) {
+                        return (
                             <li className="sidebar-link locked-channel" key={membership.id}>
                                 <img src={window.sidebarWhiteLock} className="sidebar-white-lock"/>
-                                <NavLink to={`/messages/${membership.channel_id}`} className="channel-links" onClick={() => this.props.changeChannel(channel.id)}>
-                                    {membership.channel_name[channel_name]}
+                                <NavLink to={`/messages/${membership.channel_id}`} className="channel-links" onClick={() => this.props.changeChannel(membership.channel_id)}>
+                                    {membership.channel_name.channel_name}
                                 </NavLink>
                             </li>
                         )
-                        return(<div></div>)
+                    } else {
+                        return (<div></div>)
                     }
                 }
-            })
+            }))
         } else {
-            console.log("NULL")
             return null
         }
+    }
+
+    renderDMList() {
+        
+        if (this.props.workspace) {
+            return (this.props.memberships.map (membership => {
+                if (membership.channel_name.workspace_id === this.props.workspace.id) {
+                    if (membership.channel_name.private_message === 1) {
+                        return (
+                            <li className="sidebar-link DM" key={membership.id}>
+                                <NavLink to={`/messages/${membership.channel_id}`} className="DM-link" onClick={() => this.props.changeChannel(channel.id)}>
+                                    {membership.channel_name.channel_name}
+                                    {/* {membership.id} */}
+                                </NavLink>
+                            </li>
+                        )
+                    }
+
+                } else {
+                    return (
+                        <div></div>
+                    )
+                }
+            }))
+        } else {
+            return null;
+        }
+    }
+
+
+    render() {
 
         let currentUserId = this.props.currentUserId
 
@@ -111,7 +133,8 @@ class SideBar extends React.Component {
                 <div id="channel-div">
                     <h4 className="sidebar-link" onClick={this.props.openJoinChannel}>Channels</h4>
                     <ul id="channel-list-ul">
-                        {channelList}
+                        {/* {channelList} */}
+                        {this.renderChannelList()}
                     </ul>
                 </div>
                 <div id="dm-div">
@@ -119,7 +142,8 @@ class SideBar extends React.Component {
                         Direct Messages
                     </h4>
                     <section>
-                        {dmList}
+                        {/* {dmList} */}
+                        {this.renderDMList()}
                         {/* <h4 className="sidebar-link DM">&#x25CB; Demo User 2</h4>
                         <h4 className="sidebar-link DM">&#x25CB; Demo User 3</h4> */}
 
