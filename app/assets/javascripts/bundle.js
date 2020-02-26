@@ -1632,6 +1632,9 @@ function (_React$Component) {
     _this.backToSplash = _this.backToSplash.bind(_assertThisInitialized(_this));
     _this.logoutUser = _this.logoutUser.bind(_assertThisInitialized(_this));
     _this.redirectCreateChannel = _this.redirectCreateChannel.bind(_assertThisInitialized(_this));
+    _this.state = {
+      memberships: _this.props.memberships
+    };
     return _this;
   }
 
@@ -1680,9 +1683,6 @@ function (_React$Component) {
     }
   }, {
     key: "render",
-    value: function render() {}
-  }, {
-    key: "render",
     value: function render() {
       var _this3 = this;
 
@@ -1690,7 +1690,8 @@ function (_React$Component) {
       var dmList;
 
       if (this.props.workspace) {
-        dmList = this.props.memberships.map(function (membership) {
+        console.log(this.props.memberships);
+        dmList = this.state.memberships.map(function (membership) {
           if (membership.workspace_id === _this3.props.workspace.id) {
             if (membership.channel_name.private_message === 1) {
               react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
@@ -1702,7 +1703,7 @@ function (_React$Component) {
                 onClick: function onClick() {
                   return _this3.props.changeChannel(channel.id);
                 }
-              }, membership.channel_name.channel_name));
+              }, membership.id));
             } else {
               channelList.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
                 className: "sidebar-link locked-channel",
@@ -1716,12 +1717,13 @@ function (_React$Component) {
                 onClick: function onClick() {
                   return _this3.props.changeChannel(channel.id);
                 }
-              }, membership.channel_name.channel_name)));
+              }, membership.channel_name[channel_name])));
               return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
             }
           }
         });
       } else {
+        console.log("NULL");
         return null;
       }
 

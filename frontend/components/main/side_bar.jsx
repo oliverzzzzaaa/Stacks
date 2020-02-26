@@ -8,7 +8,9 @@ class SideBar extends React.Component {
         this.backToSplash = this.backToSplash.bind(this)
         this.logoutUser = this.logoutUser.bind(this)
         this.redirectCreateChannel = this.redirectCreateChannel.bind(this)
-
+        this.state = {
+            memberships: this.props.memberships
+        }
     }
 
     backToSplash(e) {
@@ -46,20 +48,19 @@ class SideBar extends React.Component {
         modal.classList.add("user-profile-modal-show")
     }
 
-    render() {
-        
-    }
 
     render() {
         const channelList = []
         let dmList;
         if (this.props.workspace) {
-            dmList= this.props.memberships.map (membership => {
+            console.log(this.props.memberships)
+            dmList= this.state.memberships.map (membership => {
                 if (membership.workspace_id === this.props.workspace.id) {
                     if (membership.channel_name.private_message === 1) {
                         <li className="sidebar-link DM" key={membership.id}>
                             <NavLink to={`/messages/${membership.channel_id}`} className="DM-link" onClick={() => this.props.changeChannel(channel.id)}>
-                                {membership.channel_name.channel_name}
+                                {/* {membership.channel_name[channel_name]} */}
+                                {membership.id}
                             </NavLink>
                         </li>
                     }else {
@@ -67,7 +68,7 @@ class SideBar extends React.Component {
                             <li className="sidebar-link locked-channel" key={membership.id}>
                                 <img src={window.sidebarWhiteLock} className="sidebar-white-lock"/>
                                 <NavLink to={`/messages/${membership.channel_id}`} className="channel-links" onClick={() => this.props.changeChannel(channel.id)}>
-                                    {membership.channel_name.channel_name}
+                                    {membership.channel_name[channel_name]}
                                 </NavLink>
                             </li>
                         )
@@ -76,6 +77,7 @@ class SideBar extends React.Component {
                 }
             })
         } else {
+            console.log("NULL")
             return null
         }
 

@@ -23,7 +23,7 @@ class Main extends React.Component {
             joinChannelModal: false,
             channels: this.props.memberships,
             workspace: this.props.workspaces[0],
-            memberships: this.props.memberships
+            memberships: (this.props.memberships)
         }
     }
 
