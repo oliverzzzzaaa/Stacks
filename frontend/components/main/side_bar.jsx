@@ -17,6 +17,7 @@ class SideBar extends React.Component {
     }
 
     componentDidMount() {
+        this.props.fetchChannelMemberships()
     }
 
     logoutUser(e) {
@@ -46,25 +47,27 @@ class SideBar extends React.Component {
     }
 
     render() {
+        
+    }
+
+    render() {
         const channelList = []
         let dmList;
         if (this.props.workspace) {
-            dmList = this.props.channels.map (channel => {
-                if (channel.workspace_id === this.props.workspace.id) {
-                    if (channel.private_message === 1) {
-                        return (
-                            <li className="sidebar-link DM" key={channel.id}>
-                                <NavLink to={`/messages/${channel.id}`} className="DM-link" onClick={() => this.props.changeChannel(channel.id)}>
-                                    {channel.channel_name}
-                                </NavLink>
-                            </li>
-                        )
-                    } else {
+            dmList= this.props.memberships.map (membership => {
+                if (membership.workspace_id === this.props.workspace.id) {
+                    if (membership.channel_name.private_message === 1) {
+                        <li className="sidebar-link DM" key={membership.id}>
+                            <NavLink to={`/messages/${membership.channel_id}`} className="DM-link" onClick={() => this.props.changeChannel(channel.id)}>
+                                {membership.channel_name.channel_name}
+                            </NavLink>
+                        </li>
+                    }else {
                         channelList.push(
-                            <li className="sidebar-link locked-channel" key={channel.id}>
+                            <li className="sidebar-link locked-channel" key={membership.id}>
                                 <img src={window.sidebarWhiteLock} className="sidebar-white-lock"/>
-                                <NavLink to={`/messages/${channel.id}`} className="channel-links" onClick={() => this.props.changeChannel(channel.id)}>
-                                    {channel.channel_name}
+                                <NavLink to={`/messages/${membership.channel_id}`} className="channel-links" onClick={() => this.props.changeChannel(channel.id)}>
+                                    {membership.channel_name.channel_name}
                                 </NavLink>
                             </li>
                         )
@@ -72,6 +75,8 @@ class SideBar extends React.Component {
                     }
                 }
             })
+        } else {
+            return null
         }
 
         let currentUserId = this.props.currentUserId

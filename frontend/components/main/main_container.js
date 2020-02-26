@@ -3,7 +3,8 @@ import Main from './main'
 import {receiveCurrentUser, logout, updateUser} from '../../actions/session_actions';   
 import {fetchMessages, deleteMessage} from '../../actions/message_actions'
 import {fetchWorkspaces} from '../../actions/workspace_actions';
-import {fetchChannels, joinChannel} from '../../actions/channel_actions'
+import {fetchChannels} from '../../actions/channel_actions'
+import {joinChannel, fetchChannelMemberships} from '../../actions/channel_membership_actions'
 import {withRouter} from 'react-router-dom'
 
 const mapStateToProps = state => ({
@@ -18,6 +19,7 @@ const mapDispatchToProps = dispatch => ({
     receiveCurrentUser: (user) => dispatch(receiveCurrentUser(user)),
     logout: () => dispatch(logout()),
     fetchMessages: () => dispatch(fetchMessages()),
+    fetchChannelMemberships: () => dispatch(fetchChannelMemberships()),
     fetchWorkspaces: () => dispatch(fetchWorkspaces()),
     fetchChannels: (channels) => dispatch(fetchChannels(channels)),
     deleteMessage: (messageId) => dispatch(deleteMessage(messageId)),

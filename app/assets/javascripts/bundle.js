@@ -1324,7 +1324,8 @@ function (_React$Component) {
       name: Object.values(_this.props.currentUser)[0].name,
       joinChannelModal: false,
       channels: _this.props.memberships,
-      workspace: _this.props.workspaces[0]
+      workspace: _this.props.workspaces[0],
+      memberships: _this.props.memberships
     };
     return _this;
   }
@@ -1377,7 +1378,9 @@ function (_React$Component) {
         _this3.setState({
           workspace: Object.values(res.workspaces)[0]
         });
-      });
+
+        console.log(_this3.props.memberships);
+      }); // .then(() => console.log(this.props.memberships))
     }
   }, {
     key: "updateUser",
@@ -1443,7 +1446,8 @@ function (_React$Component) {
         changeChannel: this.changeChannel,
         currentChannel: this.state.currentChannel,
         openCreateChannel: this.openCreateChannel,
-        openJoinChannel: this.openJoinChannel
+        openJoinChannel: this.openJoinChannel,
+        memberships: this.state.memberships
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chat_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
         channel: this.state.currentChannel,
         currentUser: this.props.currentUser,
@@ -1522,7 +1526,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
 /* harmony import */ var _actions_workspace_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/workspace_actions */ "./frontend/actions/workspace_actions.js");
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _actions_channel_membership_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/channel_membership_actions */ "./frontend/actions/channel_membership_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 
 
 
@@ -1552,6 +1558,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     fetchMessages: function fetchMessages() {
       return dispatch(Object(_actions_message_actions__WEBPACK_IMPORTED_MODULE_3__["fetchMessages"])());
     },
+    fetchChannelMemberships: function fetchChannelMemberships() {
+      return dispatch(Object(_actions_channel_membership_actions__WEBPACK_IMPORTED_MODULE_6__["fetchChannelMemberships"])());
+    },
     fetchWorkspaces: function fetchWorkspaces() {
       return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_4__["fetchWorkspaces"])());
     },
@@ -1565,12 +1574,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["updateUser"])(user));
     },
     joinChannel: function joinChannel(data) {
-      return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_5__["joinChannel"])(data));
+      return dispatch(Object(_actions_channel_membership_actions__WEBPACK_IMPORTED_MODULE_6__["joinChannel"])(data));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_main__WEBPACK_IMPORTED_MODULE_1__["default"])));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_7__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_main__WEBPACK_IMPORTED_MODULE_1__["default"])));
 
 /***/ }),
 
@@ -1634,7 +1643,9 @@ function (_React$Component) {
     }
   }, {
     key: "componentDidMount",
-    value: function componentDidMount() {}
+    value: function componentDidMount() {
+      this.props.fetchChannelMemberships();
+    }
   }, {
     key: "logoutUser",
     value: function logoutUser(e) {
@@ -1669,6 +1680,9 @@ function (_React$Component) {
     }
   }, {
     key: "render",
+    value: function render() {}
+  }, {
+    key: "render",
     value: function render() {
       var _this3 = this;
 
@@ -1676,37 +1690,39 @@ function (_React$Component) {
       var dmList;
 
       if (this.props.workspace) {
-        dmList = this.props.channels.map(function (channel) {
-          if (channel.workspace_id === _this3.props.workspace.id) {
-            if (channel.private_message === 1) {
-              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        dmList = this.props.memberships.map(function (membership) {
+          if (membership.workspace_id === _this3.props.workspace.id) {
+            if (membership.channel_name.private_message === 1) {
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
                 className: "sidebar-link DM",
-                key: channel.id
+                key: membership.id
               }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-                to: "/messages/".concat(channel.id),
+                to: "/messages/".concat(membership.channel_id),
                 className: "DM-link",
                 onClick: function onClick() {
                   return _this3.props.changeChannel(channel.id);
                 }
-              }, channel.channel_name));
+              }, membership.channel_name.channel_name));
             } else {
               channelList.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
                 className: "sidebar-link locked-channel",
-                key: channel.id
+                key: membership.id
               }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
                 src: window.sidebarWhiteLock,
                 className: "sidebar-white-lock"
               }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-                to: "/messages/".concat(channel.id),
+                to: "/messages/".concat(membership.channel_id),
                 className: "channel-links",
                 onClick: function onClick() {
                   return _this3.props.changeChannel(channel.id);
                 }
-              }, channel.channel_name)));
+              }, membership.channel_name.channel_name)));
               return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
             }
           }
         });
+      } else {
+        return null;
       }
 
       var currentUserId = this.props.currentUserId;
@@ -1781,6 +1797,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_channel_membership_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/channel_membership_actions */ "./frontend/actions/channel_membership_actions.js");
+
 
 
 
@@ -1791,7 +1809,8 @@ var mapStateToProps = function mapStateToProps(state) {
     currentUser: state.entities.users,
     currentUserId: state.session.id,
     workspaces: Object.values(state.entities.workspaces),
-    channels: Object.values(state.entities.channels)
+    channels: Object.values(state.entities.channels),
+    memberships: Object.values(state.entities.memberships)
   };
 };
 
@@ -1810,6 +1829,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     }(function (user) {
       return dispatch(receiveCurrentUser(user));
     }),
+    fetchChannelMemberships: function fetchChannelMemberships() {
+      return dispatch(Object(_actions_channel_membership_actions__WEBPACK_IMPORTED_MODULE_4__["fetchChannelMemberships"])());
+    },
     logout: function logout() {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["logout"])());
     }

@@ -22,7 +22,8 @@ class Main extends React.Component {
             name: Object.values(this.props.currentUser)[0].name,
             joinChannelModal: false,
             channels: this.props.memberships,
-            workspace: this.props.workspaces[0]
+            workspace: this.props.workspaces[0],
+            memberships: this.props.memberships
         }
     }
 
@@ -56,11 +57,11 @@ class Main extends React.Component {
 
     componentDidMount() {
         this.props.fetchWorkspaces()
-        .then((res) => {
-            this.setState({workspace: Object.values(res.workspaces)[0]})
-        })
-
-    
+            .then((res) => {
+                this.setState({workspace: Object.values(res.workspaces)[0]})
+                console.log(this.props.memberships)
+            })
+            // .then(() => console.log(this.props.memberships))
     }
 
     updateUser() {
@@ -113,7 +114,8 @@ class Main extends React.Component {
                     changeChannel={this.changeChannel}
                     currentChannel={this.state.currentChannel}
                     openCreateChannel={this.openCreateChannel}
-                    openJoinChannel={this.openJoinChannel}/>
+                    openJoinChannel={this.openJoinChannel}
+                    memberships={this.state.memberships}/>
                 <ChatContainer channel={this.state.currentChannel} currentUser={this.props.currentUser} 
                     channels={this.props.channels} 
                     openModal={this.openModal}
