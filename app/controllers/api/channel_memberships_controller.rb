@@ -1,14 +1,13 @@
 class Api::ChannelMembershipsController < ApplicationController
 
     def create
+        # if (ChannelMembership.where(user_id: params[user_id], channel_id: params[channel_id]))
         @channel_membership = ChannelMembership.new(channel_membership_params)
         if @channel_membership.save
-            # @channels = Channel.all
-            @user = current_user
-            @channels = Channel.all
-            render "/api/channels/index"
+            @channel_memberships = ChannelMembership.where(user_id: current_user.id)
+            render "/api/channel_memberships/index"
         else
-            render json: @user.errors.full_messages, status: 422
+            render json: @channel_membership.errors.full_messages, status: 422
         end
     end
 

@@ -15,6 +15,6 @@ export const fetchChannelMemberships = () => dispatch => (
 
 export const joinChannel = (data) => dispatch => (
     APIUtil.newChannelMembership(data)
-        .then((channels) => dispatch(receiveChannels(channels)))
+        .then((memberships) => dispatch(receiveChannelMemberships(memberships)))
 ) 
 

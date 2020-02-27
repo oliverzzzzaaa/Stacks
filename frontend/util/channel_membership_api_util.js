@@ -1,8 +1,8 @@
-export const newChannelMembership = (userId) => (
+export const newChannelMembership = (channel_membership) => (
     $.ajax ({
         method: "POST",
         url: '/api/channel_memberships',
-        data: {userId}
+        data: {channel_membership}
     })
 )
 

@@ -22,7 +22,7 @@ export const fetchChannel = (channelId) => dispatch => (
 
 export const createChannel = (channel) => dispatch => (
     APIUtil.newChannel(channel)
-        .then((channel) => dispatch(receiveChannel(channel)))
+        .then((channels) => dispatch(receiveChannels(channel)))
         , error => (dispatch(receiveErrors(error.responseJSON)))
 )
 

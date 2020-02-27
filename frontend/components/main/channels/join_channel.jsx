@@ -6,6 +6,7 @@ class JoinChannel extends React.Component {
         this.updateField = this.updateField.bind(this)
         this.searchChannels = this.searchChannels.bind(this)
         this.renderChannels = this.renderChannels.bind(this)
+        this.joinChannel = this.joinChannel.bind(this)
         this.state = {
             search: '',
             channels: this.props.channels
@@ -27,11 +28,16 @@ class JoinChannel extends React.Component {
 
 
     joinChannel(channel) {
-        data = {
-            channelId: channel.id,
-            userId: this.props.currentUserId
+        let ChannelMembership = {
+            channel_id: channel.id,
+            user_id: this.props.currentUserId
         }
-        this.props.action(data)
+        this.props.action(ChannelMembership)
+            // .then(() => this.props.closeJoinChannel())
+            .then(() => {
+                console.log(this.props)
+                // this.props.history.push(`/messages/${channel.id}`)
+            })
         // console.log(this.props.currentUserId)
     }
 

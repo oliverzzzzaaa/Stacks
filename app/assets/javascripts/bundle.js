@@ -200,8 +200,8 @@ var fetchChannel = function fetchChannel(channelId) {
 };
 var createChannel = function createChannel(channel) {
   return function (dispatch) {
-    return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__["newChannel"](channel).then(function (channel) {
-      return dispatch(receiveChannel(channel));
+    return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__["newChannel"](channel).then(function (channels) {
+      return dispatch(receiveChannels(channel));
     }), function (error) {
       return dispatch(receiveErrors(error.responseJSON));
     };
@@ -249,8 +249,8 @@ var fetchChannelMemberships = function fetchChannelMemberships() {
 };
 var joinChannel = function joinChannel(data) {
   return function (dispatch) {
-    return _util_channel_membership_api_util__WEBPACK_IMPORTED_MODULE_0__["newChannelMembership"](data).then(function (channels) {
-      return dispatch(receiveChannels(channels));
+    return _util_channel_membership_api_util__WEBPACK_IMPORTED_MODULE_0__["newChannelMembership"](data).then(function (memberships) {
+      return dispatch(receiveChannelMemberships(memberships));
     });
   };
 };
@@ -697,6 +697,7 @@ function (_React$Component) {
     _this.updateField = _this.updateField.bind(_assertThisInitialized(_this));
     _this.searchChannels = _this.searchChannels.bind(_assertThisInitialized(_this));
     _this.renderChannels = _this.renderChannels.bind(_assertThisInitialized(_this));
+    _this.joinChannel = _this.joinChannel.bind(_assertThisInitialized(_this));
     _this.state = {
       search: '',
       channels: _this.props.channels
@@ -724,25 +725,30 @@ function (_React$Component) {
   }, {
     key: "joinChannel",
     value: function joinChannel(channel) {
-      data = {
-        channelId: channel.id,
-        userId: this.props.currentUserId
+      var _this3 = this;
+
+      var ChannelMembership = {
+        channel_id: channel.id,
+        user_id: this.props.currentUserId
       };
-      this.props.action(data); // console.log(this.props.currentUserId)
+      this.props.action(ChannelMembership) // .then(() => this.props.closeJoinChannel())
+      .then(function () {
+        console.log(_this3.props); // this.props.history.push(`/messages/${channel.id}`)
+      }); // console.log(this.props.currentUserId)
     }
   }, {
     key: "renderChannels",
     value: function renderChannels() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.props.workspace) {
         var channelList = this.state.channels.map(function (channel) {
           // if (this.props.currentUser)
-          if (channel.private_message === 0 && channel.workspace_id === _this3.props.workspace.id) {
+          if (channel.private_message === 0 && channel.workspace_id === _this4.props.workspace.id) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
               className: "join-channel-li",
               onClick: function onClick() {
-                return _this3.joinChannel(channel);
+                return _this4.joinChannel(channel);
               }
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, channel.channel_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, channel.channel_topic));
           } else {
@@ -3289,12 +3295,12 @@ var fetchChannels = function fetchChannels() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "newChannelMembership", function() { return newChannelMembership; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchMemberships", function() { return fetchMemberships; });
-var newChannelMembership = function newChannelMembership(userId) {
+var newChannelMembership = function newChannelMembership(channel_membership) {
   return $.ajax({
     method: "POST",
     url: '/api/channel_memberships',
     data: {
-      userId: userId
+      channel_membership: channel_membership
     }
   });
 };

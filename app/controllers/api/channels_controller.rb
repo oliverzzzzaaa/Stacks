@@ -25,7 +25,8 @@ class Api::ChannelsController < ApplicationController
                 channel_id: @channel.id
             )
             if cMembership.save
-                render :show
+                @channels = Channel.all
+                render :index
             else
                 render json: @message.errors.full_messages, status: 422
             end
