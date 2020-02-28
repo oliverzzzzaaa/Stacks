@@ -14,7 +14,7 @@ class CreateChannel extends React.Component {
 
     cancel(e) {
         e.preventDefault();
-        this.props.history.push("/messages")
+        this.props.history.goBack()
     }
 
     submitChannelForm(e) {
@@ -26,7 +26,10 @@ class CreateChannel extends React.Component {
             workspace_id: this.props.workspaces[0].id
         }
         this.props.createChannel(channel)
-        this.props.history.push("/messages")
+        this.props.fetchChannels()
+        .then(() => this.props.history.goBack())
+        // this.props.history.push("/messages")
+        // this.props.history.goBack()
     }
 
     updateState(field) {

@@ -1,7 +1,5 @@
-JSP: Github and LinkedIN 
-slightly change instructions
-FSP: rerender when creating channel
 
-No current user sidebar on refresh
+JSP: slightly change instructions
+FSP: rerender when creating channel
 
 Message Anne Marie on Monday 

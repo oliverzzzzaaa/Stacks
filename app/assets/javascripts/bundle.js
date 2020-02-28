@@ -201,7 +201,7 @@ var fetchChannel = function fetchChannel(channelId) {
 var createChannel = function createChannel(channel) {
   return function (dispatch) {
     return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__["newChannel"](channel).then(function (channels) {
-      return dispatch(receiveChannels(channel));
+      return dispatch(receiveChannels(channels));
     }), function (error) {
       return dispatch(receiveErrors(error.responseJSON));
     };
@@ -539,11 +539,13 @@ function (_React$Component) {
     key: "cancel",
     value: function cancel(e) {
       e.preventDefault();
-      this.props.history.push("/messages");
+      this.props.history.goBack();
     }
   }, {
     key: "submitChannelForm",
     value: function submitChannelForm(e) {
+      var _this2 = this;
+
       e.preventDefault();
       var channel = {
         channel_topic: this.state.channelTopic,
@@ -552,24 +554,27 @@ function (_React$Component) {
         workspace_id: this.props.workspaces[0].id
       };
       this.props.createChannel(channel);
-      this.props.history.push("/messages");
+      this.props.fetchChannels().then(function () {
+        return _this2.props.history.goBack();
+      }); // this.props.history.push("/messages")
+      // this.props.history.goBack()
     }
   }, {
     key: "updateState",
     value: function updateState(field) {
-      var _this2 = this;
+      var _this3 = this;
 
       return function (e) {
-        _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+        _this3.setState(_defineProperty({}, field, e.currentTarget.value));
       };
     }
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.props.fetchWorkspaces().then(function () {
-        console.log(_this3.props.workspaces);
+        console.log(_this4.props.workspaces);
       });
     }
   }, {
@@ -643,6 +648,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchWorkspaces: function fetchWorkspaces() {
       return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_5__["fetchWorkspaces"])());
+    },
+    fetchChannels: function fetchChannels() {
+      return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__["fetchChannels"])());
     } // fetchWorkspace: (workspace) => dispatch(fetchWorkspace(workspace))
 
   };
