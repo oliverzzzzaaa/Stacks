@@ -1340,7 +1340,8 @@ function (_React$Component) {
       joinChannelModal: false,
       channels: _this.props.memberships,
       workspace: _this.props.workspaces[0],
-      memberships: _this.props.memberships
+      memberships: _this.props.memberships,
+      currentUser: _this.props.currentUser
     };
     return _this;
   }
@@ -1348,7 +1349,6 @@ function (_React$Component) {
   _createClass(Main, [{
     key: "openJoinChannel",
     value: function openJoinChannel() {
-      console.log(this.props.channels);
       this.setState({
         joinChannelModal: true
       });
@@ -1451,7 +1451,7 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_side_bar_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        currentUser: this.props.currentUser[0],
+        currentUser: this.state.currentUser[0],
         messages: this.props.messages,
         workspaces: this.props.workspaces,
         workspace: this.state.workspace,
@@ -1782,7 +1782,7 @@ function (_React$Component) {
         id: "current-user-link"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "green-dot"
-      }), this.state.currentUser.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), this.state.currentUser.name || this.props.currentUser.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "hidden-sidebar-dropdown",
         className: "sidebar-revealed"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3201,8 +3201,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store/store */ "./frontend/store/store.js");
 /* harmony import */ var _root__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./root */ "./frontend/root.jsx");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -3217,7 +3215,9 @@ document.addEventListener("DOMContentLoaded", function () {
         id: window.currentUser.id
       },
       entities: {
-        users: _defineProperty({}, window.currentUser.id, window.currentUser)
+        users: {
+          id: window.currentUser
+        }
       }
     };
     store = Object(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"])(preloadedState);

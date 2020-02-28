@@ -23,12 +23,12 @@ class Main extends React.Component {
             joinChannelModal: false,
             channels: this.props.memberships,
             workspace: this.props.workspaces[0],
-            memberships: (this.props.memberships)
+            memberships: (this.props.memberships),
+            currentUser: this.props.currentUser
         }
     }
 
     openJoinChannel() {
-        console.log(this.props.channels)
         this.setState({joinChannelModal: true})
     }
 
@@ -105,7 +105,7 @@ class Main extends React.Component {
         return(
             <div className="main-div">
                 <SideBarContainer 
-                    currentUser={this.props.currentUser[0]}
+                    currentUser={this.state.currentUser[0]}
                     messages = {this.props.messages}
                     workspaces={this.props.workspaces}
                     workspace={this.state.workspace}

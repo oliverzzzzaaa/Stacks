@@ -118,7 +118,7 @@ class SideBar extends React.Component {
             <div className="sidebar-container-purple">
                 <div className="sidebar-link" id="sidebar-workspace-dropdown-hover" onClick={this.showDropdown}>
                     <h4 id="sidebar-workspace-name" className="sidebar-link">{this.props.workspaces[0] ? this.props.workspaces[0].workspace_name : null}</h4>
-                    <h4 className="sidebar-link" id="current-user-link"><span className="green-dot"></span>{this.state.currentUser.name}</h4>
+                    <h4 className="sidebar-link" id="current-user-link"><span className="green-dot"></span>{this.state.currentUser.name || this.props.currentUser.name}</h4>
                     <div id="hidden-sidebar-dropdown" className="sidebar-revealed">
                         {/* <div id="profile-link" className="sidebar-dropdown">Profile Link</div> */}
                         <div className="sidebar-dropdown sidebar-edit-dropdown" onClick={this.openProfileModal}>
