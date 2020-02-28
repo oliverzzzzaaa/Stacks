@@ -1844,7 +1844,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    currentUser: state.entities.users,
+    // currentUser: state.entities.users,
     currentUserId: state.session.id,
     workspaces: Object.values(state.entities.workspaces),
     channels: Object.values(state.entities.channels),

@@ -5,7 +5,7 @@ import {logout} from '../../actions/session_actions'
 import {fetchChannelMemberships} from '../../actions/channel_membership_actions'
 
 const mapStateToProps = state => ({
-    currentUser: state.entities.users,
+    // currentUser: state.entities.users,
     currentUserId: state.session.id,
     workspaces: Object.values(state.entities.workspaces),
     channels: Object.values(state.entities.channels),
