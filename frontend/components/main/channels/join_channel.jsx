@@ -45,6 +45,10 @@ class JoinChannel extends React.Component {
         // console.log(this.props.currentUserId)
     }
 
+    componentDidMount() {
+        console.log(this.props)
+    }
+
     renderChannels() {
         if (this.props.workspace) {
             console.log(this.props.memberships)

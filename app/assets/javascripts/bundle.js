@@ -748,6 +748,11 @@ function (_React$Component) {
       }); // console.log(this.props.currentUserId)
     }
   }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      console.log(this.props);
+    }
+  }, {
     key: "renderChannels",
     value: function renderChannels() {
       var _this4 = this;
