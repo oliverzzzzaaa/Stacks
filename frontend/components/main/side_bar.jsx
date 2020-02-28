@@ -11,7 +11,7 @@ class SideBar extends React.Component {
         this.renderChannelList = this.renderChannelList.bind(this)
         this.renderDMList = this.renderDMList.bind(this)
         this.state = {
-            currentUser: Object.values(this.props.currentUser)[0],
+            currentUser: this.props.currentUser,
             memberships: this.props.memberships
         }
     }
@@ -22,7 +22,7 @@ class SideBar extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.currentUser)
+        console.log(this.state.currentUser)
         this.props.fetchChannelMemberships()
     }
 

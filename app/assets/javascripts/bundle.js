@@ -1393,8 +1393,6 @@ function (_React$Component) {
         _this3.setState({
           workspace: Object.values(res.workspaces)[0]
         });
-
-        console.log(_this3.props.memberships);
       }); // .then(() => console.log(this.props.memberships))
     }
   }, {
@@ -1651,7 +1649,7 @@ function (_React$Component) {
     _this.renderChannelList = _this.renderChannelList.bind(_assertThisInitialized(_this));
     _this.renderDMList = _this.renderDMList.bind(_assertThisInitialized(_this));
     _this.state = {
-      currentUser: Object.values(_this.props.currentUser)[0],
+      currentUser: _this.props.currentUser,
       memberships: _this.props.memberships
     };
     return _this;
@@ -1666,7 +1664,7 @@ function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log(this.props.currentUser);
+      console.log(this.state.currentUser);
       this.props.fetchChannelMemberships();
     }
   }, {

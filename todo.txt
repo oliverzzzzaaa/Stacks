@@ -2,6 +2,6 @@ JSP: Github and LinkedIN
 slightly change instructions
 FSP: rerender when creating channel
 
-Action.currentUser on login and reload
+No current user sidebar on refresh
 
 Message Anne Marie on Monday 

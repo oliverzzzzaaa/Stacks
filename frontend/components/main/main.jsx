@@ -59,7 +59,6 @@ class Main extends React.Component {
         this.props.fetchWorkspaces()
             .then((res) => {
                 this.setState({workspace: Object.values(res.workspaces)[0]})
-                console.log(this.props.memberships)
             })
             // .then(() => console.log(this.props.memberships))
     }
