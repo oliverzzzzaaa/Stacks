@@ -733,6 +733,9 @@ function (_React$Component) {
       };
       this.props.action(ChannelMembership) // .then(() => this.props.closeJoinChannel())
       .then(function () {
+        // this.props.history.push("")
+        _this3.props.closeJoinChannel();
+      }).then(function () {
         console.log(_this3.props); // this.props.history.push(`/messages/${channel.id}`)
       }); // console.log(this.props.currentUserId)
     }
@@ -742,17 +745,23 @@ function (_React$Component) {
       var _this4 = this;
 
       if (this.props.workspace) {
+        console.log(this.props.memberships);
         var channelList = this.state.channels.map(function (channel) {
-          // if (this.props.currentUser)
-          if (channel.private_message === 0 && channel.workspace_id === _this4.props.workspace.id) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-              className: "join-channel-li",
-              onClick: function onClick() {
-                return _this4.joinChannel(channel);
-              }
-            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, channel.channel_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, channel.channel_topic));
-          } else {
-            return null;
+          console.log(channel.id);
+
+          if (_this4.props.memberships.every(function (mem) {
+            return mem.channel_id !== channel.id;
+          })) {
+            if (channel.private_message === 0 && channel.workspace_id === _this4.props.workspace.id) {
+              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+                className: "join-channel-li",
+                onClick: function onClick() {
+                  return _this4.joinChannel(channel);
+                }
+              }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, channel.channel_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, channel.channel_topic));
+            } else {
+              return null;
+            }
           }
         });
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, channelList);
@@ -1444,7 +1453,7 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-div"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_side_bar_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        currentUser: this.props.currentUser,
+        currentUser: this.props.currentUser[0],
         messages: this.props.messages,
         workspaces: this.props.workspaces,
         workspace: this.state.workspace,
@@ -1503,6 +1512,7 @@ function (_React$Component) {
       }, "Update Profile")))), this.state.joinChannelModal ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_channels_join_channel__WEBPACK_IMPORTED_MODULE_3__["default"], {
         currentUserId: this.props.currentUserId,
         action: this.props.joinChannel,
+        memberships: this.props.memberships,
         workspace: this.state.workspace,
         closeJoinChannel: this.closeJoinChannel,
         channels: this.props.channels
@@ -1545,7 +1555,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    currentUser: state.entities.users,
+    currentUser: Object.values(state.entities.users),
     currentUserId: state.session.id,
     channels: Object.values(state.entities.channels),
     workspaces: Object.values(state.entities.workspaces),
@@ -1641,6 +1651,7 @@ function (_React$Component) {
     _this.renderChannelList = _this.renderChannelList.bind(_assertThisInitialized(_this));
     _this.renderDMList = _this.renderDMList.bind(_assertThisInitialized(_this));
     _this.state = {
+      currentUser: Object.values(_this.props.currentUser)[0],
       memberships: _this.props.memberships
     };
     return _this;
@@ -1655,6 +1666,7 @@ function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
+      console.log(this.props.currentUser);
       this.props.fetchChannelMemberships();
     }
   }, {
@@ -1772,7 +1784,7 @@ function (_React$Component) {
         id: "current-user-link"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "green-dot"
-      }), this.props.currentUser[currentUserId].name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), this.state.currentUser.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "hidden-sidebar-dropdown",
         className: "sidebar-revealed"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1987,9 +1999,10 @@ function (_React$Component) {
       e.preventDefault();
       this.props.action(this.state).then(function () {
         _this3.props.fetchMessages();
-
-        _this3.props.fetchChannelMemberships();
-      });
+      }) // .then(() => {this.props.fetchChannelMemberships()})
+      .then(function () {
+        return _this3.props.history.push("/");
+      }); // this.props.history.push("/")
     }
   }, {
     key: "renderErrors",
@@ -3053,8 +3066,9 @@ var sessionReducer = function sessionReducer() {
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
       return {
-        id: action.currentUser.id
+        id: action.currentUser
       };
+    // return { id: action.currentUser.id}
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["LOGOUT_CURRENT_USER"]:
       return _nullUser;
@@ -3078,8 +3092,6 @@ var sessionReducer = function sessionReducer() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 var usersReducer = function usersReducer() {
@@ -3089,7 +3101,10 @@ var usersReducer = function usersReducer() {
 
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
-      return Object.assign({}, state, _defineProperty({}, action.currentUser.id, action.currentUser));
+      return {
+        id: action.currentUser
+      };
+    // return Object.assign({}, state, { [action.currentUser.id]: action.currentUser})
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["LOGOUT_CURRENT_USER"]:
       return {};

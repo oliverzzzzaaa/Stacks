@@ -1,5 +1,7 @@
 JSP: Github and LinkedIN 
 slightly change instructions
-FSP: Join and memberships (filter sidebar by memberships)
+FSP: rerender when creating channel
+
+Action.currentUser on login and reload
 
 Message Anne Marie on Monday 

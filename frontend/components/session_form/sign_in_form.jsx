@@ -16,11 +16,11 @@ class SignInForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.action(this.state).then(
-            () => {
-                this.props.fetchMessages()
-                this.props.fetchChannelMemberships()
-            })
+        this.props.action(this.state)
+        .then(() => {this.props.fetchMessages()})
+        // .then(() => {this.props.fetchChannelMemberships()})
+        .then(() => this.props.history.push("/"))
+                // this.props.history.push("/")
     }
 
     renderErrors() {

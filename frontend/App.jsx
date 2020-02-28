@@ -18,10 +18,8 @@ import {
 const App = () => (
   <div id="app-div">
     <Switch>
-      {/* <Route exact path="/" component={SplashPageContainer}/> */}
       <AuthRoute exact path="/session/new" component={WorkSpaceFormContainer}/>
       <AuthRoute exact path="/session/workspace/new" component={SignInFormContainer}/>
-      {/* <AuthRoute exact path="/session/:workspace_url/new" component={SignInFormContainer}/> */}
       <AuthRoute exact path="/users/new" component={SignUpFormContainer}/>
       <Route path="/test" component={SideBarContainer} />
       <ProtectedRoute path="/messages" component={MainContainer} />
@@ -29,7 +27,6 @@ const App = () => (
       <ProtectedRoute path="/channels/new" component={CreateChannelContainer} />
       <Route path="/" component={SplashPageContainer}/>
     </Switch>
-
   </div>
 );
 

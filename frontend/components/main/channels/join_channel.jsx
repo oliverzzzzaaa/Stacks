@@ -35,6 +35,10 @@ class JoinChannel extends React.Component {
         this.props.action(ChannelMembership)
             // .then(() => this.props.closeJoinChannel())
             .then(() => {
+                // this.props.history.push("")
+                this.props.closeJoinChannel()
+            })
+            .then(() => {
                 console.log(this.props)
                 // this.props.history.push(`/messages/${channel.id}`)
             })
@@ -43,17 +47,20 @@ class JoinChannel extends React.Component {
 
     renderChannels() {
         if (this.props.workspace) {
+            console.log(this.props.memberships)
             let channelList = this.state.channels.map(channel => {
-                // if (this.props.currentUser)
-                if (channel.private_message === 0 && channel.workspace_id === this.props.workspace.id) {
-                    return (
-                        <li className="join-channel-li" onClick={() => this.joinChannel(channel)}>
-                            <h3>{channel.channel_name}</h3>
-                            <h4>{channel.channel_topic}</h4>
-                        </li>
-                    )
-                } else {
-                    return null;
+                console.log(channel.id)
+                if (this.props.memberships.every(mem => mem.channel_id !== channel.id)) {
+                    if (channel.private_message === 0 && channel.workspace_id === this.props.workspace.id) {
+                        return (
+                            <li className="join-channel-li" onClick={() => this.joinChannel(channel)}>
+                                <h3>{channel.channel_name}</h3>
+                                <h4>{channel.channel_topic}</h4>
+                            </li>
+                        )
+                    } else {
+                        return null;
+                    }
                 }
             })
             return (

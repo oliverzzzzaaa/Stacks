@@ -106,7 +106,7 @@ class Main extends React.Component {
         return(
             <div className="main-div">
                 <SideBarContainer 
-                    currentUser={this.props.currentUser}
+                    currentUser={this.props.currentUser[0]}
                     messages = {this.props.messages}
                     workspaces={this.props.workspaces}
                     workspace={this.state.workspace}
@@ -153,7 +153,7 @@ class Main extends React.Component {
                     </div>
                 </div>
                 {this.state.joinChannelModal ? <JoinChannel 
-                currentUserId={this.props.currentUserId} action={this.props.joinChannel}
+                currentUserId={this.props.currentUserId} action={this.props.joinChannel} memberships={this.props.memberships}
                 workspace={this.state.workspace} closeJoinChannel={this.closeJoinChannel} channels={this.props.channels}/> : null}
             </div>
         )

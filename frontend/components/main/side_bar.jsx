@@ -11,6 +11,7 @@ class SideBar extends React.Component {
         this.renderChannelList = this.renderChannelList.bind(this)
         this.renderDMList = this.renderDMList.bind(this)
         this.state = {
+            currentUser: Object.values(this.props.currentUser)[0],
             memberships: this.props.memberships
         }
     }
@@ -21,6 +22,7 @@ class SideBar extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this.props.currentUser)
         this.props.fetchChannelMemberships()
     }
 
@@ -116,7 +118,7 @@ class SideBar extends React.Component {
             <div className="sidebar-container-purple">
                 <div className="sidebar-link" id="sidebar-workspace-dropdown-hover" onClick={this.showDropdown}>
                     <h4 id="sidebar-workspace-name" className="sidebar-link">{this.props.workspaces[0] ? this.props.workspaces[0].workspace_name : null}</h4>
-                    <h4 className="sidebar-link" id="current-user-link"><span className="green-dot"></span>{this.props.currentUser[currentUserId].name}</h4>
+                    <h4 className="sidebar-link" id="current-user-link"><span className="green-dot"></span>{this.state.currentUser.name}</h4>
                     <div id="hidden-sidebar-dropdown" className="sidebar-revealed">
                         {/* <div id="profile-link" className="sidebar-dropdown">Profile Link</div> */}
                         <div className="sidebar-dropdown sidebar-edit-dropdown" onClick={this.openProfileModal}>
