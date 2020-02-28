@@ -22,7 +22,6 @@ class SideBar extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.state.currentUser)
         this.props.fetchChannelMemberships()
     }
 

@@ -60,7 +60,6 @@ class Main extends React.Component {
             .then((res) => {
                 this.setState({workspace: Object.values(res.workspaces)[0]})
             })
-            // .then(() => console.log(this.props.memberships))
     }
 
     updateUser() {

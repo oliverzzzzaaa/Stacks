@@ -571,11 +571,7 @@ function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this4 = this;
-
-      this.props.fetchWorkspaces().then(function () {
-        console.log(_this4.props.workspaces);
-      });
+      this.props.fetchWorkspaces().then(function () {});
     }
   }, {
     key: "render",
@@ -739,18 +735,9 @@ function (_React$Component) {
         channel_id: channel.id,
         user_id: this.props.currentUserId
       };
-      this.props.action(ChannelMembership) // .then(() => this.props.closeJoinChannel())
-      .then(function () {
-        // this.props.history.push("")
+      this.props.action(ChannelMembership).then(function () {
         _this3.props.closeJoinChannel();
-      }).then(function () {
-        console.log(_this3.props); // this.props.history.push(`/messages/${channel.id}`)
-      }); // console.log(this.props.currentUserId)
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      console.log(this.props);
+      });
     }
   }, {
     key: "renderChannels",
@@ -758,10 +745,7 @@ function (_React$Component) {
       var _this4 = this;
 
       if (this.props.workspace) {
-        console.log(this.props.memberships);
         var channelList = this.state.channels.map(function (channel) {
-          console.log(channel.id);
-
           if (_this4.props.memberships.every(function (mem) {
             return mem.channel_id !== channel.id;
           })) {
@@ -1406,7 +1390,7 @@ function (_React$Component) {
         _this3.setState({
           workspace: Object.values(res.workspaces)[0]
         });
-      }); // .then(() => console.log(this.props.memberships))
+      });
     }
   }, {
     key: "updateUser",
@@ -1677,7 +1661,6 @@ function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log(this.state.currentUser);
       this.props.fetchChannelMemberships();
     }
   }, {

@@ -41,7 +41,6 @@ class CreateChannel extends React.Component {
     componentDidMount() {
         this.props.fetchWorkspaces()
         .then(() => {
-            console.log(this.props.workspaces)
         })
     }
 
