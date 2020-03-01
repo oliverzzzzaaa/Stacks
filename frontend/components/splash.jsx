@@ -93,36 +93,20 @@ class SplashPage extends React.Component {
         return(
             <div>
                 <section className="splash-header">
-                    {/* <button className="splash-button">Sign In</button>
-                    <button className="splash-button">Sign Up</button> */}
                     <section className="header-left">
                         <div className="slack-logo-div">
                             <NavLink to='/' className="splash-nav-dropdowns">
                                 <img src={window.iconSlack} className="slack-logo"/>
                             </NavLink>
                         </div>
-                        <h2 className="splash-nav-dropdowns">Why Slack?</h2>
-                        <h2 className="splash-nav-dropdowns">Solutions</h2>
-                        <h2 className="splash-nav-dropdowns">Resources</h2>
-                        <h2 className="splash-nav-dropdowns">Enterprise</h2>
-                        <h2 className="splash-nav-dropdowns">Pricing</h2>
-                        {/* <NavLink to='/users/new' className="splash-nav-dropdowns">Why Slack?</NavLink>
-                        <NavLink to='/users/new' className="splash-nav-dropdowns">Solutions</NavLink>
-                        <NavLink to='/users/new' className="splash-nav-dropdowns">Resources</NavLink>
-                        <NavLink to='/users/new' className="splash-nav-dropdowns">Enterprise</NavLink>
-                        <NavLink to='/users/new' className="splash-nav-dropdowns">Pricing</NavLink> */}
                     </section>
                     {loginout}
                 </section>
                 <div className="splash-main">
-                    {/* <section className="splash-first">
-                        
-                    </section> */}
                     <section className="splash-item" id="splash-second">
                         <section id="marble-text">
                             <h1>Slack replaces email inside your company</h1>
                             <h4 id="marble-text-secondary">Keep conversations organized in Slack, the smart alternative to email</h4>
-                            {/* <NavLink to="/users/new" className="marble-button">Try Slack</NavLink> */}
                             {tryslack}
                         </section>
                     </section>

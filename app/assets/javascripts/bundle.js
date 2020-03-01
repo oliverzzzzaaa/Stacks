@@ -1386,6 +1386,7 @@ function (_React$Component) {
     value: function componentDidMount() {
       var _this3 = this;
 
+      console.log(this.props);
       this.props.fetchWorkspaces().then(function (res) {
         _this3.setState({
           workspace: Object.values(res.workspaces)[0]
@@ -2683,17 +2684,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
         src: window.iconSlack,
         className: "slack-logo"
-      }))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
-        className: "splash-nav-dropdowns"
-      }, "Why Slack?"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
-        className: "splash-nav-dropdowns"
-      }, "Solutions"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
-        className: "splash-nav-dropdowns"
-      }, "Resources"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
-        className: "splash-nav-dropdowns"
-      }, "Enterprise"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
-        className: "splash-nav-dropdowns"
-      }, "Pricing")), loginout), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      })))), loginout), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "splash-main"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
         className: "splash-item",
