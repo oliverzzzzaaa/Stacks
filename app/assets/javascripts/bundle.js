@@ -2040,22 +2040,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.iconSlack,
         className: "slack-logo"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/users/new",
-        className: "splash-nav-dropdowns"
-      }, "Why Slack?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/users/new",
-        className: "splash-nav-dropdowns"
-      }, "Solutions"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/users/new",
-        className: "splash-nav-dropdowns"
-      }, "Resources"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/users/new",
-        className: "splash-nav-dropdowns"
-      }, "Enterprise"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/users/new",
-        className: "splash-nav-dropdowns"
-      }, "Pricing")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "header-right"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
         to: "/session/new",
@@ -2197,22 +2182,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.iconSlack,
         className: "slack-logo"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/users/new",
-        className: "splash-nav-dropdowns"
-      }, "Why Slack?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/users/new",
-        className: "splash-nav-dropdowns"
-      }, "Solutions"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/users/new",
-        className: "splash-nav-dropdowns"
-      }, "Resources"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/users/new",
-        className: "splash-nav-dropdowns"
-      }, "Enterprise"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/users/new",
-        className: "splash-nav-dropdowns"
-      }, "Pricing")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "header-right"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
         to: "/session/new",
@@ -2413,22 +2383,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.iconSlack,
         className: "slack-logo"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/users/new",
-        className: "splash-nav-dropdowns"
-      }, "Why Slack?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/users/new",
-        className: "splash-nav-dropdowns"
-      }, "Solutions"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/users/new",
-        className: "splash-nav-dropdowns"
-      }, "Resources"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/users/new",
-        className: "splash-nav-dropdowns"
-      }, "Enterprise"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/users/new",
-        className: "splash-nav-dropdowns"
-      }, "Pricing")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "header-right"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
         to: "/session/new",

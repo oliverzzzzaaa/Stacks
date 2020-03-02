@@ -58,11 +58,11 @@ class WorkspaceForm extends React.Component {
                                 <img src={window.iconSlack} className="slack-logo"/>
                             </NavLink>
                         </div>
-                        <NavLink to='/users/new' className="splash-nav-dropdowns">Why Slack?</NavLink>
+                        {/* <NavLink to='/users/new' className="splash-nav-dropdowns">Why Slack?</NavLink>
                         <NavLink to='/users/new' className="splash-nav-dropdowns">Solutions</NavLink>
                         <NavLink to='/users/new' className="splash-nav-dropdowns">Resources</NavLink>
                         <NavLink to='/users/new' className="splash-nav-dropdowns">Enterprise</NavLink>
-                        <NavLink to='/users/new' className="splash-nav-dropdowns">Pricing</NavLink>
+                        <NavLink to='/users/new' className="splash-nav-dropdowns">Pricing</NavLink> */}
                     </section>
                     <section className="header-right">
                         <NavLink to='/session/new' className="splash-new-session-link">Sign In</NavLink>
