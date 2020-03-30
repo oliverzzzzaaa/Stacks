@@ -82,7 +82,7 @@ class SideBar extends React.Component {
                     if (membership.channel_name.private_message === 1) {
                         return (
                             <li className="sidebar-link DM" key={membership.id}>
-                                <NavLink to={`/messages/${membership.channel_id}`} className="DM-link" onClick={() => this.props.changeChannel(channel.id)}>
+                                <NavLink to={`/messages/${membership.channel_id}`} className="DM-link" onClick={() => this.props.changeChannel(membership.channel_id)}>
                                     {membership.channel_name.channel_name}
                                     {/* {membership.id} */}
                                 </NavLink>
