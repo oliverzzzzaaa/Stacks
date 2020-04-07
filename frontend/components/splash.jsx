@@ -128,6 +128,9 @@ class SplashPage extends React.Component {
                         <a href="https://www.linkedin.com/in/oliver-chen-693a37132/" target="_blank">
                             <img src={window.linkedin} id="splash-linkedin-logo"/>
                         </a>
+                        <a href="https://angel.co/oliver-chen-10" target="_blank">
+                            <img src={window.angelist} id="splash-angelist-logo"/>
+                        </a>
                     </footer>
                 </div>
             </div>

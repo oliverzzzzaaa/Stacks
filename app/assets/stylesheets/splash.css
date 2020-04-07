@@ -374,6 +374,12 @@ body {
     justify-content: center;
 }
 
+#splash-footer a {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+}
+
 #splash-github-logo {
     height: 10%;
     width: 10%;
@@ -381,6 +387,13 @@ body {
 }
 
 #splash-linkedin-logo {
+    height: 10%;
+    width: 10%;
+    justify-self: center;
+
+}
+
+#splash-angelist-logo {
     height: 10%;
     width: 10%;
     justify-self: center;

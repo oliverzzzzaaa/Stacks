@@ -2685,6 +2685,12 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
         src: window.linkedin,
         id: "splash-linkedin-logo"
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+        href: "https://angel.co/oliver-chen-10",
+        target: "_blank"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+        src: window.angelist,
+        id: "splash-angelist-logo"
       })))));
     }
   }]);
