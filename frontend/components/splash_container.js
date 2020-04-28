@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import SplashPage from './splash'
 import {receiveCurrentUser} from '../actions/session_actions'
 import {logout} from '../actions/session_actions'
-import { fetchWorkspaces, fetchWorkspace } from '../actions/workspace_actions'
+import { fetchWorkspaces, fetchWorkspace, searchWorkspace } from '../actions/workspace_actions'
 import {fetchChannels} from '../actions/channel_actions'
 import {fetchChannelMemberships} from '../actions/channel_membership_actions'
 
@@ -20,7 +20,8 @@ const mapDispatchToProps = dispatch => ({
     action: () => dispatch(logout()),
     fetchWorkspace: (workspace) => dispatch(fetchWorkspace(workspace)),
     fetchChannels: () => dispatch(fetchChannels()),
-    fetchChannelMemberships: () => dispatch(fetchChannelMemberships())
+    fetchChannelMemberships: () => dispatch(fetchChannelMemberships()),
+    searchWorkspace: (workspaceName) => dispatch(searchWorkspace(workspaceName))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SplashPage)

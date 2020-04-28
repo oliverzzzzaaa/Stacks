@@ -35,6 +35,12 @@ class WorkspaceForm extends React.Component {
             }
     }
 
+    // handleSubmit(e) {
+    //     e.preventDefault();
+    //     this.props.searchWorkspace(this.state.workspace)
+    //         .then(() => )
+    // }
+
     componentDidMount() {
         this.props.fetchWorkspaces();
     }

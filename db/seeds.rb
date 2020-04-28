@@ -218,3 +218,15 @@ message7 = Message.create! ({
     workspace_id: Workspace.find_by(workspace_name: "HR").id,
     channel_id: Channel.find_by(channel_name: "Michelles Circle").id
 })
+message8 = Message.create! ({
+    body: "Wow this chat app is so cool!",
+    user_id: User.find_by(username: "Guest6").id,
+    workspace_id: Workspace.find_by(workspace_name: "App-Academy").id,
+    channel_id: Channel.find_by(channel_name: "Aa General").id
+})
+message9 = Message.create! ({
+    body: "I know, right?",
+    user_id: User.find_by(username: "DemoUser1").id,
+    workspace_id: Workspace.find_by(workspace_name: "App-Academy").id,
+    channel_id: Channel.find_by(channel_name: "Aa General").id
+})

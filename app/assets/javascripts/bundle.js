@@ -436,7 +436,7 @@ var signup = function signup(user) {
 /*!***********************************************!*\
   !*** ./frontend/actions/workspace_actions.js ***!
   \***********************************************/
-/*! exports provided: RECEIVE_WORKSPACES, RECEIVE_WORKSPACE, fetchWorkspaces, fetchWorkspace */
+/*! exports provided: RECEIVE_WORKSPACES, RECEIVE_WORKSPACE, fetchWorkspaces, fetchWorkspace, searchWorkspace */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -445,6 +445,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_WORKSPACE", function() { return RECEIVE_WORKSPACE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchWorkspaces", function() { return fetchWorkspaces; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchWorkspace", function() { return fetchWorkspace; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchWorkspace", function() { return searchWorkspace; });
 /* harmony import */ var _util_workspace_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/workspace_api_util */ "./frontend/util/workspace_api_util.js");
 
 var RECEIVE_WORKSPACES = "RECEIVE_WORKSPACES";
@@ -474,6 +475,13 @@ var fetchWorkspaces = function fetchWorkspaces() {
 var fetchWorkspace = function fetchWorkspace(workspace) {
   return function (dispatch) {
     return _util_workspace_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchWorkspace"](workspace).then(function (workspace) {
+      return dispatch(receiveWorkspace(workspace));
+    });
+  };
+};
+var searchWorkspace = function searchWorkspace(workspaceName) {
+  return function (dispatch) {
+    return _util_workspace_api_util__WEBPACK_IMPORTED_MODULE_0__["searchWorkspace"](workspaceName).then(function (workspace) {
       return dispatch(receiveWorkspace(workspace));
     });
   };
@@ -2350,7 +2358,12 @@ function (_React$Component) {
       } else {
         document.getElementById("workspace-error").innerHTML = "Sorry this workspace can not be found";
       }
-    }
+    } // handleSubmit(e) {
+    //     e.preventDefault();
+    //     this.props.searchWorkspace(this.state.workspace)
+    //         .then(() => )
+    // }
+
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
@@ -2525,7 +2538,10 @@ function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchWorkspaces().then(function () {
-        if (_this2.props.currentUser) {
+        if (Object.values(_this2.props.currentUser).length > 0) {
+          // if there is a current user
+          console.log(_this2.props.currentUser);
+
           _this2.props.fetchChannels().then(function () {
             return _this2.props.fetchChannelMemberships();
           });
@@ -2753,6 +2769,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchChannelMemberships: function fetchChannelMemberships() {
       return dispatch(Object(_actions_channel_membership_actions__WEBPACK_IMPORTED_MODULE_5__["fetchChannelMemberships"])());
+    },
+    searchWorkspace: function searchWorkspace(workspaceName) {
+      return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_3__["searchWorkspace"])(workspaceName));
     }
   };
 };
@@ -3202,7 +3221,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"]));
+  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"], redux_logger__WEBPACK_IMPORTED_MODULE_2___default.a));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);
@@ -3435,7 +3454,7 @@ var logout = function logout() {
 /*!*********************************************!*\
   !*** ./frontend/util/workspace_api_util.js ***!
   \*********************************************/
-/*! exports provided: newWorkspace, fetchWorkspace, fetchWorkspaces */
+/*! exports provided: newWorkspace, fetchWorkspace, fetchWorkspaces, searchWorkspace */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3443,6 +3462,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "newWorkspace", function() { return newWorkspace; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchWorkspace", function() { return fetchWorkspace; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchWorkspaces", function() { return fetchWorkspaces; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchWorkspace", function() { return searchWorkspace; });
 var newWorkspace = function newWorkspace(workspace) {
   return $.ajax({
     method: "POST",
@@ -3462,6 +3482,15 @@ var fetchWorkspaces = function fetchWorkspaces() {
   return $.ajax({
     method: "GET",
     url: '/api/workspaces'
+  });
+};
+var searchWorkspace = function searchWorkspace(workspaceName) {
+  return $.ajax({
+    method: "GET",
+    url: '/api/workspacesearch',
+    data: {
+      name: workspaceName
+    }
   });
 };
 

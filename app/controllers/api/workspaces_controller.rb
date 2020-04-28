@@ -32,6 +32,11 @@ class Api::WorkspacesController < ApplicationController
         end
     end
 
+    def search
+        @workspace = Workspace.find_by(name: params[:name])
+        render :show
+    end
+
     private
     def workspace_params
         params.require(:workspace).permit(:name)

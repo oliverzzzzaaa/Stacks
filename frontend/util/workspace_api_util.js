@@ -19,3 +19,13 @@ export const fetchWorkspaces = () => (
         url: '/api/workspaces'
     })
 )
+
+export const searchWorkspace = workspaceName => (
+    $.ajax({
+        method: "GET",
+        url: '/api/workspacesearch',
+        data: {
+            name: workspaceName
+        }
+    })
+)

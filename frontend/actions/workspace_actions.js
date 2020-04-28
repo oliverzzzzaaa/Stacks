@@ -23,3 +23,8 @@ export const fetchWorkspace = (workspace) => dispatch => (
     APIUtil.fetchWorkspace(workspace)
         .then((workspace) => dispatch(receiveWorkspace(workspace)))
 )
+
+export const searchWorkspace = (workspaceName) => dispatch => (
+    APIUtil.searchWorkspace(workspaceName)
+        .then((workspace) => dispatch(receiveWorkspace(workspace)))
+)
