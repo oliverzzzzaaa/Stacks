@@ -3487,10 +3487,10 @@ var fetchWorkspaces = function fetchWorkspaces() {
 var searchWorkspace = function searchWorkspace(workspaceName) {
   return $.ajax({
     method: "GET",
-    url: '/api/workspacesearch',
-    data: {
-      name: workspaceName
-    }
+    url: "/api/workspacesearch/".concat(workspaceName) // data: {
+    //     name: workspaceName
+    // }
+
   });
 };
 

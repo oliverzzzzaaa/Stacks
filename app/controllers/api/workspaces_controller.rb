@@ -33,8 +33,12 @@ class Api::WorkspacesController < ApplicationController
     end
 
     def search
-        @workspace = Workspace.find_by(name: params[:name])
-        render :show
+        @workspace = Workspace.find_by(workspace_name: params[:workspace_name] )
+        if @workspace
+            render '/api/workspaces/show'
+        else
+            render json: ["Sorry, workspace not found"], status: 401
+        end
     end
 
     private

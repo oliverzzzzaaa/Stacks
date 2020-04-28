@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     resources :users, only: [:create, :update, :show]
     resources :workspaces, only: [:index, :create, :show]
-    get '/workspacesearch', to: 'workspaces#search'
+    get '/workspacesearch/:workspace_name', to: 'workspaces#search'
     resources :workspace_assignments, only: [:create, :destroy]
     resources :channel_memberships, only: [:create, :index, :destroy]
     resource :session, only: [:create, :destroy, :show]

@@ -10,7 +10,7 @@ const receiveWorkspaces = (workspaces) => ({
 })
 
 const receiveWorkspace = (workspace) => ({
-    type:RECEIVE_WORKSPACE,
+    type: RECEIVE_WORKSPACE,
     workspace
 })
 
