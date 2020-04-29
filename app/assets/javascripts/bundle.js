@@ -436,13 +436,15 @@ var signup = function signup(user) {
 /*!***********************************************!*\
   !*** ./frontend/actions/workspace_actions.js ***!
   \***********************************************/
-/*! exports provided: RECEIVE_WORKSPACES, RECEIVE_WORKSPACE, fetchWorkspaces, fetchWorkspace, searchWorkspace */
+/*! exports provided: RECEIVE_WORKSPACES, RECEIVE_WORKSPACE, RECEIVE_ERRORS, receiveErrors, fetchWorkspaces, fetchWorkspace, searchWorkspace */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_WORKSPACES", function() { return RECEIVE_WORKSPACES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_WORKSPACE", function() { return RECEIVE_WORKSPACE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ERRORS", function() { return RECEIVE_ERRORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveErrors", function() { return receiveErrors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchWorkspaces", function() { return fetchWorkspaces; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchWorkspace", function() { return fetchWorkspace; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchWorkspace", function() { return searchWorkspace; });
@@ -450,6 +452,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var RECEIVE_WORKSPACES = "RECEIVE_WORKSPACES";
 var RECEIVE_WORKSPACE = "RECEIVE_WORKSPACE";
+var RECEIVE_ERRORS = "RECEIVE_ERRORS";
 
 var receiveWorkspaces = function receiveWorkspaces(workspaces) {
   return {
@@ -465,10 +468,18 @@ var receiveWorkspace = function receiveWorkspace(workspace) {
   };
 };
 
+var receiveErrors = function receiveErrors(errors) {
+  return {
+    type: RECEIVE_ERRORS,
+    errors: errors
+  };
+};
 var fetchWorkspaces = function fetchWorkspaces() {
   return function (dispatch) {
     return _util_workspace_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchWorkspaces"]().then(function (workspaces) {
       return dispatch(receiveWorkspaces(workspaces));
+    })["catch"](function (err) {
+      dispatch(receiveErrors(err.response.data));
     });
   };
 };
@@ -476,6 +487,8 @@ var fetchWorkspace = function fetchWorkspace(workspace) {
   return function (dispatch) {
     return _util_workspace_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchWorkspace"](workspace).then(function (workspace) {
       return dispatch(receiveWorkspace(workspace));
+    })["catch"](function (err) {
+      dispatch(receiveErrors(err.response.data));
     });
   };
 };
@@ -483,6 +496,9 @@ var searchWorkspace = function searchWorkspace(workspaceName) {
   return function (dispatch) {
     return _util_workspace_api_util__WEBPACK_IMPORTED_MODULE_0__["searchWorkspace"](workspaceName).then(function (workspace) {
       return dispatch(receiveWorkspace(workspace));
+    })["catch"](function (err) {
+      console.log(err);
+      dispatch(receiveErrors(err.response.data));
     });
   };
 };
@@ -2321,7 +2337,9 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(WorkspaceForm).call(this, props));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
-    _this.state = _this.props.workspaceform;
+    _this.state = {
+      workspace: ''
+    };
     _this.handleDefaultUser = _this.handleDefaultUser.bind(_assertThisInitialized(_this));
     _this.renderErrors = _this.renderErrors.bind(_assertThisInitialized(_this));
     return _this;
@@ -2351,13 +2369,21 @@ function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
-      e.preventDefault();
+      var _this3 = this;
 
-      if (this.props.workspaces[this.state.workspace] !== undefined) {
-        this.props.history.push('/session/workspace/new');
-      } else {
-        document.getElementById("workspace-error").innerHTML = "Sorry this workspace can not be found";
-      }
+      e.preventDefault(); // if (this.props.workspaces[this.state.workspace] !== undefined) {
+      //     this.props.history.push('/session/workspace/new')
+      // } else {
+      //         document.getElementById("workspace-error").innerHTML = "Sorry this workspace can not be found"
+      // }
+
+      this.props.searchWorkspace(this.state.workspace).then(function (res) {
+        console.log(res);
+
+        _this3.props.history.push('/session/workspace/new');
+      }); // .catch((err) => {
+      //     document.getElementById("workspace-error").innerHTML = "Sorry this workspace can not be found"
+      // })
     } // handleSubmit(e) {
     //     e.preventDefault();
     //     this.props.searchWorkspace(this.state.workspace)
@@ -2366,8 +2392,7 @@ function (_React$Component) {
 
   }, {
     key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.fetchWorkspaces();
+    value: function componentDidMount() {// this.props.fetchWorkspaces();
     }
   }, {
     key: "handleDefaultUser",
@@ -2468,6 +2493,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchWorkspaces: function fetchWorkspaces() {
       return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_2__["fetchWorkspaces"])());
+    },
+    searchWorkspace: function searchWorkspace(workspaceName) {
+      return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_2__["searchWorkspace"])(workspaceName));
     } // action: (workspace) => dispatch(signin(workspace))
 
   };

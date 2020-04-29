@@ -7,7 +7,9 @@ class WorkspaceForm extends React.Component {
     constructor(props) {
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.state = this.props.workspaceform
+        this.state = {
+            workspace: ''
+        }
         this.handleDefaultUser = this.handleDefaultUser.bind(this)
         this.renderErrors = this.renderErrors.bind(this)
     }
@@ -28,21 +30,14 @@ class WorkspaceForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        if (this.props.workspaces[this.state.workspace] !== undefined) {
-            this.props.history.push('/session/workspace/new')
-        } else {
-                document.getElementById("workspace-error").innerHTML = "Sorry this workspace can not be found"
-            }
-    }
-
-    // handleSubmit(e) {
-    //     e.preventDefault();
-    //     this.props.searchWorkspace(this.state.workspace)
-    //         .then(() => )
-    // }
-
-    componentDidMount() {
-        this.props.fetchWorkspaces();
+        this.props.searchWorkspace(this.state.workspace)
+            .then((res) => {
+                console.log(res)
+                this.props.history.push('/session/workspace/new')
+            })
+            // .catch((err) => {
+            //     document.getElementById("workspace-error").innerHTML = "Sorry this workspace can not be found"
+            // })
     }
 
     handleDefaultUser(e) {
