@@ -478,8 +478,8 @@ var fetchWorkspaces = function fetchWorkspaces() {
   return function (dispatch) {
     return _util_workspace_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchWorkspaces"]().then(function (workspaces) {
       return dispatch(receiveWorkspaces(workspaces));
-    })["catch"](function (err) {
-      dispatch(receiveErrors(err.response.data));
+    }, function (err) {
+      return dispatch(receiveErrors(err.responseJSON));
     });
   };
 };
@@ -487,8 +487,8 @@ var fetchWorkspace = function fetchWorkspace(workspace) {
   return function (dispatch) {
     return _util_workspace_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchWorkspace"](workspace).then(function (workspace) {
       return dispatch(receiveWorkspace(workspace));
-    })["catch"](function (err) {
-      dispatch(receiveErrors(err.response.data));
+    }, function (err) {
+      return dispatch(receiveErrors(err.responseJSON));
     });
   };
 };
@@ -496,9 +496,8 @@ var searchWorkspace = function searchWorkspace(workspaceName) {
   return function (dispatch) {
     return _util_workspace_api_util__WEBPACK_IMPORTED_MODULE_0__["searchWorkspace"](workspaceName).then(function (workspace) {
       return dispatch(receiveWorkspace(workspace));
-    })["catch"](function (err) {
-      console.log(err);
-      dispatch(receiveErrors(err.response.data));
+    }, function (err) {
+      return dispatch(receiveErrors(err.responseJSON));
     });
   };
 };
@@ -2371,12 +2370,7 @@ function (_React$Component) {
     value: function handleSubmit(e) {
       var _this3 = this;
 
-      e.preventDefault(); // if (this.props.workspaces[this.state.workspace] !== undefined) {
-      //     this.props.history.push('/session/workspace/new')
-      // } else {
-      //         document.getElementById("workspace-error").innerHTML = "Sorry this workspace can not be found"
-      // }
-
+      e.preventDefault();
       this.props.searchWorkspace(this.state.workspace).then(function (res) {
         console.log(res);
 
@@ -2384,15 +2378,6 @@ function (_React$Component) {
       }); // .catch((err) => {
       //     document.getElementById("workspace-error").innerHTML = "Sorry this workspace can not be found"
       // })
-    } // handleSubmit(e) {
-    //     e.preventDefault();
-    //     this.props.searchWorkspace(this.state.workspace)
-    //         .then(() => )
-    // }
-
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {// this.props.fetchWorkspaces();
     }
   }, {
     key: "handleDefaultUser",
@@ -2479,13 +2464,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var mapStateToProps = function mapStateToProps(state) {
+var mapStateToProps = function mapStateToProps(_ref) {
+  var errors = _ref.errors;
   return {
-    errors: state.errors.session,
-    workspaceform: {
-      workspace: ''
-    },
-    workspaces: state.entities.workspaces
+    errors: errors.session
   };
 };
 
@@ -2496,8 +2478,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     searchWorkspace: function searchWorkspace(workspaceName) {
       return dispatch(Object(_actions_workspace_actions__WEBPACK_IMPORTED_MODULE_2__["searchWorkspace"])(workspaceName));
-    } // action: (workspace) => dispatch(signin(workspace))
-
+    }
   };
 };
 
@@ -3011,6 +2992,8 @@ var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])(
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_workspace_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/workspace_actions */ "./frontend/actions/workspace_actions.js");
+
 
 
 var sessionErrorsReducer = function sessionErrorsReducer() {
@@ -3023,6 +3006,9 @@ var sessionErrorsReducer = function sessionErrorsReducer() {
       return action.errors;
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
+      return [];
+
+    case _actions_workspace_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_WORKSPACE"]:
       return [];
 
     default:

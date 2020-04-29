@@ -21,26 +21,25 @@ export const receiveErrors = errors => ({
   });
 
 export const fetchWorkspaces = () => dispatch => (
-    APIUtil.fetchWorkspaces()
-        .then((workspaces) => dispatch(receiveWorkspaces(workspaces)))
-        .catch(err => {
-            dispatch(receiveErrors(err.response.data));
-          })
-)
-
+    APIUtil.fetchWorkspaces().then(workspaces => (
+        dispatch(receiveWorkspaces(workspaces))
+        ), err => (
+            dispatch(receiveErrors(err.responseJSON))
+          ))
+);
 export const fetchWorkspace = (workspace) => dispatch => (
-    APIUtil.fetchWorkspace(workspace)
-        .then((workspace) => dispatch(receiveWorkspace(workspace)))
-        .catch(err => {
-            dispatch(receiveErrors(err.response.data));
-          })
-)
-
+    APIUtil.fetchWorkspace(workspace).then(workspace => (
+        dispatch(receiveWorkspace(workspace))
+        ), err => (
+            dispatch(receiveErrors(err.responseJSON))
+          ))
+);
 export const searchWorkspace = (workspaceName) => dispatch => (
-    APIUtil.searchWorkspace(workspaceName)
-        .then((workspace) => dispatch(receiveWorkspace(workspace)))
-        .catch(err => {
-            console.log(err)
-            dispatch(receiveErrors(err.response.data));
-          })
-)
+    APIUtil.searchWorkspace(workspaceName).then(workspace => (
+        dispatch(receiveWorkspace(workspace))
+        ), err => (
+            dispatch(receiveErrors(err.responseJSON))
+          ))
+);
+
+
