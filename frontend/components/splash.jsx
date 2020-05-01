@@ -19,7 +19,6 @@ class SplashPage extends React.Component {
             .then(() => {
                 if (Object.values(this.props.currentUser).length > 0) {
                     // if there is a current user
-                    console.log(this.props.currentUser)
                     this.props.fetchChannels()
                     .then(()=> this.props.fetchChannelMemberships())
                 }

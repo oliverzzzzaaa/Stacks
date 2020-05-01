@@ -32,7 +32,6 @@ class WorkspaceForm extends React.Component {
         e.preventDefault();
         this.props.searchWorkspace(this.state.workspace)
             .then((res) => {
-                console.log(res)
                 this.props.history.push('/session/workspace/new')
             })
             // .catch((err) => {
