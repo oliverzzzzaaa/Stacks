@@ -115,10 +115,7 @@ Screenshot:
 
 
 
-Features to Add:
-  + Uploading Files and Profile Pictures (hosting on AWS)
-  + Admin Rights
-  + Direct Messages with Members as Header 
+
 
 
 
