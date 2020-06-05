@@ -111,6 +111,7 @@ after lots of styling with classnames...
 ```
 
 Screenshot: 
+
 ![alt text](app/assets/images/demo-screenshot.png "Screentshot Jan 17")
 
 
