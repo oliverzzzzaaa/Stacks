@@ -56,10 +56,11 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props)
+        console.log(this.props.theState)
         this.props.fetchWorkspaces()
             .then((res) => {
                 this.setState({workspace: Object.values(res.workspaces)[0]})
+                console.log(this.props)
             })
     }
 

@@ -1409,11 +1409,13 @@ function (_React$Component) {
     value: function componentDidMount() {
       var _this3 = this;
 
-      console.log(this.props);
+      console.log(this.props.theState);
       this.props.fetchWorkspaces().then(function (res) {
         _this3.setState({
           workspace: Object.values(res.workspaces)[0]
         });
+
+        console.log(_this3.props);
       });
     }
   }, {
@@ -1578,7 +1580,8 @@ var mapStateToProps = function mapStateToProps(state) {
     currentUserId: state.session.id,
     channels: Object.values(state.entities.channels),
     workspaces: Object.values(state.entities.workspaces),
-    memberships: Object.values(state.entities.memberships)
+    memberships: Object.values(state.entities.memberships),
+    theState: state
   };
 };
 
@@ -2372,8 +2375,6 @@ function (_React$Component) {
 
       e.preventDefault();
       this.props.searchWorkspace(this.state.workspace).then(function (res) {
-        console.log(res);
-
         _this3.props.history.push('/session/workspace/new');
       }); // .catch((err) => {
       //     document.getElementById("workspace-error").innerHTML = "Sorry this workspace can not be found"
@@ -2549,8 +2550,6 @@ function (_React$Component) {
       this.props.fetchWorkspaces().then(function () {
         if (Object.values(_this2.props.currentUser).length > 0) {
           // if there is a current user
-          console.log(_this2.props.currentUser);
-
           _this2.props.fetchChannels().then(function () {
             return _this2.props.fetchChannelMemberships();
           });
@@ -3235,7 +3234,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"], redux_logger__WEBPACK_IMPORTED_MODULE_2___default.a));
+  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"] // , logger
+  ));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);
